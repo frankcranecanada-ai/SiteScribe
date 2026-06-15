@@ -1,0 +1,42 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Site",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T12:00:00-04:00",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4",
+    "model": "two-level-records"
+  },
+  "records": [
+    {
+      "id": "rec_sample_001",
+      "category": "action",
+      "description": "Make an appointment to discuss crane coming to site with TP Crawford",
+      "status": "open",
+      "createdAt": "2026-06-14T12:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "todo, Make an appointment to discuss crane coming to site with TP Crawford",
+      "comments": []
+    },
+    {
+      "id": "rec_sample_002",
+      "category": "event",
+      "description": "Pile of wood noticed near the south entrance",
+      "status": "open",
+      "createdAt": "2026-06-14T12:05:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "event, Pile of wood noticed near the south entrance",
+      "comments": [
+        {
+          "id": "com_sample_001",
+          "text": "Email TL Mechanical to remove it.",
+          "status": "open",
+          "createdAt": "2026-06-14T12:06:00-04:00",
+          "updatedAt": "2026-06-14T12:06:00-04:00"
+        }
+      ]
+    }
+  ]
+}

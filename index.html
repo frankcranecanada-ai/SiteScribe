@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SiteScribe Review Console v0.4.7</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="app-header">
+    <div class="header-inner">
+      <div>
+        <p class="eyebrow">SiteScribe</p>
+        <h1>Review Console <span id="appVersion">v0.4.7</span></h1>
+        <p class="tagline">Track site notes as main records with secondary updates, local storage, JSON import, and reviewed JSON export.</p>
+      </div>
+      <div class="version-pill" aria-label="Current app version">v0.4.7</div>
+    </div>
+  </header>
+
+  <main id="content" class="app-shell">
+    <section class="panel loader-panel" aria-labelledby="load-title">
+      <div class="panel-heading compact">
+        <div>
+          <p class="eyebrow dark">JSON Import</p>
+          <h2 id="load-title">Load SiteScribe package</h2>
+          <p>Drop a JSON file, choose a JSON file, or load the bundled sample.</p>
+        </div>
+      </div>
+
+      <div class="toolbar">
+        <label class="file-label" for="jsonFile">Choose JSON File</label>
+        <input id="jsonFile" type="file" accept=".json,application/json,text/plain">
+        <button id="sampleButton" type="button" class="secondary">Load bundled sample</button>
+        <button id="saveLocalButton" type="button" class="save-button">Save to Local Storage</button>
+        <button id="exportButton" type="button" class="export-button">Export Reviewed JSON</button>
+      </div>
+
+      <div id="dropZone" class="drop-zone" tabindex="0" role="button" aria-label="Drop JSON file here or tap to choose a JSON file">
+        Drop JSON here, or tap to choose file.
+      </div>
+
+      <p id="statusLine" class="status-line" aria-live="polite">No package loaded. JSON drop and file picker are protected required features.</p>
+    </section>
+
+    <section class="panel entry-panel" aria-labelledby="entry-title">
+      <div class="panel-heading compact">
+        <div>
+          <p class="eyebrow dark">New Main Record</p>
+          <h2 id="entry-title">Create a main record</h2>
+          <p>Start with a classification word: event, todo, followup, appointment, safety, email, or document.</p>
+        </div>
+      </div>
+      <div class="entry-row">
+        <textarea id="mainEntry" rows="2" placeholder="Example: safety, pile of wood blocking the south entrance"></textarea>
+        <button id="addMainButton" type="button">Add Record</button>
+      </div>
+      <p id="entryHint" class="hint">Main descriptions stay fixed. Add later details as secondary updates.</p>
+    </section>
+
+    <section class="panel archive-panel" aria-labelledby="archive-title">
+      <div class="panel-heading compact">
+        <div>
+          <p class="eyebrow dark">Local Archive</p>
+          <h2 id="archive-title">Saved Packages</h2>
+          <p>IndexedDB local storage keeps reviewed packages in this browser.</p>
+        </div>
+        <button id="refreshArchiveButton" type="button" class="secondary small-button">Refresh</button>
+      </div>
+      <div id="localArchive" class="archive-list" aria-live="polite"></div>
+    </section>
+
+    <section class="panel records-panel" aria-labelledby="records-title">
+      <div class="panel-heading compact">
+        <div>
+          <p class="eyebrow dark">Records</p>
+          <h2 id="records-title">Main records by date</h2>
+        </div>
+      </div>
+      <div id="recordsRoot" class="records-root"></div>
+    </section>
+
+    <section id="detailPanel" class="panel detail-panel hidden" aria-labelledby="detail-title">
+      <div class="panel-heading compact">
+        <div>
+          <p class="eyebrow dark">Detail</p>
+          <h2 id="detail-title">Record Detail</h2>
+        </div>
+        <button id="closeDetailButton" type="button" class="secondary small-button">Close Detail</button>
+      </div>
+      <div id="detailContent"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

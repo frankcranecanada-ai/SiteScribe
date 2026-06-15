@@ -1,0 +1,47 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "not stated",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T00:00:00-04:00",
+  "source": {
+    "captureMethod": "plain text",
+    "rawText": "June 14/2026-saftey, I noticed a pile of wood at south entrance. it is in the way. it belongs to TL Mechanical, send email reminding TL Mechanical to clean up that mess."
+  },
+  "dailySummary": "A pile of wood belonging to TL Mechanical was observed at the south entrance and was identified as an obstruction. An email reminder to TL Mechanical was requested.",
+  "events": [
+    {
+      "description": "Pile of wood observed at the south entrance obstructing access.",
+      "status": "open",
+      "sourceText": "June 14/2026-saftey, I noticed a pile of wood at south entrance. it is in the way. it belongs to TL Mechanical, send email reminding TL Mechanical to clean up that mess.",
+      "flags": []
+    }
+  ],
+  "actions": [
+    {
+      "description": "Send email reminding TL Mechanical to clean up the pile of wood at the south entrance.",
+      "status": "open",
+      "sourceText": "June 14/2026-saftey, I noticed a pile of wood at south entrance. it is in the way. it belongs to TL Mechanical, send email reminding TL Mechanical to clean up that mess.",
+      "flags": [
+        {
+          "type": "incomplete",
+          "status": "open",
+          "description": "Email address for TL Mechanical not stated."
+        }
+      ]
+    }
+  ],
+  "safetyIssues": [
+    {
+      "description": "Pile of wood at the south entrance creating an obstruction.",
+      "status": "open",
+      "sourceText": "June 14/2026-saftey, I noticed a pile of wood at south entrance. it is in the way. it belongs to TL Mechanical, send email reminding TL Mechanical to clean up that mess.",
+      "flags": []
+    }
+  ],
+  "communications": [],
+  "documents": [],
+  "followups": [],
+  "appointments": [],
+  "closedRecords": []
+}
