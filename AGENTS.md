@@ -16,8 +16,9 @@ Do not merge Parser Lite and Review Console into an autonomous application. Do n
 
 ## Current source authority
 
+- GitHub `frankcranecanada-ai/SiteScribe` on `main` is the source-control authority. Work from this repository and commit/push verified changes; do not treat an unrelated Desktop, Dropbox, ZIP, or artifact copy as authoritative.
 - The last user-accepted Review Console baseline is `source/review-console-v0.7.33/`. Begin a new unrelated release from it unless the user explicitly authorizes continued work on the v0.8 candidate line.
-- The current Review Console candidate is `source/review-console-v0.8.10/` (typed 24-hour Start/End entry, branched from v0.8.9). It is **not accepted**. A candidate becomes the baseline only when the user tests it and says so explicitly.
+- The current Review Console candidate is `source/review-console-v0.8.13/`. It is **not accepted**. A candidate becomes the baseline only when the user tests it and says so explicitly.
 - To continue the v0.8 line, copy the latest candidate into a **new** versioned folder. Never edit an existing candidate folder in place.
 - `source/review-console-v0.7.18/` is a protected never-edit folder. It is the retained original baseline, not the source authority. Do not build from it and do not modify it.
 - A root deploy file or an artifact ZIP is never source authority. The root nine web files are intentionally current for testing, and test deployment is not user acceptance.
