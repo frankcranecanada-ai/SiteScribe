@@ -1,0 +1,77 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:10:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Native flags test."
+  },
+  "dailySummary": "Native package with incomplete and clarification flags attached to records.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4.7",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_flags_safety",
+      "category": "safety",
+      "description": "Material was blocking the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-14T09:45:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "safety, Material was blocking the east gate. Email address not stated.",
+      "flags": [
+        {
+          "id": "flag_incomplete_email",
+          "type": "incomplete",
+          "text": "Email address for responsible contractor not stated.",
+          "status": "open",
+          "sourceText": "Email address not stated.",
+          "createdAt": "2026-06-14T09:46:00-04:00"
+        },
+        {
+          "id": "flag_clarification_closed",
+          "type": "clarification",
+          "text": "Which contractor owned the material at the east gate?",
+          "status": "closed",
+          "sourceText": "Material was blocking the east gate.",
+          "createdAt": "2026-06-14T09:47:00-04:00",
+          "statusChangedAt": "2026-06-14T10:10:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_flags_answer",
+          "text": "Clarification response: material belonged to TL Mechanical.",
+          "status": "closed",
+          "createdAt": "2026-06-14T10:10:00-04:00",
+          "updatedAt": "2026-06-14T10:10:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_flags_action",
+      "category": "action",
+      "description": "Send cleanup reminder after contractor is confirmed.",
+      "status": "open",
+      "createdAt": "2026-06-14T10:20:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "todo, Send cleanup reminder after contractor is confirmed.",
+      "flags": [
+        {
+          "id": "flag_clarify_recipient",
+          "type": "clarification",
+          "text": "Who should receive the cleanup reminder?",
+          "status": "open",
+          "sourceText": "Send cleanup reminder after contractor is confirmed.",
+          "createdAt": "2026-06-14T10:21:00-04:00"
+        }
+      ],
+      "comments": []
+    }
+  ]
+}

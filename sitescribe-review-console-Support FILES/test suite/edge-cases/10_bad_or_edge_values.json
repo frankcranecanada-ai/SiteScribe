@@ -1,0 +1,68 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "processedAt": "not a real date",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Bad and edge value test."
+  },
+  "dailySummary": "Tests missing site, missing shiftDate, unknown category, object descriptions, missing statuses, and invalid dates.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4.7",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [
+    {
+      "id": "flag_edge_package",
+      "type": "incomplete",
+      "text": "Package intentionally omits site and shiftDate.",
+      "status": "open",
+      "sourceText": "Bad and edge value test.",
+      "createdAt": "bad date"
+    }
+  ],
+  "records": [
+    {
+      "id": "rec_unknown_category",
+      "category": "unknown_category_should_be_action",
+      "description": "Unknown category should normalize to action.",
+      "createdAt": "not a real date",
+      "sourceText": "unknown, Unknown category should normalize to action.",
+      "comments": [],
+      "flags": []
+    },
+    {
+      "id": "rec_object_description",
+      "category": "safety",
+      "description": {
+        "summary": "Guardrail missing at stair opening",
+        "location": "level 2",
+        "severity": "high"
+      },
+      "status": "waiting",
+      "createdAt": "2026-06-14T12:00:00-04:00",
+      "sourceDate": "invalid-source-date",
+      "sourceText": {
+        "text": "Guardrail missing at stair opening on level 2.",
+        "noteId": "edge-note-1"
+      },
+      "comments": [
+        {
+          "id": "com_edge_missing_text",
+          "note": "Comment uses note field instead of text.",
+          "status": "done",
+          "createdAt": "bad date"
+        }
+      ],
+      "flags": [
+        {
+          "type": "unknown_flag_type_should_be_incomplete",
+          "question": "Who installed the temporary barrier?",
+          "status": "resolved",
+          "sourceText": "Guardrail missing at stair opening on level 2."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:40:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Closed record view test."
+  },
+  "dailySummary": "Tests closed main records and closed secondary updates.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4.7",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_closed_main",
+      "category": "followup",
+      "description": "Confirm delivery slip correction was received.",
+      "status": "closed",
+      "createdAt": "2026-06-14T08:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "followup, Confirm delivery slip correction was received.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_closed_main_note",
+          "text": "Corrected slip received by email.",
+          "status": "closed",
+          "createdAt": "2026-06-14T11:00:00-04:00",
+          "updatedAt": "2026-06-14T11:00:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_open_with_closed_comment",
+      "category": "safety",
+      "description": "Temporary extension cord across walkway requires monitoring.",
+      "status": "open",
+      "createdAt": "2026-06-14T13:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "safety, Temporary extension cord across walkway requires monitoring.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_closed_secondary",
+          "text": "Cord cover installed at noon.",
+          "status": "closed",
+          "createdAt": "2026-06-14T12:00:00-04:00",
+          "updatedAt": "2026-06-14T12:05:00-04:00"
+        },
+        {
+          "id": "com_open_secondary",
+          "text": "Recheck at end of shift to confirm cover remains in place.",
+          "status": "open",
+          "createdAt": "2026-06-14T13:05:00-04:00",
+          "updatedAt": "2026-06-14T13:05:00-04:00"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+SiteScribe Review Console v0.7.32
+Dropbox Site-File Update Listing Confirmation
+
+Change
+- After a successful UPDATE DROPBOX SITE FILE, SiteScribe now immediately lists Dropbox JSON files using the same verified Dropbox client that completed the upload.
+- The refreshed list remains visible, newest first, and the result line confirms that the current Dropbox file is shown above.
+- If the upload succeeds but the confirmation list cannot be refreshed, SiteScribe clearly reports that distinction and leaves LIST DROPBOX JSON FILES available for retry.
+
+Scope protection
+- This applies only to the explicit UPDATE DROPBOX SITE FILE action after its existing confirmation and successful local-save/upload sequence.
+- No startup/background sync, automatic import, automatic upload, Dropbox authentication/scope change, or silent overwrite is introduced.
+- SAVE NEW BACKUP COPY behavior remains unchanged.

@@ -1,0 +1,60 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:15:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Legacy basic import test."
+  },
+  "dailySummary": "Legacy format containing all traditional arrays.",
+  "events": [
+    {
+      "time": "08:10",
+      "category": "Crane/Lift",
+      "description": "Crane arrived on site and operator checked in.",
+      "sourceText": "Crane arrived on site and operator checked in."
+    }
+  ],
+  "followups": [
+    {
+      "task": "Confirm lift plan from crane supplier.",
+      "status": "open",
+      "sourceText": "Follow up: Confirm lift plan from crane supplier."
+    }
+  ],
+  "emails": [
+    {
+      "status": "draft",
+      "actionLabel": "Send email",
+      "subject": "Access Gate Reminder",
+      "body": "Please keep the east gate clear.",
+      "sourceText": "Email ABC Mechanical about east gate access."
+    }
+  ],
+  "appointments": [
+    {
+      "title": "Concrete pour inspection",
+      "date": "2026-06-15",
+      "startTime": "10:30 AM",
+      "location": "Kemptville Office Building",
+      "sourceText": "Inspection Monday at 10:30 AM."
+    }
+  ],
+  "todos": [
+    {
+      "task": "Check that roof access is unlocked.",
+      "sourceText": "To-do: Check that roof access is unlocked."
+    }
+  ],
+  "safetyIssues": [
+    {
+      "issue": "Material blocking east gate.",
+      "status": "verbal correction",
+      "sourceText": "ABC Mechanical had material blocking the east gate."
+    }
+  ],
+  "clarificationRequired": [],
+  "missingInfo": []
+}

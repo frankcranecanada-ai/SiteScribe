@@ -1,0 +1,15 @@
+# Key baseline integrity hashes (SHA-256)
+a92b6b7ee58265f0a431478c704c34c9d514ab9dcf2c5b9c3903a5a508b9df85  SiteScribe_Codex_Migration_Guide_2026-08-05.docx
+61fbfa0c47c1ab6eaa840c77958b8b308553667d68f109290d896874916be75c  artifacts/SiteScribe_Review_Console_v0.7.18_Dropbox_List_Tooltip_Fix_Deployable.zip
+2d5c1074ce22bf1bd8ec47df7797dcf283d31733b87618d9b558a37244b8aea1  artifacts/SiteScribe_Review_Console_v0.7.18_Dropbox_List_Tooltip_Fix_source.zip
+6997710cfe9aba06c73d98eeb1ee31fa4f28c1adfd143975efa063d83b1d5919  source/review-console-v0.7.18/app.js
+afc204076143a6ccb07c13be20e1d71a75a52c5ea06dee66ccb2138fc6524e69  source/review-console-v0.7.18/index.html
+cfff0e19c9fdd7ff45412fade1749a16e9852616757356b7da192400085630fb  source/review-console-v0.7.18/styles.css
+fcc335d176ca628f09c5472656af38a2600b0514b7b323322ec2efbb6a29c462  source/review-console-v0.7.18/dropbox-sync-proof.js
+dc39b19ba9d034b05151233e415103ad58b3c1a363e3072bff45e4a2f0e6a020  source/review-console-v0.7.18/regression_check_v0.7.18.js
+68fe4e0f40a18065d1416afd359b903aefcd9c80eb115192e308d21c50d17e3d  docs/historical/10-SiteScribe_Agent_Work_Engineering_Handoff_v1.0_2026-07-13-1-.docx
+fcfb154a824f04db041d7f46280c96dcadec84d3bbf04a613f5edbfcaaecdeab  source/parser-lite-v0.8.16a/index.html
+9cf0dbf272406f22f70167a11bb010cf65aa52c754237eda69ba0084e909019e  source/parser-lite-v0.8.16a/app.js
+0d4da4cbf8ec02ac8e3806384435fa321d9dde12d730775d709e832558dfb150  source/parser-lite-v0.8.16a/styles.css
+66207b58d571b780a9af799c3ff70d8d8a040d818403824f9cfe16ef4a3d33c3  source/parser-lite-v0.8.16a/sitescribe-parser-core.js
+af6d4de86d28aa50a642fc3678f58badb4b3ba28491405d822271d0e6715a164  source/parser-lite-v0.8.16a/sitescribe_contacts.json

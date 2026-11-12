@@ -1,0 +1,20 @@
+SiteScribe Review Console v0.7.21 Verification Evidence
+Date: 2026-08-13
+
+Requested behavior verified by code path
+- A collapsed secondary row resolves its displayed date as: stored workDate, then secondary createdAt, then secondary updatedAt.
+- The compact desktop and compact mobile views both use that resolved date.
+- The Created Date is used only if the secondary record does not have a saved Work Date.
+- No saved JSON record is changed by this display logic.
+- The v0.7.20 editor fallback remains protected, so editing an older secondary record without workDate shows its Created Date instead of today.
+
+Automated verification
+- PASS node --check: app.js, dropbox-sync-proof.js, sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, sitescribe-parser-core.js, and regression_check_v0.7.21.js.
+- PASS 11 focused/protected regression checks.
+- PASS no duplicate HTML IDs.
+- PASS no duplicate function declarations.
+- PASS CSS brace integrity: 892 opening / 892 closing.
+
+Manual acceptance check
+- Open a secondary row with an explicit Work Date: its collapsed row should show that Work Date.
+- Open a legacy secondary row with no Work Date: its collapsed row should show its Created Date.

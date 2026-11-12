@@ -1,0 +1,72 @@
+SiteScribe Review Console v0.8.11
+Hrs shown as hours:minutes in the record editors and the Working Memory badge
+Branched from: source/review-console-v0.8.10 (user-authorized continuation of the v0.8 candidate line)
+Status: CANDIDATE - NOT ACCEPTED
+
+REQUEST
+-------
+Label the calculated hours field "Hrs hh:mm" and display it in hours:minutes rather than as a
+decimal. A 77-minute entry should read 1:17, not 1.28. The operator also asked that the Working
+Memory row badge match, so the same number does not appear in two different forms on one screen.
+
+CHANGES
+-------
+app.js
+- New formatHoursClock(value). Renders decimal hours as H:MM, rounded to the nearest minute.
+  1.28 -> 1:17, 1.25 -> 1:15, 2 -> 2:00, 0.5 -> 0:30. Empty and non-numeric input return "".
+- Both Hrs boxes are labelled "Hrs hh:mm" and display formatHoursClock. The stylesheet uppercases
+  editor labels, so they read HRS HH:MM beside START, END and WORK DATE.
+- secondaryHoursBadgeHtml uses formatHoursClock, so the B05 badge reads "Hours: 1:17" and matches
+  the editor box. This covers the secondary rows, the activity rows and the inline secondary rows.
+- parseHoursInput accepts H:MM as well as the decimal form it has always taken, so the box can be
+  typed either way: 1:17 and 1.28 both mean the same elapsed time. A bare number is still decimal
+  hours and is never read as a compact clock value, so "130" remains 130 hours and not 1:30.
+- New setHoursInputValue(input, hours) writes the H:MM display and stamps the exact decimal on the
+  element as data-hours-exact. Used wherever a calculated value is written into an Hrs box and
+  wherever one is cleared.
+- New readHoursInputValue(input) is used in place of a direct parse when the editors read the box.
+- inputmode moves from "decimal" to "text" on both Hrs boxes so the colon is reachable from the
+  iPhone keyboard. Decimal entry still works.
+
+styles.css
+- The Hrs column widens from 66px to 84px in the secondary editor card, and its minimum widens in
+  the shared and mobile grids, so the longer label fits.
+- .update-time-editor label gains white-space: nowrap, so a label can never wrap onto a second
+  line and push the inputs out of alignment. No rules were added or removed; the brace count is
+  unchanged at 974/974.
+
+WHY THE EXACT VALUE IS STAMPED
+------------------------------
+The Hrs box is editable, and H:MM resolves only to the minute. A stored value that is not
+minute-aligned - 1.29, from a hand-typed decimal or an imported package - renders as 1:17 and
+would read back as 1.28. Simply opening such a record and clicking away would then have rewritten
+its stored hours. readHoursInputValue returns the stamped exact value whenever the box still holds
+exactly what was rendered, and falls back to parsing only once the operator has actually edited
+it. Opening a record cannot change its stored hours; typing in the box still does.
+
+WHAT THIS DOES NOT CHANGE
+-------------------------
+- Stored values. totalHours remains a decimal number. Nothing in the data model changes.
+- Reports. The Hours Detail table, Cumulative Total Hours, the MDS billing totals and the report
+  selection summaries all keep the decimal form, which is the accepted output format.
+- sitescribe-hours-excel.js and sitescribe-mds-excel.js are not touched and contain no reference
+  to formatHoursClock.
+- Recalculation from Start and End is unchanged. Editing either time still recomputes Hrs, as it
+  always has; that path overwrites a stored value by design and is not affected by the stamp.
+- The v0.8.10 typed 24-hour Start/End entry and the v0.8.9 partial-entry protection.
+- The capped three-level model, B05 row/pill behaviour, the closed-record recovery footer,
+  deletion confirmation, drag rules, Dropbox authentication or naming, the protected import
+  choices, MDS billing metadata, and the parser. No API key, token, or credential is introduced.
+  No automatic status change, email, or date change is introduced.
+
+index.html
+- Title, visible version pill, and the styles.css / app.js / sitescribe-add-data.js /
+  dropbox-sync-proof.js cache markers move to 0.8.11.
+
+sitescribe-add-data.js
+- MODULE_VERSION moves to v0.8.11.
+
+DEPLOY SET
+----------
+app.js, dropbox-sync-proof.js, exceljs.min.js, index.html, sitescribe-parser-core.js,
+sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, styles.css

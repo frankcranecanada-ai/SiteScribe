@@ -1,0 +1,85 @@
+SiteScribe Review Console v0.8.13
+Two-line B05 secondary and activity rows in portrait on a phone
+Branched from: source/review-console-v0.8.12 (user-authorized continuation of the v0.8 candidate line)
+Status: CANDIDATE - NOT ACCEPTED
+
+REPORTED PROBLEM
+----------------
+On the main Working Memory screen, a phone held in portrait did not leave enough room for the
+secondary record description. The operator asked whether to move the data onto a second line or
+to remove the total hours, and for a recommendation. The problem is portrait-only; landscape has
+room.
+
+MEASUREMENT
+-----------
+Measured live at 375px portrait, on a secondary row titled
+"Teams meeting MDS/WECC -Eddy, work on minutes. meeting at 11:30 and 15:30":
+
+  row width                                342px
+  left icons (grip, deliverable, dot)       36px
+  right cluster (date + hours + OPEN)      168px
+  description                              106px
+
+The metadata occupied 58% more of the row than the text it described, and titles truncated after
+about three words.
+
+RECOMMENDATION TAKEN
+--------------------
+Two lines, not removing the hours badge. Removing hours would have returned only about 70px,
+leaving the description at roughly 176px - still under half the row - and would have discarded the
+billing figure the v0.8.11 H:MM work had just improved. Moving the metadata to its own line gives
+the description the full row width.
+
+CHANGES
+-------
+styles.css only. One media block appended at the end of the stylesheet:
+
+  @media (max-width: 640px) and (orientation: portrait) {
+    .secondary-record-line { grid-template-columns: auto minmax(0, 1fr); row-gap: 3px; ... }
+    .secondary-record-line .record-right { grid-column: 2; justify-content: flex-start;
+                                           width: 100%; min-width: 0; }
+    .secondary-record-line .record-inline-meta { max-width: none; }
+  }
+
+The row is a three-column grid (auto / title / right). Dropping it to two columns and assigning
+the right cluster to column 2 places that cluster on a second line, indented under the title
+rather than under the drag grip.
+
+The block is deliberately placed at the end of the stylesheet. Several earlier
+@media (max-width: 640px) rules set the same grid-template-columns and .record-right properties;
+at equal specificity the later rule wins. Placed earlier in the file the rule had no effect, which
+was caught during browser verification.
+
+Activity rows carry the secondary-record-line class as well, so they get the same treatment. This
+is intended: they are the same visual family in B05.
+
+RESULT
+------
+  portrait 375x812   two lines   description 106px -> 281px   row height 35px -> 60px
+  landscape 812x375  one line    description 466px            row height 33px (unchanged)
+  desktop 1200x900   one line    description 829px            row height 33px (unchanged)
+
+EXPLICITLY NOT CHANGED
+----------------------
+- Landscape and desktop keep the original single-line layout. The orientation query excludes a
+  phone turned sideways, which is where the row still has room.
+- Primary rows (.record-line) are unchanged at every size.
+- Nothing was removed. The work date and the hours badge both still render.
+- No change to row markup, renderCompactRecordRow, click handling, the B05 body-toggle /
+  OPEN-pill-detail split, or drag behaviour. app.js changes are the release-note block and
+  APP_VERSION only.
+- dropbox-sync-proof.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js and
+  sitescribe-parser-core.js are byte-identical to v0.8.12.
+- No stored value changes.
+
+index.html
+- Title, visible version pill, and the styles.css / app.js / sitescribe-add-data.js /
+  dropbox-sync-proof.js cache markers move to 0.8.13.
+
+sitescribe-add-data.js
+- MODULE_VERSION moves to v0.8.13.
+
+DEPLOY SET
+----------
+app.js, dropbox-sync-proof.js, exceljs.min.js, index.html, sitescribe-parser-core.js,
+sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, styles.css

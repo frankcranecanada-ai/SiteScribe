@@ -1,0 +1,307 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Test Site",
+  "shiftDate": "2026-06-15",
+  "processedAt": "2026-06-15T09:00:00-04:00",
+  "source": {
+    "captureMethod": "test data",
+    "rawText": "Synthetic SiteScribe test package with 10 main records and 2 secondary update/comment records per main record."
+  },
+  "dailySummary": "Test package containing 10 SiteScribe Review Console records across the native two-level model. Each main record includes exactly two secondary update/comment items for UI testing.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4.7 or current",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_20260615_001_event_crane_arrival",
+      "category": "event",
+      "description": "Crane arrived on site and was staged near the north access lane.",
+      "status": "open",
+      "createdAt": "2026-06-15T08:00:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Event: Crane arrived on site and was staged near the north access lane.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_001_a",
+          "text": "Operator checked in with the site supervisor before setup.",
+          "status": "open",
+          "createdAt": "2026-06-15T08:05:00-04:00",
+          "updatedAt": "2026-06-15T08:05:00-04:00"
+        },
+        {
+          "id": "com_20260615_001_b",
+          "text": "North access lane remained passable after staging.",
+          "status": "closed",
+          "createdAt": "2026-06-15T08:20:00-04:00",
+          "updatedAt": "2026-06-15T08:20:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_002_safety_housekeeping",
+      "category": "safety",
+      "description": "Loose blocking material was observed near the east pedestrian path.",
+      "status": "open",
+      "createdAt": "2026-06-15T08:30:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Safety: Loose blocking material was observed near the east pedestrian path.",
+      "flags": [
+        {
+          "id": "flag_20260615_002_a",
+          "type": "incomplete",
+          "text": "Responsible contractor not stated.",
+          "status": "open",
+          "sourceText": "Loose blocking material was observed near the east pedestrian path.",
+          "createdAt": "2026-06-15T08:30:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260615_002_a",
+          "text": "Area was marked for cleanup before lunch.",
+          "status": "open",
+          "createdAt": "2026-06-15T08:35:00-04:00",
+          "updatedAt": "2026-06-15T08:35:00-04:00"
+        },
+        {
+          "id": "com_20260615_002_b",
+          "text": "Supervisor to confirm which contractor left the material.",
+          "status": "open",
+          "createdAt": "2026-06-15T08:40:00-04:00",
+          "updatedAt": "2026-06-15T08:40:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_003_action_lift_plan",
+      "category": "action",
+      "description": "Request updated lift plan from crane supplier.",
+      "status": "open",
+      "createdAt": "2026-06-15T09:00:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Action: Request updated lift plan from crane supplier.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_003_a",
+          "text": "Confirm lift radius and landing zone are included in the updated plan.",
+          "status": "open",
+          "createdAt": "2026-06-15T09:05:00-04:00",
+          "updatedAt": "2026-06-15T09:05:00-04:00"
+        },
+        {
+          "id": "com_20260615_003_b",
+          "text": "Attach site access note when sending the request.",
+          "status": "closed",
+          "createdAt": "2026-06-15T09:10:00-04:00",
+          "updatedAt": "2026-06-15T09:10:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_004_followup_concrete_delivery",
+      "category": "followup",
+      "description": "Follow up with concrete supplier about revised delivery window.",
+      "status": "open",
+      "createdAt": "2026-06-15T09:30:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Follow-up: Follow up with concrete supplier about revised delivery window.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_004_a",
+          "text": "Delivery window needs to avoid crane setup time.",
+          "status": "open",
+          "createdAt": "2026-06-15T09:35:00-04:00",
+          "updatedAt": "2026-06-15T09:35:00-04:00"
+        },
+        {
+          "id": "com_20260615_004_b",
+          "text": "Record confirmation once supplier replies.",
+          "status": "open",
+          "createdAt": "2026-06-15T09:40:00-04:00",
+          "updatedAt": "2026-06-15T09:40:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_005_scheduled_inspection",
+      "category": "scheduled",
+      "description": "Site inspection scheduled for 2026-06-16 at 10:00.",
+      "status": "open",
+      "createdAt": "2026-06-15T10:00:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Scheduled: Site inspection scheduled for 2026-06-16 at 10:00.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_005_a",
+          "text": "Prepare access route and current safety records before inspection.",
+          "status": "open",
+          "createdAt": "2026-06-15T10:05:00-04:00",
+          "updatedAt": "2026-06-15T10:05:00-04:00"
+        },
+        {
+          "id": "com_20260615_005_b",
+          "text": "Notify subcontractor leads that inspector will be on site.",
+          "status": "closed",
+          "createdAt": "2026-06-15T10:10:00-04:00",
+          "updatedAt": "2026-06-15T10:10:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_006_communication_gate_notice",
+      "category": "communication",
+      "description": "Send site notice reminding contractors to keep the east gate clear.",
+      "status": "open",
+      "createdAt": "2026-06-15T10:30:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Communication: Send site notice reminding contractors to keep the east gate clear.",
+      "flags": [
+        {
+          "id": "flag_20260615_006_a",
+          "type": "incomplete",
+          "text": "Recipient list not stated.",
+          "status": "open",
+          "sourceText": "Send site notice reminding contractors to keep the east gate clear.",
+          "createdAt": "2026-06-15T10:30:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260615_006_a",
+          "text": "Include reminder that gate access is required for deliveries and emergency access.",
+          "status": "open",
+          "createdAt": "2026-06-15T10:35:00-04:00",
+          "updatedAt": "2026-06-15T10:35:00-04:00"
+        },
+        {
+          "id": "com_20260615_006_b",
+          "text": "Copy site manager once notice is prepared.",
+          "status": "open",
+          "createdAt": "2026-06-15T10:40:00-04:00",
+          "updatedAt": "2026-06-15T10:40:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_007_document_insurance",
+      "category": "document",
+      "description": "Crane supplier insurance certificate is required before lift work proceeds.",
+      "status": "open",
+      "createdAt": "2026-06-15T11:00:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Document: Crane supplier insurance certificate is required before lift work proceeds.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_007_a",
+          "text": "Check whether the current certificate is already on file.",
+          "status": "open",
+          "createdAt": "2026-06-15T11:05:00-04:00",
+          "updatedAt": "2026-06-15T11:05:00-04:00"
+        },
+        {
+          "id": "com_20260615_007_b",
+          "text": "If missing, request certificate from supplier before end of day.",
+          "status": "open",
+          "createdAt": "2026-06-15T11:10:00-04:00",
+          "updatedAt": "2026-06-15T11:10:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_008_event_delivery_shortage",
+      "category": "event",
+      "description": "Rebar delivery arrived short of the requested quantity.",
+      "status": "open",
+      "createdAt": "2026-06-15T11:30:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Event: Rebar delivery arrived short of the requested quantity.",
+      "flags": [
+        {
+          "id": "flag_20260615_008_a",
+          "type": "clarify",
+          "text": "Exact shortage quantity not stated.",
+          "status": "open",
+          "sourceText": "Rebar delivery arrived short of the requested quantity.",
+          "createdAt": "2026-06-15T11:30:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260615_008_a",
+          "text": "Delivery slip should be checked against the purchase order.",
+          "status": "open",
+          "createdAt": "2026-06-15T11:35:00-04:00",
+          "updatedAt": "2026-06-15T11:35:00-04:00"
+        },
+        {
+          "id": "com_20260615_008_b",
+          "text": "Supplier follow-up may be required after quantity is confirmed.",
+          "status": "open",
+          "createdAt": "2026-06-15T11:40:00-04:00",
+          "updatedAt": "2026-06-15T11:40:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_009_safety_overhead_wires",
+      "category": "safety",
+      "description": "Work area near overhead wires requires review before equipment movement.",
+      "status": "open",
+      "createdAt": "2026-06-15T12:00:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Safety: Work area near overhead wires requires review before equipment movement.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_009_a",
+          "text": "Confirm safe limits of approach before equipment enters the area.",
+          "status": "open",
+          "createdAt": "2026-06-15T12:05:00-04:00",
+          "updatedAt": "2026-06-15T12:05:00-04:00"
+        },
+        {
+          "id": "com_20260615_009_b",
+          "text": "Add warning note to site briefing before next shift.",
+          "status": "closed",
+          "createdAt": "2026-06-15T12:10:00-04:00",
+          "updatedAt": "2026-06-15T12:10:00-04:00"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260615_010_action_clean_access_route",
+      "category": "action",
+      "description": "Clear temporary material from the west access route.",
+      "status": "open",
+      "createdAt": "2026-06-15T12:30:00-04:00",
+      "sourceDate": "2026-06-15",
+      "sourceText": "Action: Clear temporary material from the west access route.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260615_010_a",
+          "text": "Access route should be clear before afternoon deliveries.",
+          "status": "open",
+          "createdAt": "2026-06-15T12:35:00-04:00",
+          "updatedAt": "2026-06-15T12:35:00-04:00"
+        },
+        {
+          "id": "com_20260615_010_b",
+          "text": "Take a follow-up photo after cleanup is complete.",
+          "status": "open",
+          "createdAt": "2026-06-15T12:40:00-04:00",
+          "updatedAt": "2026-06-15T12:40:00-04:00"
+        }
+      ]
+    }
+  ]
+}

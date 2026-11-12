@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SiteScribe Parser Lite v0.8.16a</title>
+  <link rel="stylesheet" href="styles.css?v=0.8.16a">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>SiteScribe Parser Lite</h1>
+    </div>
+    <div class="version-pill" id="appVersion">v0.8.16a</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel intake-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Intake</h2>
+        </div>
+        <button class="secondary" id="clearButton" type="button">Clear</button>
+      </div>
+
+      <div class="field-grid production-intake-grid">
+        <label>
+          Site / Memory Name
+          <input id="siteInput" type="text" placeholder="Site name (optional)">
+        </label>
+        <label>
+          Shift Date
+          <input id="dateInput" type="date">
+        </label>
+      </div>
+
+      <label class="textarea-label unified-intake-label">
+        Source Intake
+        <textarea id="rawText" class="unified-intake-box" rows="8" placeholder="Paste or type site notes here, or drop supported files into this box."></textarea>
+      </label>
+
+      <div class="import-strip" aria-label="Import notes">
+        <label class="file-pill" for="noteFile">Choose Files
+          <input id="noteFile" type="file" multiple accept=".txt,.md,.json,.eml,.html,.htm,application/json,text/plain,text/markdown,message/rfc822,text/html">
+        </label>
+        <span class="muted small-note">Supports .txt, .md, .json, .eml and .html/.htm files.</span>
+      </div>
+      <details class="intake-help-panel">
+        <summary>How to enter notes</summary>
+        <p class="muted small-note">Type or paste notes directly, choose one or more supported files, or drag files into Source Intake. Images and OCR are not included.</p>
+        <label class="capture-method-field">Capture Method
+          <select id="captureMethod">
+            <option value="plain text">plain text</option>
+            <option value="Apple Notes">Apple Notes</option>
+            <option value="mobile capture">mobile capture</option>
+            <option value="dictation">dictation</option>
+          </select>
+        </label>
+      </details>
+
+      <div class="action-row production-parse-row">
+        <button id="parseWithApiButton" type="button">Parse Notes</button>
+        <span id="statusLine" class="status-line">Ready.</span>
+      </div>
+      <div id="apiStatusLine" class="status-line parse-status-line">Ready to parse.</div>
+    </section>
+
+    <section class="panel records-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Proposed Records Review</h2>
+        </div>
+        <button class="secondary" id="addBlankRecordButton" type="button">Add Blank Record</button>
+      </div>
+      <div id="summaryOutput" class="compact-production-summary empty-state">Parsed summary will appear here.</div>
+      <details class="cleanup-panel compact-cleanup-panel">
+        <summary>
+          <span>Review Tools</span>
+          <span id="cleanupSummary" class="cleanup-summary">0 accepted · 0 rejected · Filter: all records</span>
+        </summary>
+        <div class="cleanup-tools" aria-label="Review cleanup tools">
+          <div class="cleanup-group cleanup-primary-row filter-actions" aria-label="Primary review tools">
+            <button id="acceptAllButton" class="secondary" type="button">Accept All</button>
+            <button id="showAllButton" class="secondary" type="button" data-filter-button="all">Show All</button>
+            <button id="showWarningsButton" class="secondary" type="button" data-filter-button="warnings">Warnings</button>
+          </div>
+
+          <details class="more-cleanup-tools">
+            <summary>More cleanup tools</summary>
+            <div class="more-cleanup-grid">
+              <div class="cleanup-group bulk-actions">
+                <button id="rejectAllButton" class="secondary" type="button">Reject All</button>
+              </div>
+              <div class="cleanup-group category-actions">
+                <label>Accept by Category
+                  <select id="acceptCategorySelect">
+                    <option value="event">event</option>
+                    <option value="action">action</option>
+                    <option value="followup">followup</option>
+                    <option value="scheduled">scheduled</option>
+                    <option value="safety">safety</option>
+                    <option value="communication">communication</option>
+                    <option value="document">document</option>
+                  </select>
+                </label>
+                <button id="acceptCategoryButton" class="secondary" type="button">Accept Category</button>
+              </div>
+              <div class="cleanup-group category-actions">
+                <label>Reject by Category
+                  <select id="rejectCategorySelect">
+                    <option value="event">event</option>
+                    <option value="action">action</option>
+                    <option value="followup">followup</option>
+                    <option value="scheduled">scheduled</option>
+                    <option value="safety">safety</option>
+                    <option value="communication">communication</option>
+                    <option value="document">document</option>
+                  </select>
+                </label>
+                <button id="rejectCategoryButton" class="secondary" type="button">Reject Category</button>
+              </div>
+              <div class="cleanup-group filter-actions" aria-label="Additional review filters">
+                <button id="showAcceptedButton" class="secondary" type="button" data-filter-button="accepted">Show Accepted Only</button>
+                <button id="showRejectedButton" class="secondary" type="button" data-filter-button="rejected">Show Rejected Only</button>
+              </div>
+              <div class="cleanup-group bulk-actions">
+                <label>Bulk Source Date
+                  <input id="bulkSourceDateInput" type="date">
+                </label>
+                <button id="bulkSourceDateButton" class="secondary" type="button">Bulk Set Source Date</button>
+              </div>
+              <div class="cleanup-group bulk-actions">
+                <label>Bulk Site / Memory Name
+                  <input id="bulkSiteInput" type="text" placeholder="Site / memory name for export">
+                </label>
+                <button id="bulkSiteButton" class="secondary" type="button">Bulk Set Site / Memory Name</button>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div class="review-status-row"><span id="filterStatus" class="filter-status">Showing all proposed records.</span><span id="cleanupStatus" class="status-line">Cleanup tools ready.</span></div>
+      </details>
+      <div id="recordsRoot" class="empty-state">No proposed records yet.</div>
+    </section>
+
+    <section class="panel export-panel">
+      <div class="panel-heading">
+        <div>
+          <h2>Export Reviewed Records</h2>
+        </div>
+      </div>
+      <div id="validationOutput" class="validation-box">Records will be checked automatically before download.</div>
+      <div class="action-row wrap"><button id="downloadJsonButton" type="button">Download Reviewed JSON</button></div>
+    </section>
+
+    <details class="panel advanced-panel">
+      <summary><span>Advanced / Diagnostics</span><span class="muted small-note">Manual fallback and technical details</span></summary>
+      <div class="advanced-panel-content">
+        <details class="advanced-subpanel">
+          <summary>Manual AI Fallback</summary>
+          <p class="muted small-note">Use this only if the normal Parse Notes connection is unavailable.</p>
+          <div class="ai-bridge-grid">
+            <div class="ai-bridge-column">
+              <h3>AI Request</h3>
+              <div class="action-row wrap compact-actions">
+                <button id="buildAiRequestButton" class="secondary" type="button">Build AI Request</button>
+                <button id="copyAiRequestButton" class="secondary" type="button">Copy AI Request</button>
+                <button id="clearAiRequestButton" class="secondary" type="button">Clear</button>
+              </div>
+              <label class="textarea-label">AI Request<textarea id="aiRequestOutput" rows="7" readonly></textarea></label>
+            </div>
+            <div class="ai-bridge-column">
+              <h3>AI Result Return</h3>
+              <div class="action-row wrap compact-actions">
+                <button id="loadAiResultButton" class="secondary" type="button">Import Pasted Result</button>
+                <button id="clearAiResultButton" class="secondary" type="button">Clear</button>
+              </div>
+              <button id="validateAiResultButton" class="hidden-dev-button" type="button" hidden>Validate AI Result</button>
+              <label class="textarea-label ai-result-drop-zone">Paste / Drop AI JSON Result<textarea id="aiResultInput" rows="7"></textarea></label>
+              <div id="aiBridgeStatus" class="status-line">Manual fallback ready.</div>
+            </div>
+          </div>
+        </details>
+
+        <details class="advanced-subpanel">
+          <summary>Parser Settings</summary>
+          <div class="ai-template-fields">
+            <div class="field-grid compact-template-grid">
+              <label>Template Name<input id="aiTemplateNameInput" type="text"></label>
+              <label>Template Version<input id="aiTemplateVersionInput" type="text"></label>
+            </div>
+            <span id="aiTemplateSummary" class="muted small-note">SiteScribe Standard v1</span>
+            <label class="textarea-label">AI instruction template<textarea id="aiTemplateInput" rows="9" spellcheck="false"></textarea></label>
+            <div class="action-row wrap compact-actions">
+              <button id="saveAiTemplateButton" class="secondary" type="button">Save Template</button>
+              <button id="restoreAiTemplateButton" class="secondary" type="button">Restore Default</button>
+            </div>
+            <div id="aiTemplateStatus" class="status-line">Template ready.</div>
+          </div>
+          <div class="api-mode-fields">
+            <span id="apiModeSummary" class="muted small-note">endpoint not tested</span>
+            <label>API Endpoint<input id="apiEndpointInput" type="text" placeholder="server/parse.php"></label>
+            <div class="action-row wrap compact-actions">
+              <button id="saveApiEndpointButton" class="secondary" type="button">Save Override</button>
+              <button id="resetApiEndpointButton" class="secondary" type="button">Reset to Production</button>
+              <button id="testApiConnectionButton" class="secondary" type="button">Test Connection</button>
+            </div>
+          </div>
+        </details>
+
+        <details class="advanced-subpanel diagnostics-panel">
+          <summary>Parser / Intake Diagnostics</summary>
+          <div id="diagnosticsOutput" class="diagnostics-output" aria-live="polite">Diagnostics will appear here.</div>
+        </details>
+
+        <details class="advanced-subpanel json-details">
+          <summary>JSON and Validation Tools</summary>
+          <div class="action-row wrap">
+            <button id="validateButton" class="secondary" type="button">Validate JSON</button>
+            <button id="buildJsonButton" class="secondary" type="button">Build JSON</button>
+            <button id="copyJsonButton" class="secondary" type="button">Copy JSON</button>
+          </div>
+          <label class="textarea-label">Review Console-compatible JSON<textarea id="jsonOutput" rows="10" readonly></textarea></label>
+        </details>
+      </div>
+    </details>
+  </main>
+
+  <div id="importChoiceOverlay" class="modal-overlay" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="importChoiceTitle">
+      <h2 id="importChoiceTitle">New source detected</h2>
+      <p id="importChoiceText">Append to existing intake, replace current intake, or cancel?</p>
+      <div class="modal-actions">
+        <button id="appendImportButton" type="button">Append to Intake</button>
+        <button id="replaceImportButton" class="danger" type="button">Replace Intake</button>
+        <button id="cancelImportButton" class="secondary" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="structuredJsonOverlay" class="modal-overlay" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="structuredJsonTitle">
+      <h2 id="structuredJsonTitle">SiteScribe JSON package detected</h2>
+      <p id="structuredJsonText">Load existing records for review, convert the JSON to raw text, or cancel?</p>
+      <div class="modal-actions">
+        <button id="loadStructuredButton" type="button">Load as Review Records</button>
+        <button id="convertStructuredButton" class="secondary" type="button">Convert to Raw Text</button>
+        <button id="cancelStructuredButton" class="secondary" type="button">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="sitescribe-parser-core.js?v=1.0.1"></script>
+  <script src="app.js?v=0.8.16a"></script>
+</body>
+</html>

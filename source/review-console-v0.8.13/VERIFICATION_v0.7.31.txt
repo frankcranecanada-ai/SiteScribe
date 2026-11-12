@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.7.31 Verification Evidence
+Date: 2026-08-16
+
+B04 launcher clarity
+- The B04 intake card now identifies its action as opening the note parser rather than parsing already-entered text.
+- Guidance explains the opened parser contains the note/schedule input and optional parsing-instruction field.
+- The v0.7.30 instruction field and its source-text protections remain unchanged.
+
+Automated verification
+- PASS `node --check` for all six first-party JavaScript files and the focused regression script.
+- PASS `node regression_check_v0.7.31.js`: 11 launcher-clarity, operator-instruction, and protected-workflow checks.
+- PASS duplicate HTML ID check (92 static IDs).
+- PASS duplicate function-declaration check within each first-party JavaScript file.
+- PASS CSS brace integrity: 922 opening / 922 closing.
+- PASS cache-marker and version alignment for the app, stylesheet, and Parse Notes module.

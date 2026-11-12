@@ -1,0 +1,12 @@
+SiteScribe Review Console v0.7.29
+IPhone B05 Drag Promotion Highlight Repair
+
+Change
+- The full Working Memory dashed promotion box no longer appears merely when an iPhone user selects a secondary record's six-dot grip.
+- Promotion feedback appears only after the dragged secondary is deliberately moved into a narrow primary-alignment zone to the left of its normal secondary position.
+- iPhone drag events that initially report a horizontal coordinate of zero cannot activate promotion feedback.
+
+Scope protection
+- The primary/secondary six-dot grips, row opening, reordering, moving under another primary, and deliberate secondary promotion all remain available.
+- Existing dashed valid-destination and before/after insertion feedback remains unchanged.
+- No record data, dates, statuses, billing, reports, autosave, Dropbox, Parser, or saved-site behavior is changed.

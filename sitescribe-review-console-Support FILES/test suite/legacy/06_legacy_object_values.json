@@ -1,0 +1,61 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:25:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Legacy object flattening test."
+  },
+  "dailySummary": "Tests that nested objects and arrays do not render as [object Object].",
+  "events": [
+    {
+      "description": {
+        "summary": "Delivery truck arrived",
+        "details": {
+          "gate": "north gate",
+          "delay": "15 minutes"
+        }
+      },
+      "sourceText": "Delivery truck arrived at north gate and was delayed 15 minutes."
+    }
+  ],
+  "followups": [],
+  "emails": [],
+  "appointments": [],
+  "todos": [],
+  "safetyIssues": [
+    {
+      "issue": {
+        "text": "Open trench lacked barrier at west side",
+        "severity": "high"
+      },
+      "sourceText": "Open trench lacked barrier at west side."
+    }
+  ],
+  "clarificationRequired": [
+    {
+      "question": {
+        "text": "Which supervisor gave the trench correction?",
+        "options": ["Frank", "not stated"]
+      },
+      "sourceText": "Open trench lacked barrier at west side."
+    }
+  ],
+  "missingInfo": [
+    {
+      "field": "recipient email",
+      "value": "not stated",
+      "relatedParty": "TL Mechanical"
+    },
+    {
+      "field": "exact delivery slip number",
+      "value": "not stated",
+      "relatedEvent": {
+        "type": "delivery",
+        "gate": "north gate"
+      }
+    }
+  ]
+}

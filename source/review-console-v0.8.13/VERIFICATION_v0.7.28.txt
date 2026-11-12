@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.7.28 Verification Evidence
+Date: 2026-08-15
+
+Requested B05 drag affordance
+- Primary and secondary B05 rows render an individual six-dot drag grip at the left edge.
+- Only an enabled grip starts an HTML drag; record rows themselves are not draggable, so normal row clicks remain dedicated to opening/expanding.
+- Movable grips are hover-visible on desktop and lightly visible for touch/coarse pointers.
+- Existing valid drop behaviour is retained: dashed move-under highlight and before/after insertion lines.
+
+Automated verification
+- PASS node --check for all first-party JavaScript and regression_check_v0.7.28.js.
+- PASS 10 focused/protected regression checks.
+- PASS no duplicate HTML IDs.
+- PASS no duplicate function declarations.
+- PASS CSS brace integrity: 914 opening / 914 closing.

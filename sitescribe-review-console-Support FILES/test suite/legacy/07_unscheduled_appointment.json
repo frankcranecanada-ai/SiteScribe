@@ -1,0 +1,33 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:30:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Appointment routing test."
+  },
+  "dailySummary": "One appointment has real date/time and one appointment request does not.",
+  "events": [],
+  "followups": [],
+  "emails": [],
+  "appointments": [
+    {
+      "title": "Crane rooftop material lift",
+      "date": "2026-06-16",
+      "startTime": "8:00 AM",
+      "location": "Kemptville Office Building",
+      "sourceText": "Book crane for Tuesday at 8 AM for rooftop material lift."
+    },
+    {
+      "title": "Make appointment to discuss crane coming to site with TP Crawford",
+      "location": "not stated",
+      "sourceText": "Make an appointment to discuss crane coming to site with TP Crawford."
+    }
+  ],
+  "todos": [],
+  "safetyIssues": [],
+  "clarificationRequired": [],
+  "missingInfo": []
+}

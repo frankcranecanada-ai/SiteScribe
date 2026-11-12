@@ -1,0 +1,31 @@
+SiteScribe Review Console v0.7.20 Verification Evidence
+Date: 2026-08-13
+
+Diagnosis confirmed
+- The existing editor value used: stored workDate OR today.
+- Therefore legacy secondary records without workDate displayed today even when createdAt identified when the hours record was entered.
+- Saving and report paths already preserved/used workDate correctly.
+- Screenshot evidence showed a secondary Created July 11 and Updated July 31 while the editor displayed August 13. Because Updated remained July 31, August 13 was a render-only fallback rather than a stored edit on that record.
+- The defect applies to every legacy secondary lacking workDate, not only one selected record.
+- Real saved-site inspection: MDS_Billing_site.json contains 22 secondary records with time/work data. Fourteen omit workDate and will use the new Created Date fallback. Eight retain explicit stored Work Dates (July 13, July 14, July 25, August 1, August 12), which remain authoritative and are not changed.
+
+Automated verification
+- PASS node --check on all first-party JavaScript and the v0.7.20 regression script.
+- PASS 13 focused/protected regression checks.
+- PASS no duplicate HTML IDs.
+- PASS no duplicate function declarations.
+- PASS CSS brace integrity: 892 opening / 892 closing.
+- PASS v0.7.20 visible version, APP_VERSION, stylesheet cache marker, and app cache marker.
+
+Behavior verified by code path
+- Existing explicit workDate remains authoritative.
+- Legacy existing records fall back to createdAt, then updatedAt, then the parent record date.
+- Today is used only for a new record or a completely undated legacy record.
+- Opening the editor does not mutate stored data.
+- Editor changes continue through applyCommentTimeFields and persist workDate.
+- v0.7.19 report sorting and MDS sort connection remain protected.
+
+User acceptance requested
+- Open an older secondary record that has hours but no explicit Work Date and confirm the editor displays its Created Date.
+- Open a newer record with an explicit Work Date and confirm that exact date displays.
+- Start a new secondary record and confirm it defaults to today.

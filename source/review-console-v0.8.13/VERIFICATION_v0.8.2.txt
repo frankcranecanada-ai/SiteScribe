@@ -1,0 +1,25 @@
+SiteScribe Review Console v0.8.2 verification
+
+Automated checks
+- node --check passed: app.js, dropbox-sync-proof.js, sitescribe-add-data.js,
+  sitescribe-hours-excel.js, sitescribe-mds-excel.js, sitescribe-parser-core.js,
+  and regression_check_v0.8.2.js.
+- regression_check_v0.8.2.js passed all capped-three-level, parser,
+  reporting, Dropbox refresh, B04 protection, B05 branch-click, and inline
+  activity-entry checks.
+- Version and changed cache markers agree on v0.8.2.
+- No duplicate function declarations or duplicate HTML IDs found.
+- CSS brace balance is zero.
+
+Focused browser test
+- Opened the E-House delivery secondary record.
+- Confirmed the inline Add Activity Record composer was visible with its
+  dedicated text, time, hour, work-date, billing/expense, and deliverable controls.
+- Added “Crane arrival logged” with 09:00–10:30 through the inline composer.
+- Confirmed the activity appeared under E-House delivery and the view remained
+  on the Secondary Record editor with the composer ready for another activity.
+
+Packaging checks
+- Root deploy files refreshed from v0.8.2 after confirming the root still
+  matched the preceding v0.8.1 candidate.
+- Deployable ZIP is flat and contains exactly the required nine web files.

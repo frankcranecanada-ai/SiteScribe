@@ -1,0 +1,16 @@
+SiteScribe Review Console v0.7.32 Verification Evidence
+Date: 2026-08-16
+
+Dropbox update confirmation list
+- Successful stable-site uploads now pass their verified Dropbox client directly to the immediate list operation.
+- The list helper returns an explicit result, so the UI distinguishes a completed upload with a displayed current-file list from a completed upload whose confirmation list could not refresh.
+- The explicit overwrite confirmation, local-save preflight, stable filename, newest-first list rendering, and backup-copy branch remain intact.
+
+Automated verification
+- PASS `node --check` for all six first-party JavaScript files and the focused regression script.
+- PASS `node regression_check_v0.7.32.js`: 14 Dropbox-update, B04, and protected-workflow checks.
+- PASS duplicate HTML ID check (92 static IDs).
+- PASS duplicate function-declaration check within each first-party JavaScript file.
+- PASS CSS brace integrity: 922 opening / 922 closing.
+- PASS cache-marker and version alignment for the app, stylesheet, Parse Notes module, and changed Dropbox module.
+- Live Dropbox upload/list acceptance remains for the operator's connected Dropbox account; this candidate does not initiate an external upload during verification.

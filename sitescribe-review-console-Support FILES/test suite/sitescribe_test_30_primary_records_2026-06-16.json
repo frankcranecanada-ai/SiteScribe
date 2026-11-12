@@ -1,0 +1,804 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-16",
+  "processedAt": "2026-06-16T00:00:00-04:00",
+  "source": {
+    "captureMethod": "Apple Notes / dictation / plain text",
+    "rawText": "Synthetic SiteScribe Review Console test package generated for import testing. Contains 30 primary records across event, action, followup, scheduled, safety, communication, and document categories. Some records contain secondary comments and record-level flags; others intentionally contain none."
+  },
+  "dailySummary": "Synthetic test package with 30 primary SiteScribe records across all valid categories, including a mix of open and closed records, secondary comments, incomplete flags, clarify flags, and records with no secondary entries.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.5.4",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_20260616_tl_crane_rooftop_units",
+      "category": "event",
+      "description": "TL Mechanical advised that they need to bring a crane to lift four air units onto the roof.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Event. June 16, TL Mechanical advised me they need to bring a crane in to do the 4 air units on the roof.",
+      "flags": [
+        {
+          "id": "flag_20260616_tl_crane_date_missing",
+          "type": "incomplete",
+          "text": "Exact crane date and time are not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "they need to bring a crane in",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        },
+        {
+          "id": "flag_20260616_tl_crane_contact_missing",
+          "type": "incomplete",
+          "text": "Specific TL Mechanical contact person is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "TL Mechanical advised me",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_meet_tl_crane_planning",
+          "text": "Meet with TL Mechanical to discuss timing, date, crane planning, and responsibilities.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "I need to meet with them and discuss times, date and the planning we need to do and they need to do."
+        },
+        {
+          "id": "com_20260616_request_tl_crane_docs",
+          "text": "Request lift plan, insurance, and site risk assessment before the crane arrives.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "crane in to do the 4 air units on the roof"
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_joe_bloe_roof_edge",
+      "category": "safety",
+      "description": "TP Crawford worker Joe Bloe was again too close to the roof edge after a prior warning.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Safety. June 16, TP Crawford man, Joe Bloe, again too close to edge of roof. Decide what to do, I've warned him already once.",
+      "flags": [
+        {
+          "id": "flag_20260616_joe_bloe_edge_location_detail",
+          "type": "incomplete",
+          "text": "Exact roof location and fall-protection condition are not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "too close to edge of roof",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_escalate_joe_bloe",
+          "text": "Decide escalation step because Joe Bloe has already been warned once.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Decide what to do, I've warned him already once."
+        },
+        {
+          "id": "com_20260616_notify_tp_crawford_supervisor",
+          "text": "Notify TP Crawford supervisor or foreman about repeated roof-edge safety concern.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "TP Crawford man, Joe Bloe, again too close to edge of roof."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_ace_transformers_july_1",
+      "category": "scheduled",
+      "description": "ACE Electric advised that large transformers are expected to arrive July 1 and will require a crane to unload.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Schedule. June 16, was advised by ACE Electric that big transformers are on the way and should be here July 1. This will need crane to unload and it's their responsibility.",
+      "flags": [
+        {
+          "id": "flag_20260616_transformer_time_missing",
+          "type": "incomplete",
+          "text": "Arrival time on July 1 is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "should be here July 1",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        },
+        {
+          "id": "flag_20260616_transformer_crane_supplier_missing",
+          "type": "incomplete",
+          "text": "Crane supplier or unloading plan is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "This will need crane to unload",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_confirm_ace_responsibility",
+          "text": "Confirm with ACE Electric that crane unloading is their responsibility.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "it's their responsibility."
+        },
+        {
+          "id": "com_20260616_notify_site_transformer_delivery",
+          "text": "Notify affected site parties before transformer delivery and crane unloading.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "big transformers are on the way and should be here July 1."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_east_gate_blocked_concrete_access",
+      "category": "safety",
+      "description": "Materials were blocking the east gate before concrete truck access.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Safety. At 8:40 AM, material was stacked across the east gate before concrete trucks were due.",
+      "flags": [
+        {
+          "id": "flag_20260616_east_gate_contractor_unknown",
+          "type": "clarify",
+          "text": "Which contractor owns the material blocking the east gate?",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "material was stacked across the east gate",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_clear_east_gate_before_concrete",
+          "text": "Have the responsible contractor clear the east gate before concrete trucks arrive.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "before concrete trucks were due."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_concrete_pour_started_north_footings",
+      "category": "event",
+      "description": "Concrete pour started at the north footings.",
+      "status": "closed",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Event. Concrete pour started at north footings at 10:15 AM.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_request_rebar_shortage_confirmation",
+      "category": "followup",
+      "description": "Follow up on the missing 20M rebar balance from the supplier.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Follow-up. Rebar delivery was short 20M bars and supplier said balance would come tomorrow.",
+      "flags": [
+        {
+          "id": "flag_20260616_rebar_supplier_missing",
+          "type": "incomplete",
+          "text": "Supplier name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "supplier said balance would come tomorrow",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_confirm_rebar_balance",
+          "text": "Confirm in the morning that the missing 20M bars are delivered.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "balance would come tomorrow."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_lift_plan_missing_crane_supplier",
+      "category": "document",
+      "description": "Lift plan from the crane supplier is required before the crane arrives.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Document. Need lift plan from crane supplier before crane arrives Friday.",
+      "flags": [
+        {
+          "id": "flag_20260616_crane_supplier_name_missing",
+          "type": "incomplete",
+          "text": "Crane supplier name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "crane supplier",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_request_lift_plan",
+          "text": "Request crane lift plan before Friday arrival.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Need lift plan from crane supplier before crane arrives Friday."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_engineer_inspection_formwork",
+      "category": "scheduled",
+      "description": "Engineer inspection scheduled Thursday June 18 at 10:30 AM for formwork review.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Scheduled. Engineer inspection Thursday June 18 at 10:30 AM for formwork review.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260616_prepare_formwork_area",
+          "text": "Prepare formwork area for engineer inspection.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "for formwork review."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_email_sent_abc_gate_access",
+      "category": "communication",
+      "description": "Email was sent to ABC Mechanical advising that the east gate must stay clear.",
+      "status": "closed",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Communication. Sent email to ABC Mechanical advising that the east gate must stay clear for deliveries and emergency access.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_arrange_site_meeting_roof_access",
+      "category": "action",
+      "description": "Arrange a site meeting about roof access coordination.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Action. Arrange site meeting with roofing and mechanical about roof access.",
+      "flags": [
+        {
+          "id": "flag_20260616_roof_access_meeting_time_missing",
+          "type": "incomplete",
+          "text": "Meeting date and time are not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Arrange site meeting",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_south_stair_housekeeping",
+      "category": "safety",
+      "description": "Housekeeping issue observed at the south stair.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Safety. South stair landing had loose packaging and scrap material creating trip hazard.",
+      "flags": [
+        {
+          "id": "flag_20260616_south_stair_responsible_party",
+          "type": "clarify",
+          "text": "Responsible contractor for the packaging and scrap material is not identified.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "loose packaging and scrap material",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_clean_south_stair",
+          "text": "Have responsible contractor clean the south stair landing.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "creating trip hazard."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_crane_booked_rooftop_material",
+      "category": "scheduled",
+      "description": "Crane booked Friday June 19 at 8:00 AM for rooftop material lift.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Scheduled. Crane booked Friday June 19 at 8 AM for rooftop material lift.",
+      "flags": [
+        {
+          "id": "flag_20260616_crane_company_missing",
+          "type": "incomplete",
+          "text": "Crane company name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Crane booked",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_notify_subs_crane_lift_area",
+          "text": "Notify subcontractors to stay clear of the lift area during the crane operation.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "rooftop material lift."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_waiting_updated_insurance",
+      "category": "followup",
+      "description": "Waiting for updated insurance certificate from TL Mechanical.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Follow-up. Waiting for TL Mechanical to send updated insurance certificate.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260616_check_tl_insurance_tomorrow",
+          "text": "Check again tomorrow if updated insurance certificate has not arrived.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Waiting for TL Mechanical to send updated insurance certificate."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_excavation_barricade_loose",
+      "category": "safety",
+      "description": "Barricade at excavation corner was loose.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Safety. Barricade at northwest excavation corner was loose after lunch.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260616_resecure_excavation_barricade",
+          "text": "Re-secure the barricade at the northwest excavation corner.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Barricade at northwest excavation corner was loose after lunch."
+        },
+        {
+          "id": "com_20260616_check_barricade_end_day",
+          "text": "Check the barricade again before end of day.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "after lunch."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_delivery_truck_blocked_fire_route",
+      "category": "safety",
+      "description": "Delivery truck blocked the fire route near the west entrance.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Safety. Delivery truck blocked fire route near west entrance for approximately 15 minutes.",
+      "flags": [
+        {
+          "id": "flag_20260616_delivery_company_missing",
+          "type": "incomplete",
+          "text": "Delivery company is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Delivery truck",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_permit_copy_missing_trailer",
+      "category": "document",
+      "description": "Permit copy is missing from the site trailer binder.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Document. Permit copy missing from site trailer binder.",
+      "flags": [
+        {
+          "id": "flag_20260616_permit_type_missing",
+          "type": "clarify",
+          "text": "Which permit copy is missing?",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Permit copy missing",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_call_received_inspector_arrival",
+      "category": "communication",
+      "description": "Call received from inspector confirming arrival tomorrow morning.",
+      "status": "closed",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Communication. Call received from inspector confirming he will arrive tomorrow morning.",
+      "flags": [
+        {
+          "id": "flag_20260616_inspector_identity_missing",
+          "type": "incomplete",
+          "text": "Inspector name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "inspector",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_book_pump_for_footing_pour",
+      "category": "action",
+      "description": "Book concrete pump for footing pour.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Action. Book concrete pump for footing pour next week.",
+      "flags": [
+        {
+          "id": "flag_20260616_pump_date_missing",
+          "type": "incomplete",
+          "text": "Exact date and time for pump booking are not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "next week",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_confirm_pump_requirements",
+          "text": "Confirm pump size, access route, and supplier before booking.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Book concrete pump for footing pour next week."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_electrical_room_delivery_complete",
+      "category": "event",
+      "description": "Electrical room panel delivery was completed.",
+      "status": "closed",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Event. Electrical room panel delivery completed at 1:30 PM.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_update_drawing_required_slab_opening",
+      "category": "document",
+      "description": "Updated drawing is required for the slab opening change.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Document. Need updated drawing for slab opening change before cutting starts.",
+      "flags": [
+        {
+          "id": "flag_20260616_slab_opening_drawing_source_missing",
+          "type": "incomplete",
+          "text": "Person or company responsible for issuing updated drawing is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Need updated drawing",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_hold_cutting_until_drawing",
+          "text": "Do not start cutting until updated drawing is received.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "before cutting starts."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_talk_to_mike_about_gate",
+      "category": "action",
+      "description": "Talk to Mike about the gate.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Action. Talk to Mike about the gate.",
+      "flags": [
+        {
+          "id": "flag_20260616_mike_gate_ambiguous",
+          "type": "clarify",
+          "text": "Which Mike and which gate are being referred to?",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Talk to Mike about the gate.",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_ladder_not_tied_north_wall",
+      "category": "safety",
+      "description": "Worker was using a ladder at the north wall without tying it off.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Safety. Worker from roofing crew was using ladder at north wall without tying it off.",
+      "flags": [
+        {
+          "id": "flag_20260616_ladder_worker_name_missing",
+          "type": "incomplete",
+          "text": "Worker name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Worker from roofing crew",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        },
+        {
+          "id": "flag_20260616_roofing_company_missing",
+          "type": "incomplete",
+          "text": "Roofing company name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "roofing crew",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_notify_roofing_foreman_ladder",
+          "text": "Notify roofing foreman about ladder tie-off issue.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "without tying it off."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_check_east_gate_morning",
+      "category": "followup",
+      "description": "Check tomorrow morning that the east gate is still clear.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Follow-up. Check tomorrow morning that the east gate is still clear.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_site_survey_overhead_wires",
+      "category": "event",
+      "description": "Overhead wires were noted along the east access route.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Event. Overhead wires noted along east access route during site walk.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260616_consider_wires_for_crane_access",
+          "text": "Consider overhead wires when planning crane access and delivery routes.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Overhead wires noted along east access route."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_send_notice_to_subs_crane_day",
+      "category": "action",
+      "description": "Send notice to subcontractors about crane day access restrictions.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Action. Send notice to subs about crane day access restrictions.",
+      "flags": [
+        {
+          "id": "flag_20260616_sub_notice_recipients_missing",
+          "type": "incomplete",
+          "text": "Specific subcontractor recipients are not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "subs",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        },
+        {
+          "id": "flag_20260616_crane_day_date_missing",
+          "type": "clarify",
+          "text": "Which crane day is being referenced?",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "crane day",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_hospital_posting_verified",
+      "category": "document",
+      "description": "Closest hospital posting was verified in the site trailer.",
+      "status": "closed",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Document. Closest hospital posting checked in trailer and it is current.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_message_from_supplier_crane_delay",
+      "category": "communication",
+      "description": "Message received from crane supplier advising of a possible arrival delay.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Communication. Message from crane supplier saying arrival may be delayed by traffic.",
+      "flags": [
+        {
+          "id": "flag_20260616_crane_delay_supplier_missing",
+          "type": "incomplete",
+          "text": "Crane supplier name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "crane supplier",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        },
+        {
+          "id": "flag_20260616_crane_delay_duration_missing",
+          "type": "incomplete",
+          "text": "Estimated delay duration is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "may be delayed by traffic",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260616_update_site_team_crane_delay",
+          "text": "Update affected site team if crane arrival delay is confirmed.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "arrival may be delayed by traffic."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_formwork_area_cleaned",
+      "category": "event",
+      "description": "Formwork area was cleaned before engineer review.",
+      "status": "closed",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Event. Formwork area cleaned before engineer review.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260616_confirm_transformer_pad_ready",
+      "category": "followup",
+      "description": "Confirm transformer pad is ready before the July 1 delivery.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Follow-up. Confirm transformer pad is ready before July 1 delivery.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260616_check_transformer_anchor_bolts",
+          "text": "Check whether anchor bolts and access path are ready for transformer delivery.",
+          "status": "open",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00",
+          "sourceText": "Confirm transformer pad is ready before July 1 delivery."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260616_request_supplier_crane_rate",
+      "category": "action",
+      "description": "Request crane rate from supplier for upcoming rooftop lift.",
+      "status": "open",
+      "createdAt": "2026-06-16T00:00:00-04:00",
+      "sourceDate": "2026-06-16",
+      "sourceText": "Action. Request crane rate from supplier for upcoming rooftop lift.",
+      "flags": [
+        {
+          "id": "flag_20260616_rate_supplier_missing",
+          "type": "incomplete",
+          "text": "Supplier name is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "supplier",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        },
+        {
+          "id": "flag_20260616_rooftop_lift_date_missing",
+          "type": "incomplete",
+          "text": "Upcoming rooftop lift date is not stated in this item.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "upcoming rooftop lift",
+          "createdAt": "2026-06-16T00:00:00-04:00",
+          "updatedAt": "2026-06-16T00:00:00-04:00"
+        }
+      ],
+      "comments": []
+    }
+  ]
+}

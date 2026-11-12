@@ -1,0 +1,8 @@
+Process the attached sample log according to the SiteScribe handoff.
+
+Return:
+1. concise readable review
+2. valid SiteScribe JSON package
+3. clarificationRequired items for anything uncertain
+
+Do not invent missing facts. Use "not stated" where needed. Preserve sourceText for every extracted item.

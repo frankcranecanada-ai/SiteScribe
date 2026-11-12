@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SiteScribe Dropbox Callback</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f4f5f7;
+      color: #1f2933;
+      display: grid;
+      min-height: 100vh;
+      place-items: center;
+      padding: 18px;
+    }
+    main {
+      width: min(620px, 100%);
+      background: #fff;
+      border: 1px solid #d9dee7;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+      padding: 20px;
+    }
+    h1 { margin: 0 0 8px; font-size: 1.35rem; color: #263b59; }
+    p { margin: 8px 0 0; color: #697386; line-height: 1.4; }
+    .status { color: #1f2933; font-weight: 750; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>SiteScribe Dropbox Callback</h1>
+    <p id="callbackStatus" class="status">Waiting for Dropbox authorization...</p>
+    <p id="callbackDetails">This page finishes Dropbox login and returns to SiteScribe. It does not import, upload, or change SiteScribe data.</p>
+  </main>
+  <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+  <script src="dropbox-callback.js?v=0.6.66"></script>
+</body>
+</html>

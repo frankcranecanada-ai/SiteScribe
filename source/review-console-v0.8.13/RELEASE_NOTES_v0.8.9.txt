@@ -1,0 +1,84 @@
+SiteScribe Review Console v0.8.9
+Partial time-entry protection and explicit commit before close
+Branched from: source/review-console-v0.8.8 (user-authorized continuation of the v0.8 candidate line)
+Status: CANDIDATE - NOT ACCEPTED
+
+REPORTED PROBLEM
+----------------
+An operator entered a secondary record with a start time of 15:00 and an end time of 16:00.
+The Hrs field never calculated. The secondary was closed and reopened, and the end time was
+missing while the start time remained. Re-entering the end time produced 1 hr immediately.
+
+DIAGNOSIS
+---------
+1. An <input type="time"> reports value === "" in two different situations: a box the operator
+   deliberately cleared, and a box where only some segments are filled. Under a 12-hour locale
+   the control has hour, minute and AM/PM segments, so typing "16" sets the hour and meridiem
+   and leaves the minutes blank; the box looks filled but reads as empty to the page.
+2. applyCommentTimeFields treated that empty read as a deliberate clear and ran
+   "delete comment.endTime". An empty box therefore did not merely fail to save a new value,
+   it erased an already-stored one. The same commit rewrote startTime from the still-complete
+   start box, which is why the start time survived and the end time did not.
+3. updateCommentHoursCalculation returns early whenever either time reads empty, leaving the
+   Hrs field blank. That blank field was the only indication that anything was wrong.
+4. The record could persist with a startTime and a totalHours but no endTime, and that state
+   survived a reload and would reach Hours and MDS output.
+5. Separately, the commit inside the set-comment-status branch could never run. Close Record and
+   Reopen are emitted only by renderSelectedCommentStatusControls for the selected record, so the
+   guard selectedCommentId !== comment.id was never true. Closing relied entirely on an incidental
+   focusout to flush pending editor edits.
+
+This behaviour is not new in the v0.8 line. applyCommentTimeFields is identical in v0.7.33.
+
+CHANGES
+-------
+app.js
+- New inputEntryIsPartial(input). Uses validity.badInput to separate a half-entered segmented
+  control from an empty one. Applies to <input type="time"> and <input type="date"> alike.
+  Returns false for a disabled control and for any control holding a value.
+- getCommentTimeFieldsFromEditor and getActivityEntryTimeFields now return startTimePartial,
+  endTimePartial and workDatePartial alongside the existing fields. Expense mode reports both as false, matching the
+  existing behaviour where expense clears and disables the time boxes.
+- applyCommentTimeFields preserves comment.startTime, comment.endTime, comment.totalHours and
+  comment.workDate when the corresponding control reports a partial entry. A genuinely empty control still clears the
+  stored value, so deliberate clearing is unchanged.
+- commentDraftDiffers ignores a partly entered time or date box, so a partial entry does not register as
+  an edit and cannot trigger a commit that rewrites the rest of the row.
+- New updateEntryWarning(noteId, entries) plus refreshCommentEntryWarning and
+  refreshActivityEntryWarning. Marks every offending control and names them in one plain-language
+  note ("End time and Work date are incomplete - finish the entry."). Driven from
+  updateCommentHoursCalculation, updateActivityEntryHoursCalculation, and new handleDetailInput
+  routing for the Work Date and deliverable-date boxes.
+- readDeliverableEditor reports a partial deliverable date. commitRecordDeliverableEditor and
+  commitSelectedCommentEditorChanges hold the stored deliverable while that date is incomplete,
+  instead of clearing the whole deliverable.
+- renderDetail and renderInlineActivityEntry each render a #commentTimeEntryNote /
+  #activityEntryTimeEntryNote status line inside the existing time editor.
+- handleDetailClick set-comment-status now commits pending editor edits before
+  applyStatusTimestamps when a record is being closed. The commit must precede the status change
+  because isCommentLocked refuses a commit once the record is closed. The unreachable commit in
+  the nextStatus === "open" branch is left in place and documented rather than removed.
+
+styles.css
+- .update-time-editor input.time-input-incomplete uses the existing --danger / --danger-bg tokens.
+- .time-entry-note spans the time-editor grid row and is hidden until needed.
+
+index.html
+- Title, visible version pill, and the styles.css / app.js / sitescribe-add-data.js /
+  dropbox-sync-proof.js cache markers move to 0.8.9.
+
+sitescribe-add-data.js
+- MODULE_VERSION moves to v0.8.9.
+
+NOT CHANGED
+-----------
+No change to the capped three-level model, B05 row/pill behaviour, the closed-record recovery
+footer added in v0.8.8, deletion confirmation, drag rules, reports, Excel output, Dropbox
+authentication or naming, the protected import choices, MDS billing metadata, or the parser.
+No API key, token, or credential is introduced. No automatic status change, email, or date
+change is introduced.
+
+DEPLOY SET
+----------
+app.js, dropbox-sync-proof.js, exceljs.min.js, index.html, sitescribe-parser-core.js,
+sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, styles.css

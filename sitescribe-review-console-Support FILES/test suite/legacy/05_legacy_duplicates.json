@@ -1,0 +1,39 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:20:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Duplicate suppression test."
+  },
+  "dailySummary": "The same source text appears in multiple legacy arrays and should display once only.",
+  "events": [],
+  "followups": [
+    {
+      "task": "Follow up with TL Mechanical about removing lumber from the south entrance.",
+      "status": "open",
+      "sourceText": "TL Mechanical lumber at south entrance needs cleanup reminder."
+    }
+  ],
+  "emails": [
+    {
+      "subject": "South Entrance Cleanup",
+      "body": "Please remove the lumber from the south entrance.",
+      "status": "draft",
+      "sourceText": "TL Mechanical lumber at south entrance needs cleanup reminder."
+    }
+  ],
+  "appointments": [],
+  "todos": [
+    {
+      "task": "Send cleanup reminder to TL Mechanical.",
+      "status": "open",
+      "sourceText": "TL Mechanical lumber at south entrance needs cleanup reminder."
+    }
+  ],
+  "safetyIssues": [],
+  "clarificationRequired": [],
+  "missingInfo": []
+}

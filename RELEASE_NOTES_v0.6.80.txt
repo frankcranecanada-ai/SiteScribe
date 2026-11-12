@@ -1,0 +1,29 @@
+SiteScribe Review Console v0.6.80
+Phase 2 — Site Communication Setup
+
+New
+- Adds a site-specific Communication Setup panel.
+- Supports separate Internal Departments and External Companies / Subtrades.
+- Each group supports stable ID, aliases, keywords, allowed routing intents,
+  default contact, active state, and nested contacts.
+- Contacts support name, role, email, phone, aliases, stable ID, and active state.
+- Provides an explicit Import Existing Contacts Into This Site action for the
+  legacy deployment contacts file. Nothing is copied automatically.
+- Validates unsafe configuration such as unnamed groups/contacts, duplicate group
+  aliases, missing default contacts, inactive/email-less defaults, and malformed
+  email addresses.
+- Seeds the approved intent catalogue only for the setup UI when the site has no
+  custom intent catalogue yet; the configuration remains embedded in that site.
+
+Preserved / not changed
+- No automatic send, notification, routing, status change, follow-up, or closure.
+- No parser recommendation changes and no manual-record intent control yet.
+- No activity-log viewer or draft-creation workflow yet.
+- Protected import choice, Saved Sites, reports, existing email proof, Dropbox,
+  browser save, mobile record entry, and flat source-package behavior are unchanged.
+
+Validation performed
+- JavaScript syntax checks passed.
+- v0.6.80 schema, validation, legacy import, intent preservation, and append-safety
+  regression tests passed.
+- Prior v0.6.79 foundation regression test passed unchanged.

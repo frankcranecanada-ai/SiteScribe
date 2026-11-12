@@ -1,0 +1,31 @@
+SiteScribe Review Console v0.6.79
+Communication Routing Foundation — Phase 1
+
+Built from the supplied v0.6.78 baseline.
+
+Included changes
+- Each site package now normalizes its own communicationConfig and emailActivityLog.
+- New packages initialize with empty site-specific configuration and activity-log containers.
+- Primary and secondary records preserve intent, intentSource, intentConfidence, and directedTo values when present.
+- Exports, browser saves, saved-site records, and the existing Dropbox export bridge carry these new fields through the normal package path.
+- Append and Saved-Sites merge preserve the receiving site's communicationConfig. Incoming configuration is never silently copied over it.
+- Activity-log entries append safely. Exact duplicates are skipped; conflicting log IDs are preserved with a new ID and conflict metadata rather than overwritten.
+- Existing parsing, explicit email-draft proof, manual record entry, reports, Dropbox actions, sorting, deliverables, and mobile layouts are unchanged.
+
+Not included yet
+- Communication Setup screen and migration/import control for sitescribe_contacts.json.
+- Intent controls for manual primary and secondary creation.
+- Parser intent/recommendation output, email selection checkboxes, draft generation from routing, and activity-log UI/report.
+
+Safety boundary
+- No automatic email, notification, routing action, status change, or record closure is performed by this release.
+
+Regression checks completed
+- JavaScript syntax checks for app.js and all supplied modules.
+- Legacy-package normalization creates communicationConfig and emailActivityLog.
+- Embedded contacts and activity log survive normalization.
+- Primary and secondary intent normalization is preserved.
+- Append does not overwrite the receiving site's configuration and preserves an activity-log ID collision.
+
+Known package note
+- This flat source package contains the same supplied v0.6.78 source set. index.html continues to reference exceljs.min.js and sitescribe-hours-excel.js, which were not included in the supplied attachments and are unchanged by v0.6.79.

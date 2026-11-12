@@ -1,0 +1,12 @@
+SiteScribe Review Console v0.7.11 — Parse Email Review and Communication Reporting
+
+Email route completion:
+- A selected routing recommendation still remains unchecked until the user selects it.
+- After accepted parsed records are appended, SiteScribe opens the first selected email draft directly in the existing editable Email Action screen.
+- The user can review/edit recipient, CC, subject, and message before choosing OPEN IN EMAIL APP.
+- SiteScribe still never sends email. Draft creation/opening and user-marked-sent events remain embedded in that site's Email Activity log.
+
+Reporting:
+- Adds Communication Activity Report to Reports.
+- It reports the active site's saved email draft history for the selected date range: subject, action, status, recipient snapshot, intent, and source excerpt.
+- The normal report category/status filters are hidden for this log-only report; all existing Daily Site, Open Items, Hours, MDS Billing, print, copy, and Excel behaviour is preserved.

@@ -1,0 +1,132 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "not stated",
+  "shiftDate": "not stated",
+  "processedAt": "2026-06-12T00:00:00-04:00",
+  "source": {
+    "captureMethod": "plain text",
+    "rawText": "2 PM – noticed a pile of wood near the south entrance, Email TL Mechanical to remove it\n3 PM – call Associate Air and set up a meeting for the Crane next week\n3:15 PM – remind roofers about the hoist plan for the Crane"
+  },
+  "dailySummary": "A pile of wood was observed near the south entrance and an email task was created for TL Mechanical to remove it. Additional crane-related action items were noted: call Associate Air to arrange a meeting next week and remind roofers about the crane hoist plan.",
+  "events": [
+    {
+      "time": "14:00",
+      "category": "Site Issue",
+      "description": "A pile of wood was noticed near the south entrance.",
+      "parties": [],
+      "location": "south entrance",
+      "sourceText": "2 PM – noticed a pile of wood near the south entrance, Email TL Mechanical to remove it",
+      "confidence": "high",
+      "requiresClarification": false
+    }
+  ],
+  "followups": [
+    {
+      "task": "Call Associate Air to set up a meeting for the crane next week.",
+      "responsibleParty": "not stated",
+      "relatedParty": "Associate Air",
+      "dueDate": "not stated",
+      "priority": "medium",
+      "status": "open",
+      "sourceText": "3 PM – call Associate Air and set up a meeting for the Crane next week",
+      "confidence": "medium",
+      "requiresClarification": true
+    },
+    {
+      "task": "Remind roofers about the hoist plan for the crane.",
+      "responsibleParty": "not stated",
+      "relatedParty": "roofers",
+      "dueDate": "not stated",
+      "priority": "medium",
+      "status": "open",
+      "sourceText": "3:15 PM – remind roofers about the hoist plan for the Crane",
+      "confidence": "high",
+      "requiresClarification": false
+    }
+  ],
+  "emails": [
+    {
+      "status": "draft",
+      "actionLabel": "Send email",
+      "recipient": "not stated",
+      "recipientName": "TL Mechanical",
+      "subject": "Wood Pile Near South Entrance",
+      "body": "Please remove the pile of wood near the south entrance.",
+      "reason": "A pile of wood was observed near the south entrance and needs to be removed.",
+      "sourceText": "2 PM – noticed a pile of wood near the south entrance, Email TL Mechanical to remove it",
+      "priority": "medium",
+      "confidence": "high",
+      "requiresClarification": false
+    }
+  ],
+  "appointments": [],
+  "todos": [
+    {
+      "task": "Email TL Mechanical to remove the pile of wood near the south entrance.",
+      "owner": "not stated",
+      "dueDate": "not stated",
+      "priority": "medium",
+      "sourceText": "2 PM – noticed a pile of wood near the south entrance, Email TL Mechanical to remove it",
+      "confidence": "high",
+      "requiresClarification": false
+    },
+    {
+      "task": "Call Associate Air to set up a crane meeting for next week.",
+      "owner": "not stated",
+      "dueDate": "not stated",
+      "priority": "medium",
+      "sourceText": "3 PM – call Associate Air and set up a meeting for the Crane next week",
+      "confidence": "medium",
+      "requiresClarification": true
+    },
+    {
+      "task": "Remind roofers about the crane hoist plan.",
+      "owner": "not stated",
+      "dueDate": "not stated",
+      "priority": "medium",
+      "sourceText": "3:15 PM – remind roofers about the hoist plan for the Crane",
+      "confidence": "high",
+      "requiresClarification": false
+    }
+  ],
+  "safetyIssues": [
+    {
+      "issue": "Pile of wood near the south entrance.",
+      "contractor": "TL Mechanical",
+      "location": "south entrance",
+      "correctionGiven": "Email TL Mechanical to remove it.",
+      "status": "open",
+      "escalationRequired": false,
+      "sourceText": "2 PM – noticed a pile of wood near the south entrance, Email TL Mechanical to remove it",
+      "confidence": "medium",
+      "requiresClarification": false
+    }
+  ],
+  "clarificationRequired": [
+    {
+      "sourceText": "3 PM – call Associate Air and set up a meeting for the Crane next week",
+      "question": "What exact date and time should the crane meeting with Associate Air be scheduled for, and what is the meeting purpose?",
+      "reason": "The note says 'next week' but does not provide a specific date, time, or meeting details.",
+      "probableInterpretation": "A meeting needs to be arranged with Associate Air regarding crane work next week.",
+      "confidence": "medium"
+    },
+    {
+      "sourceText": "3:15 PM – remind roofers about the hoist plan for the Crane",
+      "question": "Which roofing company or contact should receive the hoist plan reminder?",
+      "reason": "The note identifies 'roofers' but does not state a company name, contact person, email, or phone number.",
+      "probableInterpretation": "The roofing contractor needs a reminder about the crane hoist plan.",
+      "confidence": "medium"
+    }
+  ],
+  "missingInfo": [
+    "Site name not stated.",
+    "Shift date not stated.",
+    "Supervisor not stated.",
+    "Email address for TL Mechanical not stated.",
+    "Responsible owner for tasks not stated.",
+    "Exact date and time for the Associate Air crane meeting not stated.",
+    "Specific roofing company/contact not stated.",
+    "Exact crane scope or hoist plan details not stated."
+  ]
+}

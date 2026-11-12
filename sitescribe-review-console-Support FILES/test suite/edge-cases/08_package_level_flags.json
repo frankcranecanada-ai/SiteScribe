@@ -1,0 +1,34 @@
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "not stated",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:35:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Package-level flag test."
+  },
+  "dailySummary": "Unlinked missing information should appear as package-level flags, not main records.",
+  "events": [
+    {
+      "description": "Morning site walk completed.",
+      "sourceText": "Morning site walk completed."
+    }
+  ],
+  "followups": [],
+  "emails": [],
+  "appointments": [],
+  "todos": [],
+  "safetyIssues": [],
+  "clarificationRequired": [
+    {
+      "question": "Which site is this log for?",
+      "reason": "The site name is not stated in the raw note.",
+      "sourceText": "site name not stated"
+    }
+  ],
+  "missingInfo": [
+    "Supervisor name not stated.",
+    "Exact site address not stated."
+  ]
+}

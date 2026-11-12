@@ -1,0 +1,53 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:05:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Native secondary item test."
+  },
+  "dailySummary": "One main record with multiple secondary updates for selection and edit testing.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4.7",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_secondary_test",
+      "category": "safety",
+      "description": "South entrance was partially blocked by stored lumber.",
+      "status": "open",
+      "createdAt": "2026-06-14T09:25:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "safety, South entrance was partially blocked by stored lumber.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_secondary_open_1",
+          "text": "Verbal correction given to TL Mechanical foreman.",
+          "status": "open",
+          "createdAt": "2026-06-14T09:30:00-04:00",
+          "updatedAt": "2026-06-14T09:30:00-04:00"
+        },
+        {
+          "id": "com_secondary_closed_1",
+          "text": "Photo taken for site record.",
+          "status": "closed",
+          "createdAt": "2026-06-14T09:35:00-04:00",
+          "updatedAt": "2026-06-14T09:40:00-04:00"
+        },
+        {
+          "id": "com_secondary_open_2",
+          "text": "Recheck entrance at end of shift.",
+          "status": "open",
+          "createdAt": "2026-06-14T10:00:00-04:00",
+          "updatedAt": "2026-06-14T15:45:00-04:00"
+        }
+      ]
+    }
+  ]
+}

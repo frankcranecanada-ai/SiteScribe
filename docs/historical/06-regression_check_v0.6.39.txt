@@ -1,0 +1,35 @@
+SiteScribe Review Console v0.6.39 release-candidate regression check
+
+Scope:
+- Stage 7 release-candidate audit and packaging pass only.
+- No feature additions.
+- No JavaScript behaviour changes beyond version/display/cache metadata.
+- No CSS cleanup beyond the tested v0.6.38 CSS cleanup.
+
+Static validation completed:
+- node --check app.js passed.
+- JavaScript function declarations are unique; duplicate count is zero.
+- All app.js cached DOM IDs are present in index.html.
+- Protected JSON import IDs preserved: jsonFile, dropZone, statusLine.
+- Protected storage/export IDs preserved: saveLocalButton, exportButton, emailJsonButton, localArchive.
+- Reports IDs preserved.
+- CONFIG IDs preserved: configPanel, closeConfigButton, configFields, applyConfigButton, restoreConfigDefaultsButton, saveConfigToSiteButton.
+- B-box CONFIG entry buttons preserved for B01, B02, B04, and B05.
+- Removed controls remain absent: sampleButton, clearLocalArchiveButton, configButton, saveActiveMemoryNameButton.
+- CSS brace integrity check passed.
+- Version consistency verified across index.html, app.js, README.md, regression_check.txt, and regression_check_v0.6.39.txt.
+- Package contents verified.
+
+Manual browser testing still recommended:
+- iPhone file-picker import.
+- Drag/drop JSON import.
+- IndexedDB Saved Sites persistence.
+- Saved Sites open, reorder, merge, and single-site delete.
+- Manual/mobile entry rhythm.
+- Secondary update Start/End/Hrs persistence.
+- Reports for multiple saved sites and report print/PDF output.
+- CONFIG template edit/apply/save.
+- Save/export/email JSON.
+
+Release-candidate note:
+- v0.6.39 should be treated as the stabilized local I/O/maintenance baseline unless manual testing finds a regression.

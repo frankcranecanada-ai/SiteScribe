@@ -1,0 +1,106 @@
+SiteScribe Review Console v0.8.9 - Verification
+Date: 2026-08-26
+Status: CANDIDATE - NOT ACCEPTED. User testing still required.
+
+AUTOMATED
+---------
+node --check passed for:
+  app.js, dropbox-sync-proof.js, sitescribe-add-data.js, sitescribe-hours-excel.js,
+  sitescribe-mds-excel.js, sitescribe-parser-core.js, regression_check_v0.8.9.js
+Focused regression: node ./regression_check_v0.8.9.js -> 32 checks PASS, 0 FAIL, exit 0.
+Duplicate first-party function declarations in app.js: none.
+Duplicate DOM ids across index.html and app.js template markup: none.
+CSS brace balance: 974 opening / 974 closing.
+Version and cache markers agree at v0.8.9 across app.js, index.html and sitescribe-add-data.js.
+
+THE REGRESSION ACTUALLY CATCHES THE DEFECT
+------------------------------------------
+regression_check_v0.8.9.js was run unchanged against a scratch copy of the v0.8.8 sources.
+Result: exit 1 with 16 failures, confirming the new checks are not vacuous:
+  FAIL version and changed cache markers are v0.8.9
+  FAIL v0.8.9 partial End entry preserves the stored end time instead of deleting it
+  FAIL v0.8.9 partial End entry preserves stored direct hours
+  FAIL v0.8.9 a deliberately cleared End box still clears the stored end time
+  FAIL v0.8.9 partial Start entry preserves the stored start time
+  FAIL v0.8.9 inputEntryIsPartial separates a half-entered box from an empty one
+  FAIL v0.8.9 editors carry the partial-entry flags through to the model write
+  FAIL v0.8.9 a partly entered time does not register as an editor difference
+  FAIL v0.8.9 an incomplete time box is marked and explained in both editors
+  FAIL v0.8.9 closing a record commits pending editor edits before the status changes
+  FAIL v0.8.9 partial Work Date entry preserves the stored work date
+  FAIL v0.8.9 a deliberately cleared Work Date still clears the stored value
+  FAIL v0.8.9 editors carry the work-date partial flag and applyCommentTimeFields honours it
+  FAIL v0.8.9 a partly entered deliverable date holds the stored deliverable instead of clearing it
+  FAIL v0.8.9 a partly entered date does not register as an editor difference
+  FAIL v0.8.9 date boxes route to the incomplete-entry warning
+  NOTE live-code harness unavailable: inputEntryIsPartial not found in app.js
+(The two "deliberately cleared" checks fail on v0.8.8 only because the harness cannot build there,
+not because v0.8.8 gets that case wrong. They are guarded on the harness being available.)
+The v0.8.8 source folder was not modified; the run used copies in a scratch directory.
+
+The regression harness extracts the real shipped functions from app.js (inputEntryIsPartial,
+applyCommentTimeFields and their dependencies plus EXPENSE_TYPES) and executes them, so the
+behavioural checks exercise shipped code rather than only matching source text. If those
+functions are ever removed the harness reports a NOTE and clean FAILs instead of crashing.
+
+BROWSER TEST - isolated localhost session, v0.8.9 served from the candidate folder
+---------------------------------------------------------------------------------
+Page loaded as "SiteScribe Review Console v0.8.9", version pill v0.8.9, APP_VERSION v0.8.9.
+No console errors at any point in the session.
+
+1. Created a primary, opened it, added a secondary with start 15:00 and end 16:00.
+   Stored: startTime 15:00, endTime 16:00, totalHours 1.
+2. Partial end entry (control reporting badInput with an empty value):
+   endTime preserved at 16:00, startTime 15:00, totalHours 1.
+   The End box carried .time-input-incomplete and the note read
+   "End time is incomplete - enter hours and minutes. Any time already saved is kept until a
+   complete time is entered."
+3. Genuine clear (empty value, no badInput): endTime removed as before, startTime untouched,
+   note hidden. Deliberate clearing still works.
+4. Close commit: typed a complete 17:00 into the End box, fired input only so no change or
+   focusout could flush it, then closed with a bare click that produces no focus shift.
+   Result: endTime 17:00, totalHours recalculated to 2, status closed.
+   The same sequence run against v0.8.8 reverted the end time to 16:00 with totalHours 1,
+   confirming the pending edit was previously lost and is now saved.
+5. Reopen: status open, endTime 17:00, startTime 15:00, totalHours 2, and the editor
+   repopulated with 15:00 / 17:00 / 2.
+6. v0.8.8 closed-record recovery footer still renders Reopen and Delete for a closed secondary.
+7. Inline activity composer still present, carries its own note element, and shows the same
+   partial-entry marking and note.
+8. DATE FIELDS (added in the same candidate after the time fix was reviewed). On a clean page:
+   created a secondary carrying start 15:00, end 16:00 and work date 2026-09-19; reopened it and
+   confirmed the editor loaded all three; then made ONLY the Work Date box partial.
+   Result: startTime 15:00, endTime 16:00, workDate 2026-09-19 and totalHours 1 all preserved,
+   with the note "Work date is incomplete - finish the entry. Anything already saved is kept
+   until a complete value is entered."
+   A genuinely cleared Work Date still removes the stored value and leaves the times untouched.
+   With two boxes partial at once the note names both: "End time and Work date are incomplete".
+
+NOTE ON AN EARLIER TEST RUN
+---------------------------
+An intermediate test appeared to show startTime and endTime being deleted. That run was invalid:
+the harness had mutated validity across several commits and re-renders until the editor was blank,
+which is not a state the interface can reach. clear-comment-selection sets selectedCommentId to
+null before renderDetail (app.js:4527-4534), so a blank editor cannot commit over a selected
+record. The clean isolated re-run passed. Recorded here so the observation is not lost:
+the all-empty bail in commitSelectedCommentEditorChanges (app.js:5043) is weakened by billingType
+defaulting to "regular", but it is unreachable for the reason above and was NOT changed.
+
+KNOWN LIMIT OF THIS VERIFICATION
+--------------------------------
+The Browser pane could not deliver real OS-level keystrokes in this session, so the segment-by-
+segment typing that produces a genuinely partial time control was not reproduced by typing.
+Steps 2 and 3 drove the real app code path with the browser's own validity signal supplied
+directly. The dependence of the fix on validity.badInput being set by Chrome for a partly filled
+time control is therefore taken from the HTML constraint-validation behaviour and has NOT been
+confirmed by hand on this machine.
+
+USER TEST STILL REQUIRED
+------------------------
+- In the real browser, type only the hour into the End box and confirm the red marking and the
+  incomplete note appear, and that a previously saved end time is not lost.
+- Enter a complete start and end and confirm Hrs still calculates as before.
+- Deliberately clear an end time and confirm it is still removed.
+- Close and reopen a secondary and an activity and confirm times survive.
+- Confirm closed primary / closed parent secondary still block descendant recovery.
+- Desktop and iPhone.

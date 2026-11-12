@@ -1,0 +1,2441 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "SiteScribe Stress Test Site",
+  "shiftDate": "2026-06-17",
+  "processedAt": "2026-06-17T18:00:00-04:00",
+  "source": {
+    "captureMethod": "synthetic test generator",
+    "rawText": "Synthetic SiteScribe stress-test JSON with 50 primary records and random secondary/update records."
+  },
+  "dailySummary": "Synthetic stress-test package with 50 primary records across random categories. At least 10 primary records contain 10 or more secondary/update records.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.5.42",
+    "model": "two-level-records-with-record-flags",
+    "workingMemorySort": "date_desc",
+    "collapsedRecordIds": []
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_20260617_001",
+      "category": "communication",
+      "description": "Communication required with ABC Mechanical about roof work at the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-17T08:11:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Communication. Communication required with ABC Mechanical about roof work at the east gate.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_001_01",
+          "text": "Confirm current status and document the response. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:12:00-04:00",
+          "updatedAt": "2026-06-17T08:12:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_02",
+          "text": "Check whether the item has been corrected on site. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:13:00-04:00",
+          "updatedAt": "2026-06-17T08:13:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:14:00-04:00",
+          "updatedAt": "2026-06-17T08:14:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_04",
+          "text": "Request confirmation before the end of the shift. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:15:00-04:00",
+          "updatedAt": "2026-06-17T08:15:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:16:00-04:00",
+          "updatedAt": "2026-06-17T08:16:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_06",
+          "text": "Record any change in responsibility or timing. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:17:00-04:00",
+          "updatedAt": "2026-06-17T08:17:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:18:00-04:00",
+          "updatedAt": "2026-06-17T08:18:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_08",
+          "text": "Keep this item open until the condition is verified. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:19:00-04:00",
+          "updatedAt": "2026-06-17T08:19:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_09",
+          "text": "Attach supporting details if they become available. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:20:00-04:00",
+          "updatedAt": "2026-06-17T08:20:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_10",
+          "text": "Review during the next site walk. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:21:00-04:00",
+          "updatedAt": "2026-06-17T08:21:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        },
+        {
+          "id": "com_20260617_001_11",
+          "text": "Confirm current status and document the response. Related record: Communication required with ABC Mechanical about roof work at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:22:00-04:00",
+          "updatedAt": "2026-06-17T08:22:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about roof work at the east gate."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_002",
+      "category": "safety",
+      "description": "Safety concern noted involving housekeeping at the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-17T08:22:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving housekeeping at the east gate.",
+      "flags": [
+        {
+          "id": "flag_20260617_002_a",
+          "type": "incomplete",
+          "text": "Missing exact responsible person for Northline Roofing.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate.",
+          "createdAt": "2026-06-17T08:22:00-04:00",
+          "updatedAt": "2026-06-17T08:22:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_002_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:23:00-04:00",
+          "updatedAt": "2026-06-17T08:23:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:24:00-04:00",
+          "updatedAt": "2026-06-17T08:24:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:25:00-04:00",
+          "updatedAt": "2026-06-17T08:25:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_04",
+          "text": "Request confirmation before the end of the shift. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:26:00-04:00",
+          "updatedAt": "2026-06-17T08:26:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:27:00-04:00",
+          "updatedAt": "2026-06-17T08:27:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_06",
+          "text": "Record any change in responsibility or timing. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:28:00-04:00",
+          "updatedAt": "2026-06-17T08:28:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:29:00-04:00",
+          "updatedAt": "2026-06-17T08:29:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_08",
+          "text": "Keep this item open until the condition is verified. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:30:00-04:00",
+          "updatedAt": "2026-06-17T08:30:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_09",
+          "text": "Attach supporting details if they become available. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:31:00-04:00",
+          "updatedAt": "2026-06-17T08:31:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_10",
+          "text": "Review during the next site walk. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:32:00-04:00",
+          "updatedAt": "2026-06-17T08:32:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_11",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:33:00-04:00",
+          "updatedAt": "2026-06-17T08:33:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        },
+        {
+          "id": "com_20260617_002_12",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving housekeeping at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:34:00-04:00",
+          "updatedAt": "2026-06-17T08:34:00-04:00",
+          "sourceText": "Safety concern noted involving housekeeping at the east gate."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_003",
+      "category": "safety",
+      "description": "Safety concern noted involving delivery access at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T08:33:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving delivery access at the main access road.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_003_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:34:00-04:00",
+          "updatedAt": "2026-06-17T08:34:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:35:00-04:00",
+          "updatedAt": "2026-06-17T08:35:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:36:00-04:00",
+          "updatedAt": "2026-06-17T08:36:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_04",
+          "text": "Request confirmation before the end of the shift. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:37:00-04:00",
+          "updatedAt": "2026-06-17T08:37:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:38:00-04:00",
+          "updatedAt": "2026-06-17T08:38:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_06",
+          "text": "Record any change in responsibility or timing. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:39:00-04:00",
+          "updatedAt": "2026-06-17T08:39:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:40:00-04:00",
+          "updatedAt": "2026-06-17T08:40:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_08",
+          "text": "Keep this item open until the condition is verified. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:41:00-04:00",
+          "updatedAt": "2026-06-17T08:41:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_09",
+          "text": "Attach supporting details if they become available. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:42:00-04:00",
+          "updatedAt": "2026-06-17T08:42:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_003_10",
+          "text": "Review during the next site walk. Related record: Safety concern noted involving delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:43:00-04:00",
+          "updatedAt": "2026-06-17T08:43:00-04:00",
+          "sourceText": "Safety concern noted involving delivery access at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_004",
+      "category": "communication",
+      "description": "Communication required with ABC Mechanical about housekeeping at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T08:44:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Communication. Communication required with ABC Mechanical about housekeeping at the main access road.",
+      "flags": [
+        {
+          "id": "flag_20260617_004_a",
+          "type": "clarify",
+          "text": "Clarify whether housekeeping is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "createdAt": "2026-06-17T08:44:00-04:00",
+          "updatedAt": "2026-06-17T08:44:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_004_01",
+          "text": "Confirm current status and document the response. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:45:00-04:00",
+          "updatedAt": "2026-06-17T08:45:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_02",
+          "text": "Check whether the item has been corrected on site. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:46:00-04:00",
+          "updatedAt": "2026-06-17T08:46:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:47:00-04:00",
+          "updatedAt": "2026-06-17T08:47:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_04",
+          "text": "Request confirmation before the end of the shift. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:48:00-04:00",
+          "updatedAt": "2026-06-17T08:48:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:49:00-04:00",
+          "updatedAt": "2026-06-17T08:49:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_06",
+          "text": "Record any change in responsibility or timing. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:50:00-04:00",
+          "updatedAt": "2026-06-17T08:50:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:51:00-04:00",
+          "updatedAt": "2026-06-17T08:51:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_08",
+          "text": "Keep this item open until the condition is verified. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:52:00-04:00",
+          "updatedAt": "2026-06-17T08:52:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_09",
+          "text": "Attach supporting details if they become available. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:53:00-04:00",
+          "updatedAt": "2026-06-17T08:53:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_10",
+          "text": "Review during the next site walk. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "closed",
+          "createdAt": "2026-06-17T08:54:00-04:00",
+          "updatedAt": "2026-06-17T08:54:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        },
+        {
+          "id": "com_20260617_004_11",
+          "text": "Confirm current status and document the response. Related record: Communication required with ABC Mechanical about housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:55:00-04:00",
+          "updatedAt": "2026-06-17T08:55:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about housekeeping at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_005",
+      "category": "safety",
+      "description": "Safety concern noted involving equipment coordination at the roof access hatch.",
+      "status": "open",
+      "createdAt": "2026-06-17T08:55:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving equipment coordination at the roof access hatch.",
+      "flags": [
+        {
+          "id": "flag_20260617_005_a",
+          "type": "incomplete",
+          "text": "Missing exact responsible person for Cedar Concrete.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch.",
+          "createdAt": "2026-06-17T08:55:00-04:00",
+          "updatedAt": "2026-06-17T08:55:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_005_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:56:00-04:00",
+          "updatedAt": "2026-06-17T08:56:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:57:00-04:00",
+          "updatedAt": "2026-06-17T08:57:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:58:00-04:00",
+          "updatedAt": "2026-06-17T08:58:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_04",
+          "text": "Request confirmation before the end of the shift. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T08:59:00-04:00",
+          "updatedAt": "2026-06-17T08:59:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:00:00-04:00",
+          "updatedAt": "2026-06-17T09:00:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_06",
+          "text": "Record any change in responsibility or timing. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:01:00-04:00",
+          "updatedAt": "2026-06-17T09:01:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:02:00-04:00",
+          "updatedAt": "2026-06-17T09:02:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_08",
+          "text": "Keep this item open until the condition is verified. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:03:00-04:00",
+          "updatedAt": "2026-06-17T09:03:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_09",
+          "text": "Attach supporting details if they become available. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:04:00-04:00",
+          "updatedAt": "2026-06-17T09:04:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_10",
+          "text": "Review during the next site walk. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:05:00-04:00",
+          "updatedAt": "2026-06-17T09:05:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_11",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:06:00-04:00",
+          "updatedAt": "2026-06-17T09:06:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_12",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:07:00-04:00",
+          "updatedAt": "2026-06-17T09:07:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_005_13",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:08:00-04:00",
+          "updatedAt": "2026-06-17T09:08:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_006",
+      "category": "scheduled",
+      "description": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+      "status": "open",
+      "createdAt": "2026-06-17T09:06:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Scheduled. Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_006_01",
+          "text": "Confirm current status and document the response. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:07:00-04:00",
+          "updatedAt": "2026-06-17T09:07:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_02",
+          "text": "Check whether the item has been corrected on site. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:08:00-04:00",
+          "updatedAt": "2026-06-17T09:08:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:09:00-04:00",
+          "updatedAt": "2026-06-17T09:09:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_04",
+          "text": "Request confirmation before the end of the shift. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:10:00-04:00",
+          "updatedAt": "2026-06-17T09:10:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:11:00-04:00",
+          "updatedAt": "2026-06-17T09:11:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_06",
+          "text": "Record any change in responsibility or timing. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:12:00-04:00",
+          "updatedAt": "2026-06-17T09:12:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:13:00-04:00",
+          "updatedAt": "2026-06-17T09:13:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_08",
+          "text": "Keep this item open until the condition is verified. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:14:00-04:00",
+          "updatedAt": "2026-06-17T09:14:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_09",
+          "text": "Attach supporting details if they become available. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:15:00-04:00",
+          "updatedAt": "2026-06-17T09:15:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_10",
+          "text": "Review during the next site walk. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:16:00-04:00",
+          "updatedAt": "2026-06-17T09:16:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_11",
+          "text": "Confirm current status and document the response. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:17:00-04:00",
+          "updatedAt": "2026-06-17T09:17:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_12",
+          "text": "Check whether the item has been corrected on site. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:18:00-04:00",
+          "updatedAt": "2026-06-17T09:18:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        },
+        {
+          "id": "com_20260617_006_13",
+          "text": "Add a note after speaking with the responsible party. Related record: Scheduled coordination required for inspection preparation with Summit Drywall at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:19:00-04:00",
+          "updatedAt": "2026-06-17T09:19:00-04:00",
+          "sourceText": "Scheduled coordination required for inspection preparation with Summit Drywall at the north stair."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_007",
+      "category": "safety",
+      "description": "Safety concern noted involving material storage at the parking laydown zone.",
+      "status": "open",
+      "createdAt": "2026-06-17T09:17:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving material storage at the parking laydown zone.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_007_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:18:00-04:00",
+          "updatedAt": "2026-06-17T09:18:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:19:00-04:00",
+          "updatedAt": "2026-06-17T09:19:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:20:00-04:00",
+          "updatedAt": "2026-06-17T09:20:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_04",
+          "text": "Request confirmation before the end of the shift. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:21:00-04:00",
+          "updatedAt": "2026-06-17T09:21:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:22:00-04:00",
+          "updatedAt": "2026-06-17T09:22:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_06",
+          "text": "Record any change in responsibility or timing. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:23:00-04:00",
+          "updatedAt": "2026-06-17T09:23:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:24:00-04:00",
+          "updatedAt": "2026-06-17T09:24:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_08",
+          "text": "Keep this item open until the condition is verified. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:25:00-04:00",
+          "updatedAt": "2026-06-17T09:25:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_09",
+          "text": "Attach supporting details if they become available. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:26:00-04:00",
+          "updatedAt": "2026-06-17T09:26:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_10",
+          "text": "Review during the next site walk. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:27:00-04:00",
+          "updatedAt": "2026-06-17T09:27:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_11",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:28:00-04:00",
+          "updatedAt": "2026-06-17T09:28:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        },
+        {
+          "id": "com_20260617_007_12",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving material storage at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:29:00-04:00",
+          "updatedAt": "2026-06-17T09:29:00-04:00",
+          "sourceText": "Safety concern noted involving material storage at the parking laydown zone."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_008",
+      "category": "action",
+      "description": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+      "status": "open",
+      "createdAt": "2026-06-17T09:28:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_008_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:29:00-04:00",
+          "updatedAt": "2026-06-17T09:29:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_02",
+          "text": "Check whether the item has been corrected on site. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:30:00-04:00",
+          "updatedAt": "2026-06-17T09:30:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:31:00-04:00",
+          "updatedAt": "2026-06-17T09:31:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_04",
+          "text": "Request confirmation before the end of the shift. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:32:00-04:00",
+          "updatedAt": "2026-06-17T09:32:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:33:00-04:00",
+          "updatedAt": "2026-06-17T09:33:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_06",
+          "text": "Record any change in responsibility or timing. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:34:00-04:00",
+          "updatedAt": "2026-06-17T09:34:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:35:00-04:00",
+          "updatedAt": "2026-06-17T09:35:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_08",
+          "text": "Keep this item open until the condition is verified. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:36:00-04:00",
+          "updatedAt": "2026-06-17T09:36:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_09",
+          "text": "Attach supporting details if they become available. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:37:00-04:00",
+          "updatedAt": "2026-06-17T09:37:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_008_10",
+          "text": "Review during the next site walk. Related record: Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:38:00-04:00",
+          "updatedAt": "2026-06-17T09:38:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for safety follow-up at the roof access hatch."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_009",
+      "category": "document",
+      "description": "Required document pending from TP Crawford for inspection preparation at the west loading area.",
+      "status": "open",
+      "createdAt": "2026-06-17T09:39:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from TP Crawford for inspection preparation at the west loading area.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_009_01",
+          "text": "Confirm current status and document the response. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:40:00-04:00",
+          "updatedAt": "2026-06-17T09:40:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_02",
+          "text": "Check whether the item has been corrected on site. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:41:00-04:00",
+          "updatedAt": "2026-06-17T09:41:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:42:00-04:00",
+          "updatedAt": "2026-06-17T09:42:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_04",
+          "text": "Request confirmation before the end of the shift. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:43:00-04:00",
+          "updatedAt": "2026-06-17T09:43:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:44:00-04:00",
+          "updatedAt": "2026-06-17T09:44:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_06",
+          "text": "Record any change in responsibility or timing. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:45:00-04:00",
+          "updatedAt": "2026-06-17T09:45:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:46:00-04:00",
+          "updatedAt": "2026-06-17T09:46:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_08",
+          "text": "Keep this item open until the condition is verified. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:47:00-04:00",
+          "updatedAt": "2026-06-17T09:47:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_09",
+          "text": "Attach supporting details if they become available. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:48:00-04:00",
+          "updatedAt": "2026-06-17T09:48:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_10",
+          "text": "Review during the next site walk. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:49:00-04:00",
+          "updatedAt": "2026-06-17T09:49:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_11",
+          "text": "Confirm current status and document the response. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:50:00-04:00",
+          "updatedAt": "2026-06-17T09:50:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        },
+        {
+          "id": "com_20260617_009_12",
+          "text": "Check whether the item has been corrected on site. Related record: Required document pending from TP Crawford for inspection preparation at the west loading area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:51:00-04:00",
+          "updatedAt": "2026-06-17T09:51:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the west loading area."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_010",
+      "category": "action",
+      "description": "Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+      "status": "open",
+      "createdAt": "2026-06-17T09:50:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_010_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:51:00-04:00",
+          "updatedAt": "2026-06-17T09:51:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_02",
+          "text": "Check whether the item has been corrected on site. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:52:00-04:00",
+          "updatedAt": "2026-06-17T09:52:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:53:00-04:00",
+          "updatedAt": "2026-06-17T09:53:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_04",
+          "text": "Request confirmation before the end of the shift. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:54:00-04:00",
+          "updatedAt": "2026-06-17T09:54:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:55:00-04:00",
+          "updatedAt": "2026-06-17T09:55:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_06",
+          "text": "Record any change in responsibility or timing. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:56:00-04:00",
+          "updatedAt": "2026-06-17T09:56:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_07",
+          "text": "Update the site team if this affects access or sequencing. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:57:00-04:00",
+          "updatedAt": "2026-06-17T09:57:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_08",
+          "text": "Keep this item open until the condition is verified. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "closed",
+          "createdAt": "2026-06-17T09:58:00-04:00",
+          "updatedAt": "2026-06-17T09:58:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_09",
+          "text": "Attach supporting details if they become available. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T09:59:00-04:00",
+          "updatedAt": "2026-06-17T09:59:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_10",
+          "text": "Review during the next site walk. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T10:00:00-04:00",
+          "updatedAt": "2026-06-17T10:00:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_11",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:01:00-04:00",
+          "updatedAt": "2026-06-17T10:01:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_12",
+          "text": "Check whether the item has been corrected on site. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T10:02:00-04:00",
+          "updatedAt": "2026-06-17T10:02:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_13",
+          "text": "Add a note after speaking with the responsible party. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T10:03:00-04:00",
+          "updatedAt": "2026-06-17T10:03:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_010_14",
+          "text": "Request confirmation before the end of the shift. Related record: Arrange follow-through with Northline Roofing for delivery access at the electrical room.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:04:00-04:00",
+          "updatedAt": "2026-06-17T10:04:00-04:00",
+          "sourceText": "Arrange follow-through with Northline Roofing for delivery access at the electrical room."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_011",
+      "category": "action",
+      "description": "Arrange follow-through with TP Crawford for equipment coordination at the parking laydown zone.",
+      "status": "closed",
+      "createdAt": "2026-06-17T10:01:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with TP Crawford for equipment coordination at the parking laydown zone.",
+      "flags": [
+        {
+          "id": "flag_20260617_011_a",
+          "type": "incomplete",
+          "text": "Missing exact responsible person for TP Crawford.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Arrange follow-through with TP Crawford for equipment coordination at the parking laydown zone.",
+          "createdAt": "2026-06-17T10:01:00-04:00",
+          "updatedAt": "2026-06-17T10:01:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_011_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with TP Crawford for equipment coordination at the parking laydown zone.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:02:00-04:00",
+          "updatedAt": "2026-06-17T10:02:00-04:00",
+          "sourceText": "Arrange follow-through with TP Crawford for equipment coordination at the parking laydown zone."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_012",
+      "category": "document",
+      "description": "Required document pending from East Gate Rentals for crane planning at the north stair.",
+      "status": "open",
+      "createdAt": "2026-06-17T10:12:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from East Gate Rentals for crane planning at the north stair.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_013",
+      "category": "document",
+      "description": "Required document pending from TP Crawford for inspection preparation at the south entrance.",
+      "status": "open",
+      "createdAt": "2026-06-17T10:23:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from TP Crawford for inspection preparation at the south entrance.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_013_01",
+          "text": "Confirm current status and document the response. Related record: Required document pending from TP Crawford for inspection preparation at the south entrance.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:24:00-04:00",
+          "updatedAt": "2026-06-17T10:24:00-04:00",
+          "sourceText": "Required document pending from TP Crawford for inspection preparation at the south entrance."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_014",
+      "category": "event",
+      "description": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+      "status": "open",
+      "createdAt": "2026-06-17T10:34:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+      "flags": [
+        {
+          "id": "flag_20260617_014_a",
+          "type": "clarify",
+          "text": "Clarify whether equipment coordination is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+          "createdAt": "2026-06-17T10:34:00-04:00",
+          "updatedAt": "2026-06-17T10:34:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_014_01",
+          "text": "Confirm current status and document the response. Related record: Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:35:00-04:00",
+          "updatedAt": "2026-06-17T10:35:00-04:00",
+          "sourceText": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area."
+        },
+        {
+          "id": "com_20260617_014_02",
+          "text": "Check whether the item has been corrected on site. Related record: Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T10:36:00-04:00",
+          "updatedAt": "2026-06-17T10:36:00-04:00",
+          "sourceText": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area."
+        },
+        {
+          "id": "com_20260617_014_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:37:00-04:00",
+          "updatedAt": "2026-06-17T10:37:00-04:00",
+          "sourceText": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area."
+        },
+        {
+          "id": "com_20260617_014_04",
+          "text": "Request confirmation before the end of the shift. Related record: Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T10:38:00-04:00",
+          "updatedAt": "2026-06-17T10:38:00-04:00",
+          "sourceText": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area."
+        },
+        {
+          "id": "com_20260617_014_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Ottawa Rebar completed a site activity related to equipment coordination at the west loading area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:39:00-04:00",
+          "updatedAt": "2026-06-17T10:39:00-04:00",
+          "sourceText": "Ottawa Rebar completed a site activity related to equipment coordination at the west loading area."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_015",
+      "category": "scheduled",
+      "description": "Scheduled coordination required for housekeeping with East Gate Rentals at the parking laydown zone.",
+      "status": "closed",
+      "createdAt": "2026-06-17T10:45:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Scheduled. Scheduled coordination required for housekeeping with East Gate Rentals at the parking laydown zone.",
+      "flags": [
+        {
+          "id": "flag_20260617_015_b",
+          "type": "incomplete",
+          "text": "Exact time for housekeeping is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Scheduled coordination required for housekeeping with East Gate Rentals at the parking laydown zone.",
+          "createdAt": "2026-06-17T10:45:00-04:00",
+          "updatedAt": "2026-06-17T10:45:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_016",
+      "category": "event",
+      "description": "TP Crawford completed a site activity related to material storage at the north footing area.",
+      "status": "open",
+      "createdAt": "2026-06-17T10:56:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. TP Crawford completed a site activity related to material storage at the north footing area.",
+      "flags": [
+        {
+          "id": "flag_20260617_016_b",
+          "type": "incomplete",
+          "text": "Exact time for material storage is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "TP Crawford completed a site activity related to material storage at the north footing area.",
+          "createdAt": "2026-06-17T10:56:00-04:00",
+          "updatedAt": "2026-06-17T10:56:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_016_01",
+          "text": "Confirm current status and document the response. Related record: TP Crawford completed a site activity related to material storage at the north footing area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T10:57:00-04:00",
+          "updatedAt": "2026-06-17T10:57:00-04:00",
+          "sourceText": "TP Crawford completed a site activity related to material storage at the north footing area."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_017",
+      "category": "communication",
+      "description": "Communication required with Summit Drywall about site access at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T11:07:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Communication. Communication required with Summit Drywall about site access at the main access road.",
+      "flags": [
+        {
+          "id": "flag_20260617_017_a",
+          "type": "clarify",
+          "text": "Clarify whether site access is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Communication required with Summit Drywall about site access at the main access road.",
+          "createdAt": "2026-06-17T11:07:00-04:00",
+          "updatedAt": "2026-06-17T11:07:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_017_01",
+          "text": "Confirm current status and document the response. Related record: Communication required with Summit Drywall about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T11:08:00-04:00",
+          "updatedAt": "2026-06-17T11:08:00-04:00",
+          "sourceText": "Communication required with Summit Drywall about site access at the main access road."
+        },
+        {
+          "id": "com_20260617_017_02",
+          "text": "Check whether the item has been corrected on site. Related record: Communication required with Summit Drywall about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T11:09:00-04:00",
+          "updatedAt": "2026-06-17T11:09:00-04:00",
+          "sourceText": "Communication required with Summit Drywall about site access at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_018",
+      "category": "followup",
+      "description": "Follow up with Capital Crane about material storage at the site trailer.",
+      "status": "closed",
+      "createdAt": "2026-06-17T11:18:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with Capital Crane about material storage at the site trailer.",
+      "flags": [
+        {
+          "id": "flag_20260617_018_a",
+          "type": "incomplete",
+          "text": "Missing exact responsible person for Capital Crane.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Follow up with Capital Crane about material storage at the site trailer.",
+          "createdAt": "2026-06-17T11:18:00-04:00",
+          "updatedAt": "2026-06-17T11:18:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_019",
+      "category": "action",
+      "description": "Arrange follow-through with Cedar Concrete for delivery access at the north stair.",
+      "status": "open",
+      "createdAt": "2026-06-17T11:29:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with Cedar Concrete for delivery access at the north stair.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_019_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with Cedar Concrete for delivery access at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T11:30:00-04:00",
+          "updatedAt": "2026-06-17T11:30:00-04:00",
+          "sourceText": "Arrange follow-through with Cedar Concrete for delivery access at the north stair."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_020",
+      "category": "document",
+      "description": "Required document pending from East Gate Rentals for site access at the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-17T11:40:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from East Gate Rentals for site access at the east gate.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_021",
+      "category": "event",
+      "description": "ABC Mechanical completed a site activity related to housekeeping at the parking laydown zone.",
+      "status": "open",
+      "createdAt": "2026-06-17T11:51:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. ABC Mechanical completed a site activity related to housekeeping at the parking laydown zone.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_021_01",
+          "text": "Confirm current status and document the response. Related record: ABC Mechanical completed a site activity related to housekeeping at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T11:52:00-04:00",
+          "updatedAt": "2026-06-17T11:52:00-04:00",
+          "sourceText": "ABC Mechanical completed a site activity related to housekeeping at the parking laydown zone."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_022",
+      "category": "followup",
+      "description": "Follow up with East Gate Rentals about roof work at the electrical room.",
+      "status": "open",
+      "createdAt": "2026-06-17T12:02:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with East Gate Rentals about roof work at the electrical room.",
+      "flags": [
+        {
+          "id": "flag_20260617_022_a",
+          "type": "clarify",
+          "text": "Clarify whether roof work is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Follow up with East Gate Rentals about roof work at the electrical room.",
+          "createdAt": "2026-06-17T12:02:00-04:00",
+          "updatedAt": "2026-06-17T12:02:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_023",
+      "category": "event",
+      "description": "TL Mechanical completed a site activity related to housekeeping at the site trailer.",
+      "status": "open",
+      "createdAt": "2026-06-17T12:13:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. TL Mechanical completed a site activity related to housekeeping at the site trailer.",
+      "flags": [
+        {
+          "id": "flag_20260617_023_a",
+          "type": "clarify",
+          "text": "Clarify whether housekeeping is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "TL Mechanical completed a site activity related to housekeeping at the site trailer.",
+          "createdAt": "2026-06-17T12:13:00-04:00",
+          "updatedAt": "2026-06-17T12:13:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_023_01",
+          "text": "Confirm current status and document the response. Related record: TL Mechanical completed a site activity related to housekeeping at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T12:14:00-04:00",
+          "updatedAt": "2026-06-17T12:14:00-04:00",
+          "sourceText": "TL Mechanical completed a site activity related to housekeeping at the site trailer."
+        },
+        {
+          "id": "com_20260617_023_02",
+          "text": "Check whether the item has been corrected on site. Related record: TL Mechanical completed a site activity related to housekeeping at the site trailer.",
+          "status": "closed",
+          "createdAt": "2026-06-17T12:15:00-04:00",
+          "updatedAt": "2026-06-17T12:15:00-04:00",
+          "sourceText": "TL Mechanical completed a site activity related to housekeeping at the site trailer."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_024",
+      "category": "event",
+      "description": "ACE Electric completed a site activity related to crane planning at the parking laydown zone.",
+      "status": "open",
+      "createdAt": "2026-06-17T12:24:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. ACE Electric completed a site activity related to crane planning at the parking laydown zone.",
+      "flags": [
+        {
+          "id": "flag_20260617_024_b",
+          "type": "incomplete",
+          "text": "Exact time for crane planning is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "ACE Electric completed a site activity related to crane planning at the parking laydown zone.",
+          "createdAt": "2026-06-17T12:24:00-04:00",
+          "updatedAt": "2026-06-17T12:24:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_024_01",
+          "text": "Confirm current status and document the response. Related record: ACE Electric completed a site activity related to crane planning at the parking laydown zone.",
+          "status": "open",
+          "createdAt": "2026-06-17T12:25:00-04:00",
+          "updatedAt": "2026-06-17T12:25:00-04:00",
+          "sourceText": "ACE Electric completed a site activity related to crane planning at the parking laydown zone."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_025",
+      "category": "document",
+      "description": "Required document pending from TL Mechanical for delivery access at the site trailer.",
+      "status": "open",
+      "createdAt": "2026-06-17T12:35:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from TL Mechanical for delivery access at the site trailer.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_026",
+      "category": "document",
+      "description": "Required document pending from Ottawa Rebar for housekeeping at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T12:46:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from Ottawa Rebar for housekeeping at the main access road.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_026_01",
+          "text": "Confirm current status and document the response. Related record: Required document pending from Ottawa Rebar for housekeeping at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T12:47:00-04:00",
+          "updatedAt": "2026-06-17T12:47:00-04:00",
+          "sourceText": "Required document pending from Ottawa Rebar for housekeeping at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_027",
+      "category": "scheduled",
+      "description": "Scheduled coordination required for document collection with TL Mechanical at the south entrance.",
+      "status": "open",
+      "createdAt": "2026-06-17T12:57:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Scheduled. Scheduled coordination required for document collection with TL Mechanical at the south entrance.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_027_01",
+          "text": "Confirm current status and document the response. Related record: Scheduled coordination required for document collection with TL Mechanical at the south entrance.",
+          "status": "open",
+          "createdAt": "2026-06-17T12:58:00-04:00",
+          "updatedAt": "2026-06-17T12:58:00-04:00",
+          "sourceText": "Scheduled coordination required for document collection with TL Mechanical at the south entrance."
+        },
+        {
+          "id": "com_20260617_027_02",
+          "text": "Check whether the item has been corrected on site. Related record: Scheduled coordination required for document collection with TL Mechanical at the south entrance.",
+          "status": "open",
+          "createdAt": "2026-06-17T12:59:00-04:00",
+          "updatedAt": "2026-06-17T12:59:00-04:00",
+          "sourceText": "Scheduled coordination required for document collection with TL Mechanical at the south entrance."
+        },
+        {
+          "id": "com_20260617_027_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Scheduled coordination required for document collection with TL Mechanical at the south entrance.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:00:00-04:00",
+          "updatedAt": "2026-06-17T13:00:00-04:00",
+          "sourceText": "Scheduled coordination required for document collection with TL Mechanical at the south entrance."
+        },
+        {
+          "id": "com_20260617_027_04",
+          "text": "Request confirmation before the end of the shift. Related record: Scheduled coordination required for document collection with TL Mechanical at the south entrance.",
+          "status": "closed",
+          "createdAt": "2026-06-17T13:01:00-04:00",
+          "updatedAt": "2026-06-17T13:01:00-04:00",
+          "sourceText": "Scheduled coordination required for document collection with TL Mechanical at the south entrance."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_028",
+      "category": "document",
+      "description": "Required document pending from TL Mechanical for delivery access at the electrical room.",
+      "status": "open",
+      "createdAt": "2026-06-17T13:08:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from TL Mechanical for delivery access at the electrical room.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_028_01",
+          "text": "Confirm current status and document the response. Related record: Required document pending from TL Mechanical for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:09:00-04:00",
+          "updatedAt": "2026-06-17T13:09:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_028_02",
+          "text": "Check whether the item has been corrected on site. Related record: Required document pending from TL Mechanical for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:10:00-04:00",
+          "updatedAt": "2026-06-17T13:10:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_028_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Required document pending from TL Mechanical for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:11:00-04:00",
+          "updatedAt": "2026-06-17T13:11:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_028_04",
+          "text": "Request confirmation before the end of the shift. Related record: Required document pending from TL Mechanical for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:12:00-04:00",
+          "updatedAt": "2026-06-17T13:12:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for delivery access at the electrical room."
+        },
+        {
+          "id": "com_20260617_028_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Required document pending from TL Mechanical for delivery access at the electrical room.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:13:00-04:00",
+          "updatedAt": "2026-06-17T13:13:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for delivery access at the electrical room."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_029",
+      "category": "event",
+      "description": "Northline Roofing completed a site activity related to site access at the site trailer.",
+      "status": "open",
+      "createdAt": "2026-06-17T13:19:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. Northline Roofing completed a site activity related to site access at the site trailer.",
+      "flags": [
+        {
+          "id": "flag_20260617_029_b",
+          "type": "incomplete",
+          "text": "Exact time for site access is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Northline Roofing completed a site activity related to site access at the site trailer.",
+          "createdAt": "2026-06-17T13:19:00-04:00",
+          "updatedAt": "2026-06-17T13:19:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_029_01",
+          "text": "Confirm current status and document the response. Related record: Northline Roofing completed a site activity related to site access at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:20:00-04:00",
+          "updatedAt": "2026-06-17T13:20:00-04:00",
+          "sourceText": "Northline Roofing completed a site activity related to site access at the site trailer."
+        },
+        {
+          "id": "com_20260617_029_02",
+          "text": "Check whether the item has been corrected on site. Related record: Northline Roofing completed a site activity related to site access at the site trailer.",
+          "status": "closed",
+          "createdAt": "2026-06-17T13:21:00-04:00",
+          "updatedAt": "2026-06-17T13:21:00-04:00",
+          "sourceText": "Northline Roofing completed a site activity related to site access at the site trailer."
+        },
+        {
+          "id": "com_20260617_029_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Northline Roofing completed a site activity related to site access at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:22:00-04:00",
+          "updatedAt": "2026-06-17T13:22:00-04:00",
+          "sourceText": "Northline Roofing completed a site activity related to site access at the site trailer."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_030",
+      "category": "followup",
+      "description": "Follow up with TL Mechanical about safety follow-up at the north stair.",
+      "status": "open",
+      "createdAt": "2026-06-17T13:30:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with TL Mechanical about safety follow-up at the north stair.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_030_01",
+          "text": "Confirm current status and document the response. Related record: Follow up with TL Mechanical about safety follow-up at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T13:31:00-04:00",
+          "updatedAt": "2026-06-17T13:31:00-04:00",
+          "sourceText": "Follow up with TL Mechanical about safety follow-up at the north stair."
+        },
+        {
+          "id": "com_20260617_030_02",
+          "text": "Check whether the item has been corrected on site. Related record: Follow up with TL Mechanical about safety follow-up at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:32:00-04:00",
+          "updatedAt": "2026-06-17T13:32:00-04:00",
+          "sourceText": "Follow up with TL Mechanical about safety follow-up at the north stair."
+        },
+        {
+          "id": "com_20260617_030_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Follow up with TL Mechanical about safety follow-up at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T13:33:00-04:00",
+          "updatedAt": "2026-06-17T13:33:00-04:00",
+          "sourceText": "Follow up with TL Mechanical about safety follow-up at the north stair."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_031",
+      "category": "event",
+      "description": "Ottawa Rebar completed a site activity related to site access at the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-17T13:41:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. Ottawa Rebar completed a site activity related to site access at the east gate.",
+      "flags": [
+        {
+          "id": "flag_20260617_031_b",
+          "type": "incomplete",
+          "text": "Exact time for site access is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Ottawa Rebar completed a site activity related to site access at the east gate.",
+          "createdAt": "2026-06-17T13:41:00-04:00",
+          "updatedAt": "2026-06-17T13:41:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_031_01",
+          "text": "Confirm current status and document the response. Related record: Ottawa Rebar completed a site activity related to site access at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:42:00-04:00",
+          "updatedAt": "2026-06-17T13:42:00-04:00",
+          "sourceText": "Ottawa Rebar completed a site activity related to site access at the east gate."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_032",
+      "category": "followup",
+      "description": "Follow up with Summit Drywall about material storage at the site trailer.",
+      "status": "open",
+      "createdAt": "2026-06-17T13:52:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with Summit Drywall about material storage at the site trailer.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_032_01",
+          "text": "Confirm current status and document the response. Related record: Follow up with Summit Drywall about material storage at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:53:00-04:00",
+          "updatedAt": "2026-06-17T13:53:00-04:00",
+          "sourceText": "Follow up with Summit Drywall about material storage at the site trailer."
+        },
+        {
+          "id": "com_20260617_032_02",
+          "text": "Check whether the item has been corrected on site. Related record: Follow up with Summit Drywall about material storage at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T13:54:00-04:00",
+          "updatedAt": "2026-06-17T13:54:00-04:00",
+          "sourceText": "Follow up with Summit Drywall about material storage at the site trailer."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_033",
+      "category": "safety",
+      "description": "Safety concern noted involving inspection preparation at the roof access hatch.",
+      "status": "open",
+      "createdAt": "2026-06-17T14:03:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving inspection preparation at the roof access hatch.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_033_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving inspection preparation at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:04:00-04:00",
+          "updatedAt": "2026-06-17T14:04:00-04:00",
+          "sourceText": "Safety concern noted involving inspection preparation at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_033_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving inspection preparation at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:05:00-04:00",
+          "updatedAt": "2026-06-17T14:05:00-04:00",
+          "sourceText": "Safety concern noted involving inspection preparation at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_033_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving inspection preparation at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:06:00-04:00",
+          "updatedAt": "2026-06-17T14:06:00-04:00",
+          "sourceText": "Safety concern noted involving inspection preparation at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_033_04",
+          "text": "Request confirmation before the end of the shift. Related record: Safety concern noted involving inspection preparation at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T14:07:00-04:00",
+          "updatedAt": "2026-06-17T14:07:00-04:00",
+          "sourceText": "Safety concern noted involving inspection preparation at the roof access hatch."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_034",
+      "category": "followup",
+      "description": "Follow up with TP Crawford about safety follow-up at the north footing area.",
+      "status": "open",
+      "createdAt": "2026-06-17T14:14:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with TP Crawford about safety follow-up at the north footing area.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_034_01",
+          "text": "Confirm current status and document the response. Related record: Follow up with TP Crawford about safety follow-up at the north footing area.",
+          "status": "closed",
+          "createdAt": "2026-06-17T14:15:00-04:00",
+          "updatedAt": "2026-06-17T14:15:00-04:00",
+          "sourceText": "Follow up with TP Crawford about safety follow-up at the north footing area."
+        },
+        {
+          "id": "com_20260617_034_02",
+          "text": "Check whether the item has been corrected on site. Related record: Follow up with TP Crawford about safety follow-up at the north footing area.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:16:00-04:00",
+          "updatedAt": "2026-06-17T14:16:00-04:00",
+          "sourceText": "Follow up with TP Crawford about safety follow-up at the north footing area."
+        },
+        {
+          "id": "com_20260617_034_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Follow up with TP Crawford about safety follow-up at the north footing area.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:17:00-04:00",
+          "updatedAt": "2026-06-17T14:17:00-04:00",
+          "sourceText": "Follow up with TP Crawford about safety follow-up at the north footing area."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_035",
+      "category": "document",
+      "description": "Required document pending from ACE Electric for roof work at the north stair.",
+      "status": "open",
+      "createdAt": "2026-06-17T14:25:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from ACE Electric for roof work at the north stair.",
+      "flags": [
+        {
+          "id": "flag_20260617_035_a",
+          "type": "incomplete",
+          "text": "Missing exact responsible person for ACE Electric.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Required document pending from ACE Electric for roof work at the north stair.",
+          "createdAt": "2026-06-17T14:25:00-04:00",
+          "updatedAt": "2026-06-17T14:25:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_035_01",
+          "text": "Confirm current status and document the response. Related record: Required document pending from ACE Electric for roof work at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:26:00-04:00",
+          "updatedAt": "2026-06-17T14:26:00-04:00",
+          "sourceText": "Required document pending from ACE Electric for roof work at the north stair."
+        },
+        {
+          "id": "com_20260617_035_02",
+          "text": "Check whether the item has been corrected on site. Related record: Required document pending from ACE Electric for roof work at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T14:27:00-04:00",
+          "updatedAt": "2026-06-17T14:27:00-04:00",
+          "sourceText": "Required document pending from ACE Electric for roof work at the north stair."
+        },
+        {
+          "id": "com_20260617_035_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Required document pending from ACE Electric for roof work at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T14:28:00-04:00",
+          "updatedAt": "2026-06-17T14:28:00-04:00",
+          "sourceText": "Required document pending from ACE Electric for roof work at the north stair."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_036",
+      "category": "action",
+      "description": "Arrange follow-through with Capital Crane for material storage at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T14:36:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with Capital Crane for material storage at the main access road.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_036_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with Capital Crane for material storage at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:37:00-04:00",
+          "updatedAt": "2026-06-17T14:37:00-04:00",
+          "sourceText": "Arrange follow-through with Capital Crane for material storage at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_037",
+      "category": "action",
+      "description": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+      "status": "open",
+      "createdAt": "2026-06-17T14:47:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+      "flags": [
+        {
+          "id": "flag_20260617_037_a",
+          "type": "incomplete",
+          "text": "Missing exact responsible person for TL Mechanical.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+          "createdAt": "2026-06-17T14:47:00-04:00",
+          "updatedAt": "2026-06-17T14:47:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_037_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T14:48:00-04:00",
+          "updatedAt": "2026-06-17T14:48:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair."
+        },
+        {
+          "id": "com_20260617_037_02",
+          "text": "Check whether the item has been corrected on site. Related record: Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+          "status": "closed",
+          "createdAt": "2026-06-17T14:49:00-04:00",
+          "updatedAt": "2026-06-17T14:49:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair."
+        },
+        {
+          "id": "com_20260617_037_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:50:00-04:00",
+          "updatedAt": "2026-06-17T14:50:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair."
+        },
+        {
+          "id": "com_20260617_037_04",
+          "text": "Request confirmation before the end of the shift. Related record: Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:51:00-04:00",
+          "updatedAt": "2026-06-17T14:51:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair."
+        },
+        {
+          "id": "com_20260617_037_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Arrange follow-through with TL Mechanical for inspection preparation at the north stair.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:52:00-04:00",
+          "updatedAt": "2026-06-17T14:52:00-04:00",
+          "sourceText": "Arrange follow-through with TL Mechanical for inspection preparation at the north stair."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_038",
+      "category": "followup",
+      "description": "Follow up with Capital Crane about site access at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T14:58:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with Capital Crane about site access at the main access road.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_038_01",
+          "text": "Confirm current status and document the response. Related record: Follow up with Capital Crane about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T14:59:00-04:00",
+          "updatedAt": "2026-06-17T14:59:00-04:00",
+          "sourceText": "Follow up with Capital Crane about site access at the main access road."
+        },
+        {
+          "id": "com_20260617_038_02",
+          "text": "Check whether the item has been corrected on site. Related record: Follow up with Capital Crane about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:00:00-04:00",
+          "updatedAt": "2026-06-17T15:00:00-04:00",
+          "sourceText": "Follow up with Capital Crane about site access at the main access road."
+        },
+        {
+          "id": "com_20260617_038_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Follow up with Capital Crane about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:01:00-04:00",
+          "updatedAt": "2026-06-17T15:01:00-04:00",
+          "sourceText": "Follow up with Capital Crane about site access at the main access road."
+        },
+        {
+          "id": "com_20260617_038_04",
+          "text": "Request confirmation before the end of the shift. Related record: Follow up with Capital Crane about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:02:00-04:00",
+          "updatedAt": "2026-06-17T15:02:00-04:00",
+          "sourceText": "Follow up with Capital Crane about site access at the main access road."
+        },
+        {
+          "id": "com_20260617_038_05",
+          "text": "Verify whether follow-up is still required tomorrow. Related record: Follow up with Capital Crane about site access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:03:00-04:00",
+          "updatedAt": "2026-06-17T15:03:00-04:00",
+          "sourceText": "Follow up with Capital Crane about site access at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_039",
+      "category": "safety",
+      "description": "Safety concern noted involving roof work at the roof access hatch.",
+      "status": "open",
+      "createdAt": "2026-06-17T15:09:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving roof work at the roof access hatch.",
+      "flags": [
+        {
+          "id": "flag_20260617_039_a",
+          "type": "clarify",
+          "text": "Clarify whether roof work is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Safety concern noted involving roof work at the roof access hatch.",
+          "createdAt": "2026-06-17T15:09:00-04:00",
+          "updatedAt": "2026-06-17T15:09:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_039_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving roof work at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:10:00-04:00",
+          "updatedAt": "2026-06-17T15:10:00-04:00",
+          "sourceText": "Safety concern noted involving roof work at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_039_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving roof work at the roof access hatch.",
+          "status": "closed",
+          "createdAt": "2026-06-17T15:11:00-04:00",
+          "updatedAt": "2026-06-17T15:11:00-04:00",
+          "sourceText": "Safety concern noted involving roof work at the roof access hatch."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_040",
+      "category": "action",
+      "description": "Arrange follow-through with Ottawa Rebar for delivery access at the south entrance.",
+      "status": "closed",
+      "createdAt": "2026-06-17T15:20:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with Ottawa Rebar for delivery access at the south entrance.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_040_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with Ottawa Rebar for delivery access at the south entrance.",
+          "status": "closed",
+          "createdAt": "2026-06-17T15:21:00-04:00",
+          "updatedAt": "2026-06-17T15:21:00-04:00",
+          "sourceText": "Arrange follow-through with Ottawa Rebar for delivery access at the south entrance."
+        },
+        {
+          "id": "com_20260617_040_02",
+          "text": "Check whether the item has been corrected on site. Related record: Arrange follow-through with Ottawa Rebar for delivery access at the south entrance.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:22:00-04:00",
+          "updatedAt": "2026-06-17T15:22:00-04:00",
+          "sourceText": "Arrange follow-through with Ottawa Rebar for delivery access at the south entrance."
+        },
+        {
+          "id": "com_20260617_040_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Arrange follow-through with Ottawa Rebar for delivery access at the south entrance.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:23:00-04:00",
+          "updatedAt": "2026-06-17T15:23:00-04:00",
+          "sourceText": "Arrange follow-through with Ottawa Rebar for delivery access at the south entrance."
+        },
+        {
+          "id": "com_20260617_040_04",
+          "text": "Request confirmation before the end of the shift. Related record: Arrange follow-through with Ottawa Rebar for delivery access at the south entrance.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:24:00-04:00",
+          "updatedAt": "2026-06-17T15:24:00-04:00",
+          "sourceText": "Arrange follow-through with Ottawa Rebar for delivery access at the south entrance."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_041",
+      "category": "communication",
+      "description": "Communication required with TL Mechanical about inspection preparation at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T15:31:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Communication. Communication required with TL Mechanical about inspection preparation at the main access road.",
+      "flags": [
+        {
+          "id": "flag_20260617_041_a",
+          "type": "clarify",
+          "text": "Clarify whether inspection preparation is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Communication required with TL Mechanical about inspection preparation at the main access road.",
+          "createdAt": "2026-06-17T15:31:00-04:00",
+          "updatedAt": "2026-06-17T15:31:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_041_01",
+          "text": "Confirm current status and document the response. Related record: Communication required with TL Mechanical about inspection preparation at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:32:00-04:00",
+          "updatedAt": "2026-06-17T15:32:00-04:00",
+          "sourceText": "Communication required with TL Mechanical about inspection preparation at the main access road."
+        },
+        {
+          "id": "com_20260617_041_02",
+          "text": "Check whether the item has been corrected on site. Related record: Communication required with TL Mechanical about inspection preparation at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:33:00-04:00",
+          "updatedAt": "2026-06-17T15:33:00-04:00",
+          "sourceText": "Communication required with TL Mechanical about inspection preparation at the main access road."
+        },
+        {
+          "id": "com_20260617_041_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Communication required with TL Mechanical about inspection preparation at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:34:00-04:00",
+          "updatedAt": "2026-06-17T15:34:00-04:00",
+          "sourceText": "Communication required with TL Mechanical about inspection preparation at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_042",
+      "category": "safety",
+      "description": "Safety concern noted involving equipment coordination at the roof access hatch.",
+      "status": "open",
+      "createdAt": "2026-06-17T15:42:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Safety. Safety concern noted involving equipment coordination at the roof access hatch.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_042_01",
+          "text": "Confirm current status and document the response. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:43:00-04:00",
+          "updatedAt": "2026-06-17T15:43:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_042_02",
+          "text": "Check whether the item has been corrected on site. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:44:00-04:00",
+          "updatedAt": "2026-06-17T15:44:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_042_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:45:00-04:00",
+          "updatedAt": "2026-06-17T15:45:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        },
+        {
+          "id": "com_20260617_042_04",
+          "text": "Request confirmation before the end of the shift. Related record: Safety concern noted involving equipment coordination at the roof access hatch.",
+          "status": "open",
+          "createdAt": "2026-06-17T15:46:00-04:00",
+          "updatedAt": "2026-06-17T15:46:00-04:00",
+          "sourceText": "Safety concern noted involving equipment coordination at the roof access hatch."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_043",
+      "category": "action",
+      "description": "Arrange follow-through with Summit Drywall for crane planning at the parking laydown zone.",
+      "status": "open",
+      "createdAt": "2026-06-17T15:53:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with Summit Drywall for crane planning at the parking laydown zone.",
+      "flags": [
+        {
+          "id": "flag_20260617_043_a",
+          "type": "clarify",
+          "text": "Clarify whether crane planning is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Arrange follow-through with Summit Drywall for crane planning at the parking laydown zone.",
+          "createdAt": "2026-06-17T15:53:00-04:00",
+          "updatedAt": "2026-06-17T15:53:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_044",
+      "category": "scheduled",
+      "description": "Scheduled coordination required for roof work with ACE Electric at the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-17T16:04:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Scheduled. Scheduled coordination required for roof work with ACE Electric at the east gate.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_044_01",
+          "text": "Confirm current status and document the response. Related record: Scheduled coordination required for roof work with ACE Electric at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T16:05:00-04:00",
+          "updatedAt": "2026-06-17T16:05:00-04:00",
+          "sourceText": "Scheduled coordination required for roof work with ACE Electric at the east gate."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_045",
+      "category": "followup",
+      "description": "Follow up with Ottawa Rebar about material storage at the west loading area.",
+      "status": "open",
+      "createdAt": "2026-06-17T16:15:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Followup. Follow up with Ottawa Rebar about material storage at the west loading area.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_20260617_046",
+      "category": "communication",
+      "description": "Communication required with ABC Mechanical about crane planning at the east gate.",
+      "status": "open",
+      "createdAt": "2026-06-17T16:26:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Communication. Communication required with ABC Mechanical about crane planning at the east gate.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_046_01",
+          "text": "Confirm current status and document the response. Related record: Communication required with ABC Mechanical about crane planning at the east gate.",
+          "status": "open",
+          "createdAt": "2026-06-17T16:27:00-04:00",
+          "updatedAt": "2026-06-17T16:27:00-04:00",
+          "sourceText": "Communication required with ABC Mechanical about crane planning at the east gate."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_047",
+      "category": "scheduled",
+      "description": "Scheduled coordination required for delivery access with ABC Mechanical at the main access road.",
+      "status": "open",
+      "createdAt": "2026-06-17T16:37:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Scheduled. Scheduled coordination required for delivery access with ABC Mechanical at the main access road.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_047_01",
+          "text": "Confirm current status and document the response. Related record: Scheduled coordination required for delivery access with ABC Mechanical at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T16:38:00-04:00",
+          "updatedAt": "2026-06-17T16:38:00-04:00",
+          "sourceText": "Scheduled coordination required for delivery access with ABC Mechanical at the main access road."
+        },
+        {
+          "id": "com_20260617_047_02",
+          "text": "Check whether the item has been corrected on site. Related record: Scheduled coordination required for delivery access with ABC Mechanical at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T16:39:00-04:00",
+          "updatedAt": "2026-06-17T16:39:00-04:00",
+          "sourceText": "Scheduled coordination required for delivery access with ABC Mechanical at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_048",
+      "category": "event",
+      "description": "ACE Electric completed a site activity related to material storage at the west loading area.",
+      "status": "open",
+      "createdAt": "2026-06-17T16:48:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Event. ACE Electric completed a site activity related to material storage at the west loading area.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_048_01",
+          "text": "Confirm current status and document the response. Related record: ACE Electric completed a site activity related to material storage at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T16:49:00-04:00",
+          "updatedAt": "2026-06-17T16:49:00-04:00",
+          "sourceText": "ACE Electric completed a site activity related to material storage at the west loading area."
+        },
+        {
+          "id": "com_20260617_048_02",
+          "text": "Check whether the item has been corrected on site. Related record: ACE Electric completed a site activity related to material storage at the west loading area.",
+          "status": "open",
+          "createdAt": "2026-06-17T16:50:00-04:00",
+          "updatedAt": "2026-06-17T16:50:00-04:00",
+          "sourceText": "ACE Electric completed a site activity related to material storage at the west loading area."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_049",
+      "category": "action",
+      "description": "Arrange follow-through with ABC Mechanical for delivery access at the main access road.",
+      "status": "closed",
+      "createdAt": "2026-06-17T16:59:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Action. Arrange follow-through with ABC Mechanical for delivery access at the main access road.",
+      "flags": [],
+      "comments": [
+        {
+          "id": "com_20260617_049_01",
+          "text": "Confirm current status and document the response. Related record: Arrange follow-through with ABC Mechanical for delivery access at the main access road.",
+          "status": "closed",
+          "createdAt": "2026-06-17T17:00:00-04:00",
+          "updatedAt": "2026-06-17T17:00:00-04:00",
+          "sourceText": "Arrange follow-through with ABC Mechanical for delivery access at the main access road."
+        },
+        {
+          "id": "com_20260617_049_02",
+          "text": "Check whether the item has been corrected on site. Related record: Arrange follow-through with ABC Mechanical for delivery access at the main access road.",
+          "status": "open",
+          "createdAt": "2026-06-17T17:01:00-04:00",
+          "updatedAt": "2026-06-17T17:01:00-04:00",
+          "sourceText": "Arrange follow-through with ABC Mechanical for delivery access at the main access road."
+        }
+      ]
+    },
+    {
+      "id": "rec_20260617_050",
+      "category": "document",
+      "description": "Required document pending from TL Mechanical for site access at the site trailer.",
+      "status": "open",
+      "createdAt": "2026-06-17T17:10:00-04:00",
+      "sourceDate": "2026-06-17",
+      "sourceText": "Document. Required document pending from TL Mechanical for site access at the site trailer.",
+      "flags": [
+        {
+          "id": "flag_20260617_050_a",
+          "type": "clarify",
+          "text": "Clarify whether site access is complete or still pending.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Required document pending from TL Mechanical for site access at the site trailer.",
+          "createdAt": "2026-06-17T17:10:00-04:00",
+          "updatedAt": "2026-06-17T17:10:00-04:00",
+          "resolvedAt": ""
+        },
+        {
+          "id": "flag_20260617_050_b",
+          "type": "incomplete",
+          "text": "Exact time for site access is not stated.",
+          "status": "open",
+          "resolution": "",
+          "sourceText": "Required document pending from TL Mechanical for site access at the site trailer.",
+          "createdAt": "2026-06-17T17:10:00-04:00",
+          "updatedAt": "2026-06-17T17:10:00-04:00",
+          "resolvedAt": ""
+        }
+      ],
+      "comments": [
+        {
+          "id": "com_20260617_050_01",
+          "text": "Confirm current status and document the response. Related record: Required document pending from TL Mechanical for site access at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T17:11:00-04:00",
+          "updatedAt": "2026-06-17T17:11:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for site access at the site trailer."
+        },
+        {
+          "id": "com_20260617_050_02",
+          "text": "Check whether the item has been corrected on site. Related record: Required document pending from TL Mechanical for site access at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T17:12:00-04:00",
+          "updatedAt": "2026-06-17T17:12:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for site access at the site trailer."
+        },
+        {
+          "id": "com_20260617_050_03",
+          "text": "Add a note after speaking with the responsible party. Related record: Required document pending from TL Mechanical for site access at the site trailer.",
+          "status": "open",
+          "createdAt": "2026-06-17T17:13:00-04:00",
+          "updatedAt": "2026-06-17T17:13:00-04:00",
+          "sourceText": "Required document pending from TL Mechanical for site access at the site trailer."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "packageType": "sitescribe_two_level_records",
+  "version": "1.0",
+  "site": "Kemptville Office Building",
+  "shiftDate": "2026-06-14",
+  "processedAt": "2026-06-14T17:00:00-04:00",
+  "source": {
+    "captureMethod": "manual test",
+    "rawText": "Native basic import test."
+  },
+  "dailySummary": "Basic native package containing one record in each primary category.",
+  "reviewConsole": {
+    "appName": "SiteScribe Review Console",
+    "appVersion": "v0.4.7",
+    "model": "two-level-records-with-record-flags"
+  },
+  "packageFlags": [],
+  "records": [
+    {
+      "id": "rec_native_basic_event",
+      "category": "event",
+      "description": "Crane arrived on site and access road was clear.",
+      "status": "open",
+      "createdAt": "2026-06-14T08:10:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "event, Crane arrived on site and access road was clear.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_native_basic_action",
+      "category": "action",
+      "description": "Confirm roof hatch access before material lift.",
+      "status": "open",
+      "createdAt": "2026-06-14T09:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "todo, Confirm roof hatch access before material lift.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_native_basic_followup",
+      "category": "followup",
+      "description": "Check whether TL Mechanical removed stored pipe from the loading area.",
+      "status": "open",
+      "createdAt": "2026-06-14T10:20:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "followup, Check whether TL Mechanical removed stored pipe from the loading area.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_native_basic_scheduled",
+      "category": "scheduled",
+      "description": "Site inspection scheduled for 2026-06-15 at 10:30 AM.",
+      "status": "open",
+      "createdAt": "2026-06-14T11:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "appointment, Site inspection scheduled for 2026-06-15 at 10:30 AM.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_native_basic_safety",
+      "category": "safety",
+      "description": "Pile of wood was blocking the south entrance.",
+      "status": "open",
+      "createdAt": "2026-06-14T12:15:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "safety, Pile of wood was blocking the south entrance.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_native_basic_communication",
+      "category": "communication",
+      "description": "Email TL Mechanical requesting cleanup at the south entrance.",
+      "status": "open",
+      "createdAt": "2026-06-14T13:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "email, Email TL Mechanical requesting cleanup at the south entrance.",
+      "flags": [],
+      "comments": []
+    },
+    {
+      "id": "rec_native_basic_document",
+      "category": "document",
+      "description": "Request updated crane insurance certificate.",
+      "status": "open",
+      "createdAt": "2026-06-14T14:00:00-04:00",
+      "sourceDate": "2026-06-14",
+      "sourceText": "document, Request updated crane insurance certificate.",
+      "flags": [],
+      "comments": []
+    }
+  ]
+}

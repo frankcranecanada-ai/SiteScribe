@@ -1,0 +1,45 @@
+# Secrets and local configuration
+.env
+.env.*
+**/server/sitescribe_openai_key.php
+**/*token*.json
+**/*credentials*.json
+
+# Local/editor artifacts
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+*.bak
+
+# Generated working packages (accepted archives belong in artifacts/)
+work/
+dist/
+build/
+
+# Local releases and recovery copies are retained outside Git. Git stores the
+# current source authorities and the normal engineering history instead.
+archive/
+artifacts/
+backups/
+SiteScribe_Codex_Kit.zip
+
+# Site contacts are local project data, not source code. Never commit a site
+# contact export, even if it only contains test contacts.
+sitescribe_contacts.json
+source/**/sitescribe_contacts.json
+
+# Keep the source authorities, not every historical release copy.
+source/*
+!source/review-console-v0.8.13/
+!source/review-console-v0.8.13/**
+!source/parser-lite-v0.8.16a/
+!source/parser-lite-v0.8.16a/**
+
+# Keep the regression fixture suite but not its historical backup bundles.
+sitescribe-review-console-Support FILES/*
+!sitescribe-review-console-Support FILES/test suite/
+!sitescribe-review-console-Support FILES/test suite/**
+
+# These stay ignored after the source-authority exceptions above.
+source/**/sitescribe_contacts.json

@@ -1,0 +1,1371 @@
+# SiteScribe Handoff — Notes-to-AI-to-App Workflow
+
+## 1. Purpose
+
+This handoff summarizes the planned SiteScribe workflow discussed so far.
+
+The goal is to build a practical system that lets site activity be captured quickly on an iPhone, processed by AI into structured records, and later reviewed in a local app that manages site history, emails, appointments, follow-ups, to-dos, and safety issues.
+
+The core concept is:
+
+**The app becomes a site memory system with time awareness.**
+
+It should allow movement through:
+
+* **Past** — what happened, what was recorded, what was sent, what was closed.
+* **Present** — what needs action now.
+* **Future** — what is scheduled, due, waiting, or upcoming.
+
+The app should not simply imitate Apple Calendar. Calendar may be an optional export target, but the app itself should be the main operating memory.
+
+---
+
+## 2. Project Separation
+
+Two separate work areas should be maintained.
+
+### A. SiteScribe Working Logs
+
+This project/folder is for operational workflow testing.
+
+Use it for:
+
+* Raw daily site notes.
+* Hand-created test logs.
+* Apple Notes text copied into AI.
+* AI processing prompts.
+* AI-generated structured JSON.
+* Sample events, follow-ups, emails, appointments, to-dos, and safety issues.
+* Clarification examples.
+* Testing how well AI converts plain text into structured records.
+
+Suggested folder structure:
+
+```text
+SiteScribe Working Logs/
+  handoff-summary.md
+  raw-notes/
+  processed-json/
+  examples/
+  prompt-templates/
+  test-logs/
+```
+
+### B. SiteScribe App Development
+
+This project/folder is for software development.
+
+Use it for:
+
+* HTML app code.
+* JavaScript logic.
+* CSS styling.
+* IndexedDB storage.
+* JSON import/export.
+* App schema.
+* UI design.
+* Action cards.
+* Timeline and action queue.
+* Version history.
+* Test data used for app development.
+
+Suggested folder structure:
+
+```text
+SiteScribe App Development/
+  handoff-summary.md
+  app/
+    index.html
+    app.js
+    styles.css
+  schemas/
+    sitescribe_daily_package.schema.json
+  samples/
+    sample_daily_log.txt
+    sample_processed_package.json
+  docs/
+    architecture.md
+    data-model.md
+    workflow.md
+    version-history.md
+```
+
+The bridge between the two projects is the structured JSON package.
+
+---
+
+## 3. Overall Workflow
+
+The planned workflow is:
+
+```text
+iPhone Notes / dictated text
+→ plain text daily site log
+→ AI processing
+→ structured JSON package
+→ app imports JSON
+→ app stores records locally
+→ app presents timeline and action cards
+→ user processes emails, follow-ups, appointments, safety issues, and to-dos
+```
+
+At first, Apple Notes is used as the capture tool.
+
+Later, a custom iPhone-friendly app may replace Notes for capture.
+
+---
+
+## 4. Capture Layer: Apple Notes / Plain Text
+
+The first version does not require a custom capture app.
+
+Apple Notes can be used because it supports:
+
+* Typed text.
+* iPhone dictation.
+* Voice-to-text through the keyboard.
+* Photos or attachments later if needed.
+* Easy copy/paste or sharing.
+
+The app does not need to know that the text came from Apple Notes. The app/AI only needs plain text.
+
+Example note format:
+
+```text
+Site: Kemptville Office Building
+Date: 2026-06-12
+Supervisor: Frank
+
+[08:10] Daily Log:
+Crane arrived on site. Operator checked in. Access road was clear.
+
+[09:25] Safety:
+ABC Mechanical had material blocking the east gate. Mike was told to move it before concrete trucks arrived.
+
+[11:15] Email:
+Send email to ABC Mechanical about keeping the east gate clear.
+
+[13:30] Appointment:
+Book crane for Tuesday at 8 AM for rooftop material lift.
+
+[15:45] Follow-up:
+Confirm lift plan and insurance from crane supplier before Monday.
+```
+
+Suggested categories for raw notes:
+
+```text
+Daily Log
+Safety
+Delay
+Delivery
+Crane/Lift
+Subtrade
+Email
+Appointment
+Follow-up
+To-do
+Issue
+```
+
+Consistency is more important than perfection.
+
+---
+
+## 5. AI Processing Area
+
+A dedicated ChatGPT Project should be created for AI processing.
+
+Suggested project name:
+
+```text
+SiteScribe Processing
+```
+
+Use the project for:
+
+* Pasting raw daily logs.
+* Running structured processing prompts.
+* Generating human-readable summaries.
+* Generating importable JSON packages.
+* Refining parsing rules.
+* Testing extraction accuracy.
+
+Use one chat per site/day or processing session, for example:
+
+```text
+2026-06-12 - Kemptville Site
+2026-06-13 - Kemptville Site
+2026-06-14 - Smiths Falls Site
+```
+
+The AI processing area should act like a deterministic parser, not a creative writing assistant.
+
+Important concept:
+
+```text
+The AI is not deciding what probably happened.
+The AI is converting raw text into auditable records.
+```
+
+---
+
+## 6. AI Behaviour Rules
+
+The AI should be instructed to behave as predictably as possible.
+
+Although AI is inherently probabilistic, the desired operating mode is:
+
+```text
+Act as a deterministic site-log parser.
+```
+
+Core rules:
+
+```text
+- Do not speculate.
+- Do not invent facts.
+- Do not infer beyond the text unless applying an explicitly stated rule.
+- Do not invent names, dates, contacts, recipients, locations, or due dates.
+- If information is missing, write "not stated".
+- Preserve sourceText for every extracted item.
+- Use the same output schema every time.
+- Distinguish actual events from follow-ups, emails, appointments, to-dos, and safety issues.
+- If an item is more probable than exact, flag it for clarification instead of converting it into a firm task.
+```
+
+Critical instruction:
+
+```text
+When exact information is missing or ambiguous, do not guess. Place the item in clarificationRequired.
+```
+
+Example ambiguous raw note:
+
+```text
+Talk to Mike about the gate.
+```
+
+Bad AI output:
+
+```text
+Create email to Mike at ABC Mechanical about east gate obstruction.
+```
+
+Correct AI output:
+
+```json
+{
+  "type": "clarification_required",
+  "question": "Which Mike and which gate is this referring to?",
+  "sourceText": "Talk to Mike about the gate.",
+  "reason": "Person and subject are ambiguous."
+}
+```
+
+---
+
+## 7. JSON as Migration Package
+
+JSON is not necessarily the permanent database.
+
+JSON is the migration handoff between AI and the app.
+
+Correct architecture:
+
+```text
+Plain text daily log
+→ AI
+→ structured JSON package
+→ app imports JSON
+→ app stores records locally in IndexedDB
+→ app displays and manages the records
+```
+
+Once imported, the app owns the data.
+
+The JSON is useful because:
+
+* AI can output it.
+* JavaScript can read it.
+* The app can import it.
+* It can be archived.
+* It can be tested.
+* It can later be replaced by API-based structured output.
+
+The app should not rely on repeatedly editing a JSON file as live storage. The live storage should eventually be IndexedDB or a proper database.
+
+---
+
+## 8. Recommended JSON Package Structure
+
+Use one daily JSON package, not multiple small JSON files at first.
+
+Recommended filename pattern:
+
+```text
+sitescribe_processed_YYYY-MM-DD_site-name.json
+```
+
+Example:
+
+```text
+sitescribe_processed_2026-06-12_kemptville.json
+```
+
+Recommended structure:
+
+```json
+{
+  "packageType": "sitescribe_daily_processed_log",
+  "version": "1.0",
+  "site": "Kemptville Site",
+  "shiftDate": "2026-06-12",
+  "processedAt": "2026-06-12T17:45:00-04:00",
+  "source": {
+    "captureMethod": "Apple Notes",
+    "rawText": "[08:15] Crane arrived on site..."
+  },
+  "dailySummary": "Crane arrived in the morning. ABC Mechanical was verbally corrected for blocking the east gate.",
+  "events": [],
+  "followups": [],
+  "emails": [],
+  "appointments": [],
+  "todos": [],
+  "safetyIssues": [],
+  "clarificationRequired": [],
+  "missingInfo": []
+}
+```
+
+---
+
+## 9. Required JSON Sections
+
+The AI should produce the following sections every time.
+
+### A. Daily Summary
+
+Short readable summary of the day.
+
+### B. Events
+
+Chronological record of what happened.
+
+Example fields:
+
+```json
+{
+  "time": "08:15",
+  "category": "Crane/Lift",
+  "description": "Crane arrived on site and operator checked in.",
+  "parties": ["crane operator"],
+  "location": "not stated",
+  "sourceText": "Crane arrived on site. Operator checked in.",
+  "confidence": "high",
+  "requiresClarification": false
+}
+```
+
+### C. Follow-ups
+
+Internal obligations that need later action.
+
+Example fields:
+
+```json
+{
+  "task": "Follow up with rebar supplier about missing 20M bar.",
+  "responsibleParty": "Frank",
+  "relatedParty": "rebar supplier",
+  "dueDate": "not stated",
+  "priority": "medium",
+  "status": "open",
+  "sourceText": "Follow up with rebar supplier about missing 20M bar.",
+  "confidence": "high",
+  "requiresClarification": false
+}
+```
+
+### D. Emails
+
+Email tasks and draft content.
+
+Example fields:
+
+```json
+{
+  "status": "draft",
+  "actionLabel": "Send email",
+  "recipient": "xxx@domain.ca",
+  "recipientName": "ABC Mechanical",
+  "subject": "Access Gate Obstruction - Kemptville Site",
+  "body": "Please keep the east access gate clear. Material was observed blocking access today and your site representative was advised to move it.",
+  "reason": "Site access must remain clear for deliveries, crane access, and emergency access.",
+  "sourceText": "[09:30] ABC Mechanical had material blocking the east gate. Told Mike to move it.",
+  "priority": "high",
+  "confidence": "high",
+  "requiresClarification": false
+}
+```
+
+### E. Appointments / Scheduled Events
+
+Actual scheduled site events.
+
+These are for real appointments, not general follow-ups.
+
+Examples:
+
+```text
+Crane on site Tuesday at 8:00 AM
+Inspection Thursday at 10:30 AM
+Concrete pour Friday at 7:00 AM
+Delivery Monday morning
+```
+
+Example fields:
+
+```json
+{
+  "title": "Rooftop material lift",
+  "date": "2026-06-16",
+  "startTime": "08:00",
+  "location": "Kemptville Site",
+  "notes": "Book crane for rooftop material lift.",
+  "sourceText": "Book crane for Tuesday at 8 AM for rooftop material lift.",
+  "confidence": "high",
+  "requiresClarification": false
+}
+```
+
+### F. To-Dos
+
+Simple tasks that may not have formal follow-up structure.
+
+Example fields:
+
+```json
+{
+  "task": "Confirm missing 20M bar.",
+  "owner": "Frank",
+  "dueDate": "not stated",
+  "priority": "medium",
+  "sourceText": "Follow up with rebar supplier about missing 20M bar.",
+  "confidence": "high",
+  "requiresClarification": false
+}
+```
+
+### G. Safety Issues
+
+Safety-related records.
+
+Example fields:
+
+```json
+{
+  "issue": "Material blocking east gate.",
+  "contractor": "ABC Mechanical",
+  "location": "east gate",
+  "correctionGiven": "Mike was told to move it.",
+  "status": "verbal correction",
+  "escalationRequired": false,
+  "sourceText": "ABC Mechanical had material blocking the east gate. Told Mike to move it.",
+  "confidence": "high",
+  "requiresClarification": false
+}
+```
+
+### H. Clarification Required
+
+Any ambiguous item that AI should not convert into a firm task.
+
+Example fields:
+
+```json
+{
+  "sourceText": "Talk to Mike about the gate.",
+  "question": "Which Mike and which gate is this referring to?",
+  "reason": "Person and subject are ambiguous.",
+  "probableInterpretation": "Could refer to Mike from ABC Mechanical and the east gate, but this is not certain.",
+  "confidence": "low"
+}
+```
+
+### I. Missing Information
+
+General gaps in the log.
+
+Example:
+
+```json
+[
+  "Exact site address not stated.",
+  "Recipient email for ABC Mechanical not stated.",
+  "Due date for rebar supplier follow-up not stated."
+]
+```
+
+---
+
+## 10. App Purpose After AI Processing
+
+At the end of the day, the user opens the app at the desk.
+
+The app should show the AI-created topics as reviewable action cards.
+
+Main sections:
+
+```text
+Daily Summary
+Timeline / Events
+Emails to Send
+Appointments / Scheduled Events
+Follow-Ups
+To-Dos
+Safety Issues
+Clarification Required
+Missing Information
+Archive
+```
+
+The app should not simply display raw JSON.
+
+It should turn structured data into operational cards.
+
+---
+
+## 11. Example App Display: Email Task
+
+The app might display:
+
+```text
+EMAIL TASK
+
+To:
+xxx@domain.ca
+
+Subject:
+Access Gate Obstruction - Kemptville Site
+
+Body:
+Please keep the east access gate clear. Material was observed blocking access today and your site representative was advised to move it.
+
+Reason:
+Site access must remain clear for deliveries, crane access, and emergency access.
+
+Source:
+[09:30] ABC Mechanical had material blocking the east gate. Told Mike to move it.
+
+Buttons:
+[Copy Email]
+[Copy Subject]
+[Copy Body]
+[Open Mail]
+[Set Follow-Up Reminder]
+[Mark Sent]
+[Keep Draft]
+```
+
+---
+
+## 12. Example App Display: Appointment
+
+The app might display:
+
+```text
+APPOINTMENT
+
+Title:
+Crane - Rooftop Material Lift
+
+Date:
+Tuesday, June 16, 2026
+
+Time:
+8:00 AM
+
+Location:
+Kemptville Site
+
+Notes:
+Confirm lift plan and insurance before Monday.
+
+Source:
+[13:30] Book crane for Tuesday at 8 AM for rooftop material lift.
+
+Buttons:
+[Copy Appointment]
+[Copy Notes]
+[Create Calendar File]
+[Set Prep Reminder]
+[Mark Scheduled]
+```
+
+---
+
+## 13. Example App Display: Follow-Up
+
+The app might display:
+
+```text
+FOLLOW-UP
+
+Task:
+Confirm ABC Mechanical cleared east gate material.
+
+Source:
+[09:25] ABC Mechanical had material blocking the east gate. Mike was told to move it.
+
+Suggested action:
+Send reminder email in 3 days if not confirmed.
+
+Buttons:
+[Create Email]
+[Set Follow-Up Date]
+[Mark Waiting]
+[Mark Done]
+[Keep for Site Record]
+```
+
+---
+
+## 14. Calendar vs Internal App Memory
+
+The app should not depend on Apple Calendar as the main memory system.
+
+Apple Calendar should be optional and only used for true appointments.
+
+Examples suitable for Apple Calendar:
+
+```text
+crane on site at 8:00 AM
+inspection at 10:30 AM
+concrete pour Friday morning
+site meeting
+delivery window
+```
+
+Most other items should remain inside the app:
+
+```text
+follow up in 3 days
+waiting for insurance certificate
+email sent, no reply yet
+safety issue remains open
+contractor was warned verbally
+delivery incomplete
+lift plan required before work proceeds
+```
+
+These are tracked obligations, not calendar events.
+
+The app should be the central memory.
+
+---
+
+## 15. Internal Time Model
+
+The app becomes time-aware by giving every item date fields, status fields, and rules.
+
+Important fields:
+
+```text
+createdAt
+sourceLogDate
+dueDate
+reminderDate
+eventDate
+eventTime
+status
+priority
+category
+site
+relatedParty
+sourceText
+```
+
+Example follow-up:
+
+```json
+{
+  "id": "followup_001",
+  "type": "followup",
+  "site": "Kemptville Site",
+  "relatedParty": "ABC Mechanical",
+  "createdAt": "2026-06-12T17:30:00-04:00",
+  "sourceLogDate": "2026-06-12",
+  "dueDate": "2026-06-15",
+  "reminderDate": "2026-06-15T08:00:00-04:00",
+  "status": "open",
+  "priority": "high",
+  "category": "Safety",
+  "title": "Confirm ABC Mechanical cleared east gate",
+  "sourceText": "ABC Mechanical had material blocking the east gate. Mike was told to move it."
+}
+```
+
+The app can compare `dueDate` against the current date and classify tasks:
+
+```text
+dueDate < today        → Overdue
+dueDate = today        → Due Today
+dueDate = tomorrow     → Due Tomorrow
+dueDate within 7 days  → Due This Week
+dueDate later          → Upcoming
+status = done          → Closed / Archive
+```
+
+---
+
+## 16. Status Model
+
+Every task needs status, not just a due date.
+
+Suggested statuses:
+
+```text
+open
+waiting
+done
+overdue
+snoozed
+cancelled
+```
+
+Meaning:
+
+```text
+open      → needs action
+waiting   → user has sent something and is waiting for reply
+done      → completed
+overdue   → due date has passed and item is not closed
+snoozed   → hidden until a later date
+cancelled → no longer required
+```
+
+Email-specific statuses may include:
+
+```text
+draft
+sent
+sent_waiting_reply
+reply_received
+closed
+```
+
+Safety-specific statuses may include:
+
+```text
+open
+verbal_correction
+written_notice
+ready_for_verification
+verified
+closed
+reopened
+```
+
+---
+
+## 17. Time-Aware Views
+
+The app should support movement through past, present, and future.
+
+Suggested main views:
+
+```text
+Timeline
+Action Queue
+Sites
+Parties / Contractors
+Emails
+Follow-Ups
+Appointments / Scheduled Events
+Safety Issues
+Archive
+```
+
+### Timeline View
+
+Shows events and actions by date.
+
+Example:
+
+```text
+June 12, 2026
+
+08:10 — Crane arrived on site
+09:25 — ABC Mechanical blocked east gate
+11:15 — Email task created
+17:20 — Email sent to ABC Mechanical
+Future: Follow-up due June 15
+```
+
+### Action Queue
+
+Shows what needs action.
+
+Example:
+
+```text
+Overdue
+Due Today
+Due Tomorrow
+Due This Week
+Waiting
+Needs Clarification
+Completed
+```
+
+Example action queue:
+
+```text
+Due Today
+- Send lift plan request to crane supplier
+- Confirm east gate has been cleared
+
+Due This Week
+- Follow up with ABC Mechanical
+- Confirm missing rebar delivery
+- Verify insurance certificate received
+
+Waiting
+- Awaiting reply from crane supplier
+- Awaiting corrected delivery slip
+```
+
+### Scheduled Events
+
+Internal calendar-like list.
+
+Example:
+
+```text
+Upcoming Site Events
+
+June 16, 2026
+08:00 — Crane rooftop material lift
+
+June 18, 2026
+10:30 — Site inspection
+
+June 20, 2026
+07:00 — Concrete pour
+```
+
+These can optionally be exported to Apple Calendar, but they do not need to be.
+
+---
+
+## 18. Email Workflow
+
+The app should support email action cards.
+
+For an email, the app should store:
+
+```text
+recipient
+recipientName
+subject
+body
+reason
+sourceLogDate
+sourceText
+status
+sentAt
+followUpRequired
+followUpDate
+relatedFollowupId
+```
+
+Possible buttons:
+
+```text
+Copy Email
+Copy Subject
+Copy Body
+Open Mail
+Mark Sent
+Set Follow-Up Reminder
+Mark Closed
+```
+
+After an email is sent, the app can create a follow-up:
+
+```json
+{
+  "type": "followup",
+  "title": "Follow up with ABC Mechanical if no response received",
+  "dueDate": "2026-06-15",
+  "status": "open",
+  "relatedEmailId": "email_004"
+}
+```
+
+This allows:
+
+```text
+Send email today
+→ mark sent
+→ set follow-up in 3 days
+→ app stores reminder internally
+→ item resurfaces if unresolved
+```
+
+---
+
+## 19. Appointment Workflow
+
+Appointments should be used for real scheduled events.
+
+App fields:
+
+```text
+title
+date
+startTime
+endTime if known
+location
+notes
+relatedSite
+relatedParty
+sourceLogDate
+sourceText
+status
+prepTasks
+```
+
+Possible buttons:
+
+```text
+Copy Appointment
+Copy Notes
+Create Calendar File
+Set Prep Reminder
+Mark Scheduled
+Mark Completed
+```
+
+Later, the app may generate `.ics` calendar files.
+
+For the first version, copy/paste is acceptable.
+
+---
+
+## 20. Follow-Up Workflow
+
+Follow-ups are first-class items inside the app.
+
+They should not be forced into Apple Calendar.
+
+Fields:
+
+```text
+task
+relatedParty
+site
+createdAt
+sourceLogDate
+dueDate
+status
+priority
+sourceText
+relatedEmailId
+relatedEventId
+```
+
+Possible buttons:
+
+```text
+Set Follow-Up Date
+Mark Waiting
+Mark Done
+Snooze
+Create Email
+Keep for Site Record
+```
+
+---
+
+## 21. Clarification Workflow
+
+The app needs a “Needs Clarification” section.
+
+Items go here when AI is uncertain.
+
+Example display:
+
+```text
+CLARIFICATION NEEDED
+
+Source:
+Talk to Mike about the gate.
+
+Question:
+Which Mike and which gate is this referring to?
+
+Suggested options:
+- Mike from ABC Mechanical / east gate
+- Mike from crane supplier / site access
+- Other
+
+Buttons:
+[Clarify]
+[Dismiss]
+[Convert to Follow-Up]
+```
+
+This prevents vague input from becoming false records.
+
+Rule:
+
+```text
+If an item cannot be classified with high confidence, do not convert it into an email, appointment, safety issue, or follow-up. Place it in clarificationRequired.
+```
+
+---
+
+## 22. Local App Storage
+
+For the app, local storage should use IndexedDB.
+
+IndexedDB is preferred over localStorage because it can handle more structured records.
+
+Use IndexedDB for:
+
+```text
+daily packages
+events
+emails
+appointments
+follow-ups
+to-dos
+safety issues
+clarification items
+status changes
+history
+```
+
+localStorage may be used only for small app settings such as:
+
+```text
+last selected site
+theme
+default follow-up days
+user preferences
+```
+
+Do not use repeated direct writes to a local JSON file as the main live storage model.
+
+Recommended model:
+
+```text
+JSON = import/export package
+IndexedDB = live local app storage
+HTML app = display and action console
+```
+
+---
+
+## 23. Local HTML App
+
+The first app can be a local HTML/JavaScript app.
+
+Initial purpose:
+
+```text
+Load JSON
+Import records
+Store in IndexedDB
+Display Daily Summary
+Display Timeline
+Display Action Queue
+Show Email cards
+Show Appointment cards
+Show Follow-Up cards
+Show Safety Issue cards
+Show Clarification cards
+Allow copy/paste actions
+Track status changes
+```
+
+The app can be opened locally in a browser.
+
+Later it may become a PWA.
+
+---
+
+## 24. iPhone-Friendly Copy/Paste
+
+The app should support iPhone copy-and-paste workflows.
+
+Buttons should include:
+
+```text
+Copy Email
+Copy Subject
+Copy Body
+Copy Appointment
+Copy Follow-Up
+Copy To-Do
+Copy Safety Issue
+```
+
+For email, the app may also support a `mailto:` link:
+
+```text
+Create Email
+```
+
+But copy buttons are more reliable for early versions.
+
+For appointments, early version can use:
+
+```text
+Copy Appointment
+```
+
+Later version can support:
+
+```text
+Create .ics calendar file
+```
+
+---
+
+## 25. Canned Email Generation
+
+AI can create email drafts when the log clearly implies a known type of email.
+
+Examples of canned email types:
+
+```text
+request lift plan
+request insurance certificate
+remind contractor to keep access clear
+confirm delivery shortage
+request corrected documents
+notify subcontractors of crane-on-site date
+warn contractor about safety/access issue
+```
+
+The AI should only draft emails when the source log supports it.
+
+If recipient or key facts are missing, it should put the item into clarificationRequired or mark fields as “not stated.”
+
+---
+
+## 26. Rules for Due Dates and Timeliness
+
+The app becomes aware of timeliness through date fields and rules.
+
+Due dates can come from:
+
+### A. AI extracts stated dates
+
+Example:
+
+```text
+Follow up with ABC Mechanical on Monday.
+```
+
+AI resolves Monday relative to the log date and creates a due date.
+
+### B. App applies default rules
+
+Example:
+
+```text
+Email sent → follow up in 3 days
+Document request → follow up in 2 days
+Appointment created → prep reminder 1 day before
+Delivery issue → follow up next business day
+Safety issue created → review today
+Unclear item → review today
+```
+
+### C. User selects date in app
+
+Buttons:
+
+```text
+Tomorrow
+3 Days
+1 Week
+Pick Date
+```
+
+This may be the best first version.
+
+---
+
+## 27. Suggested Default Rules
+
+Start with simple rules:
+
+```text
+Safety issue created → review today
+Email sent → follow up in 3 days
+Document request → follow up in 2 days
+Appointment created → prep reminder 1 day before
+Delivery issue → follow up next business day
+Unclear item → review today
+```
+
+These rules should be editable later.
+
+---
+
+## 28. Development Phases
+
+### Phase 1 — Working Logs
+
+* Create ChatGPT Project.
+* Upload this handoff.
+* Create hand-written sample notes.
+* Use AI to process plain text into JSON.
+* Refine prompt and schema.
+* Build sample JSON packages.
+
+### Phase 2 — Basic JSON Viewer
+
+* Create local HTML viewer.
+* Load one JSON file manually.
+* Display daily summary.
+* Display sections as cards.
+* Add copy buttons.
+
+### Phase 3 — Local Storage
+
+* Add IndexedDB.
+* Import JSON into local app storage.
+* Preserve imported packages.
+* Track status changes.
+* Display open/closed/waiting items.
+
+### Phase 4 — Action Queue and Timeline
+
+* Build time-aware views.
+* Sort by overdue, due today, upcoming, waiting, clarification required.
+* Link records back to sourceText.
+* Add status transitions.
+
+### Phase 5 — App-Assisted Actions
+
+* Copy email drafts.
+* Open mailto links where useful.
+* Copy appointment details.
+* Generate `.ics` files later.
+* Create follow-ups from sent emails.
+* Snooze or close items.
+
+### Phase 6 — Direct AI Integration
+
+* App sends plain text directly to AI through API.
+* AI returns structured output.
+* App imports results automatically.
+* Use JSON schema / Structured Outputs in future API implementation.
+
+---
+
+## 29. Core Architecture Statement
+
+The final intended architecture is:
+
+```text
+Plain text capture
+→ AI parser
+→ structured JSON migration package
+→ local app import
+→ IndexedDB persistent memory
+→ timeline + action queue
+→ emails / appointments / follow-ups / safety records / to-dos
+```
+
+The app is not primarily a calendar.
+
+The app is a:
+
+```text
+Site Timeline + Action Queue + Persistent Site Memory
+```
+
+Apple Calendar, Mail, Reminders, and Notes are optional output destinations, not the central system.
+
+---
+
+## 30. Key Design Principles
+
+1. **Plain text input is enough for Version 1.**
+   The app does not need to know whether text came from Apple Notes, dictation, or manual typing.
+
+2. **AI should produce structured data, not just summaries.**
+   Human-readable output is useful, but importable JSON is the migration path.
+
+3. **JSON is a handoff, not the permanent live database.**
+   The app should import JSON and store data locally.
+
+4. **Every item must preserve sourceText.**
+   This keeps the system auditable.
+
+5. **Do not invent facts.**
+   Missing information should be marked “not stated.”
+
+6. **Ambiguity goes to clarificationRequired.**
+   Do not convert vague notes into firm actions.
+
+7. **The app owns the time model.**
+   Due dates, reminders, statuses, and queues should live inside the app.
+
+8. **Calendar is optional.**
+   Only real scheduled events need calendar export.
+
+9. **Follow-ups are internal obligations.**
+   They should be tracked inside the app with statuses.
+
+10. **The app should allow movement through past, present, and future.**
+    Timeline, action queue, archive, and upcoming work are central.
+
+---
+
+## 31. Immediate Next Steps
+
+1. Create a ChatGPT Project called:
+
+```text
+SiteScribe Processing
+```
+
+2. Upload this handoff document.
+
+3. Create a separate project/folder for:
+
+```text
+SiteScribe Working Logs
+```
+
+4. Create a separate project/folder for:
+
+```text
+SiteScribe App Development
+```
+
+5. Hand-create a few sample daily site notes.
+
+6. Use chat to process those notes into structured JSON.
+
+7. Refine the JSON schema until it matches the desired app behaviour.
+
+8. Begin the local HTML viewer only after there are a few realistic sample JSON packages to test against.
+
+---
+
+## 32. Short Summary
+
+SiteScribe should begin as a plain-text-to-AI workflow using Apple Notes or dictated notes. AI processes the raw daily log into one structured JSON package containing events, follow-ups, emails, appointments, to-dos, safety issues, clarification items, missing information, and a daily summary.
+
+That JSON is imported into a local HTML app. The app stores the records locally, likely in IndexedDB, and presents them as action cards and timeline entries. The app becomes the persistent memory system, not Apple Calendar. Calendar, Mail, Notes, and Reminders are optional tools for output, but the app maintains the source record, status, due dates, follow-ups, and history.
+
+The app’s central purpose is to let the user move through time within the site record: what happened, what is open now, and what must happen next.

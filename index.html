@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SiteScribe Review Console v0.8.13</title>
+  <link rel="stylesheet" href="styles.css?v=0.8.13" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1>SiteScribe</h1>
+      <p class="subhead">Site Memory &amp; Action Review</p>
+    </div>
+    <div id="appVersion" class="version-pill">v0.8.13</div>
+  </header>
+
+  <main class="shell">
+    <section id="siteWalkB01" class="panel import-panel has-box-id site-walk-panel" data-box-key="box.main.import" data-site-walk-box="B01">
+      <div class="site-walk-header" data-collapse-panel="siteWalkB01" role="button" tabindex="0" aria-expanded="true" aria-controls="siteWalkB01">
+        <span class="site-walk-drag-grip" title="Drag to move this section" aria-label="Drag to move this section">⠿</span><button type="button" class="box-id" data-config-box="B01" title="Configure B01">B01</button><span class="site-walk-title-divider" aria-hidden="true"></span><h2>Bring In Site Notes</h2><span class="collapsed-section-summary" data-panel-summary="siteWalkB01"></span><span class="site-walk-chevron" aria-hidden="true">▼</span>
+      </div>
+      <div class="compact-import-row">
+        <h2>Bring In Site Notes</h2>
+        <div class="import-grid compact-import-actions">
+          <input id="jsonFile" class="visually-hidden-file" type="file" accept=".json,application/json,text/json" />
+          <label id="dropZone" class="drop-zone compact-drop-button" for="jsonFile" tabindex="0" role="button" aria-label="Load JSON file or drop JSON here">Load JSON</label>
+          <button id="reportsButton" type="button" class="secondary desktop-tooltip" data-tooltip="Create, review, print, or export site reports, including MDS billing.">Reports</button>
+          <button id="communicationActivityButton" type="button" class="secondary desktop-tooltip" data-tooltip="View this site's history of email drafts created or opened by SiteScribe.">Email Activity</button>
+        </div>
+      </div>
+      <!-- SiteScribe Review Console v0.6.68a Dropbox Panel Polish / Advanced Settings Cleanup / Pull Proof. -->
+      <section id="dropboxSyncPanel" class="dropbox-sync-panel" aria-label="Dropbox manual backup with metadata preview">
+        <div class="dropbox-sync-header">
+          <h3>Manual Dropbox Backup / Import</h3>
+        </div>
+        <div class="dropbox-safe-summary" aria-label="Dropbox safe status summary">
+          <span id="dropboxConnectionSummary" class="dropbox-summary-pill">Dropbox: not connected</span>
+          <span id="dropboxRedirectSummary" class="dropbox-summary-pill">Callback redirect: active</span>
+          <button id="connectDropboxButton" type="button" class="secondary small dropbox-connect-summary-button desktop-tooltip" data-tooltip="Connect this browser to Dropbox before listing, importing, or saving SiteScribe files.">CONNECT DROPBOX</button>
+        </div>
+        <p class="dropbox-helper-text">LIST views Dropbox SiteScribe JSON files. IMPORT brings one selected file into SiteScribe using Create New / Append / Cancel. DELETE removes only the selected Dropbox file after confirmation. UPDATE replaces the stable Dropbox site file after confirmation. SAVE NEW BACKUP COPY creates a dated restore-point copy in /saved-sites.</p>
+        <div class="dropbox-sync-actions">
+          <button id="listDropboxFilesButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Show available SiteScribe JSON files in Dropbox so you can import one.">LIST DROPBOX JSON FILES</button>
+          <button id="updateDropboxSiteFileButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Replace the stable Dropbox site file with the current site after confirmation.">UPDATE DROPBOX SITE FILE</button>
+          <button id="saveNewDropboxBackupCopyButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Save a dated backup copy to Dropbox. Your current stable site file is not replaced.">SAVE NEW BACKUP COPY</button>
+        </div>
+        <p id="dropboxStatusLine" class="dropbox-status-line">Dropbox: not connected.</p>
+        <p id="dropboxSyncResultLine" class="dropbox-result-line">Last action: no Dropbox action run yet. Manual backup/import only: UPDATE asks before overwrite; SAVE NEW BACKUP COPY never overwrites.</p>
+        <details id="dropboxSettingsDetails" class="dropbox-settings-details">
+          <summary><span>Advanced Dropbox Settings</span><span id="dropboxMaskedKeySummary" class="dropbox-masked-summary">App key: configured</span></summary>
+          <div class="dropbox-settings-grid" aria-label="Dropbox settings">
+            <label class="dropbox-setting-label">Redirect URI
+              <input id="dropboxRedirectUriInput" type="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://www.ecrinc.ca/dropbox-callback.html" />
+            </label>
+          <button id="saveDropboxSettingsButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Store the Dropbox callback address in this browser. It does not change site records or Dropbox files.">SAVE REDIRECT SETTING</button>
+          </div>
+          <p id="dropboxSettingsHint" class="dropbox-settings-hint">The public Dropbox App Key is configured in SiteScribe. Only a custom redirect setting is stored in this browser. Recommended mobile redirect: https://www.ecrinc.ca/dropbox-callback.html</p>
+        </details>
+        <div id="dropboxFilesList" class="dropbox-files-list" aria-live="polite">
+          <div class="dropbox-empty">No Dropbox JSON files listed yet.</div>
+        </div>
+      </section>
+    </section>
+
+    <section id="siteWalkB02" class="panel archive-panel has-box-id site-walk-panel" data-box-key="box.main.savedSites" data-site-walk-box="B02">
+      <div class="site-walk-header" data-collapse-panel="siteWalkB02" role="button" tabindex="0" aria-expanded="true" aria-controls="siteWalkB02">
+        <span class="site-walk-drag-grip" title="Drag to move this section" aria-label="Drag to move this section">⠿</span><button type="button" class="box-id" data-config-box="B02" title="Configure B02">B02</button><span class="site-walk-title-divider" aria-hidden="true"></span><h2>Saved Sites</h2><span class="collapsed-section-summary" data-panel-summary="siteWalkB02"></span><span class="site-walk-chevron" aria-hidden="true">▼</span>
+      </div>
+      <div class="panel-title-row">
+        <h2>Saved Sites</h2>
+        <div class="button-row">
+          <button id="refreshArchiveButton" type="button" class="secondary desktop-tooltip" data-tooltip="Reload the list of SiteScribe sites saved in this browser. It does not overwrite the open site.">Refresh</button>
+          <button id="createNewSiteButton" type="button" class="secondary desktop-tooltip" data-tooltip="Create an empty site in this browser. Your existing saved sites remain unchanged.">New Blank Site</button>
+        </div>
+      </div>
+      <div id="localArchive" class="archive-list empty">No saved sites loaded yet.</div>
+    </section>
+
+    <input id="activeMemorySiteInput" type="hidden" />
+    <div id="activeMemorySummary" class="hidden" aria-hidden="true"></div>
+
+    <section id="siteWalkB04" class="panel entry-panel has-box-id site-walk-panel" data-box-key="box.main.manualRecord" data-site-walk-box="B04">
+      <div class="site-walk-header" data-collapse-panel="siteWalkB04" role="button" tabindex="0" aria-expanded="true" aria-controls="siteWalkB04">
+        <span class="site-walk-drag-grip" title="Drag to move this section" aria-label="Drag to move this section">⠿</span><button type="button" class="box-id" data-config-box="B04" title="Configure B04">B04</button><span class="site-walk-title-divider" aria-hidden="true"></span><h2>Record Intake</h2><span class="collapsed-section-summary" data-panel-summary="siteWalkB04">Open the note parser or add one record manually.</span><span class="site-walk-chevron" aria-hidden="true">▼</span>
+      </div>
+      <div class="panel-title-row record-intake-title-row">
+        <h2>Record Intake</h2>
+      </div>
+      <div class="record-intake-option parse-notes-option">
+        <div class="record-intake-copy">
+          <h3>Parse Notes</h3>
+          <p id="addDataFeatureHint" class="muted small-hint">Open the parser to paste notes or schedule text, add an optional instruction, then review proposed records.</p>
+        </div>
+        <button id="addDataButton" type="button" class="add-data-launch">Open Note Parser</button>
+      </div>
+      <div class="record-intake-divider"><span>or add one manually</span></div>
+      <div class="manual-entry-section">
+        <h3>Add One Manually</h3>
+        <p id="manualEntryFeatureHint" class="muted small-hint">Enter one record directly. Categories: event, action, followup, scheduled, safety, communication, document.</p>
+        <textarea id="mainEntry" rows="2" placeholder="Enter one record manually"></textarea>
+        <div class="button-row">
+          <label class="manual-intent-label">Intent
+            <select id="mainEntryIntent" aria-label="Intent for manual record"></select>
+          </label>
+          <button id="addMainButton" type="button">Add Record</button>
+          <span id="entryHint" class="hint entry-hint-hidden" aria-hidden="true"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="siteWalkB05" class="panel records-panel has-box-id site-walk-panel" data-box-key="box.main.workingMemory" data-site-walk-box="B05">
+      <div class="site-walk-header" data-collapse-panel="siteWalkB05" role="button" tabindex="0" aria-expanded="true" aria-controls="siteWalkB05">
+        <span class="site-walk-drag-grip" title="Drag to move this section" aria-label="Drag to move this section">⠿</span><button type="button" class="box-id" data-config-box="B05" title="Configure B05">B05</button><span class="site-walk-title-divider" aria-hidden="true"></span><h2>Working Memory</h2><span class="collapsed-section-summary" data-panel-summary="siteWalkB05"></span><span class="site-walk-chevron" aria-hidden="true">▼</span>
+      </div>
+      <div class="panel-title-row">
+        <h2>Working Memory</h2>
+        <div class="button-row sort-row">
+          <button id="sortNewestButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Order records with the newest activity first. Deliverable priority rules still apply.">Sort Newest</button>
+          <button id="sortOldestButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Order records with the oldest activity first. Deliverable priority rules still apply.">Sort Oldest</button>
+          <button id="toggleClosedButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Hide or show records that have been marked closed.">Hide Closed</button>
+        </div>
+      </div>
+      <div id="recordsRoot" class="records-root empty">Load a JSON package or create a record to begin.</div>
+    </section>
+  </main>
+
+  <aside id="configPanel" class="config-panel hidden" aria-hidden="true">
+    <div class="config-card">
+      <div class="detail-header">
+        <h2>CONFIG</h2>
+        <button id="closeConfigButton" type="button" class="secondary">Close</button>
+      </div>
+      <p class="muted">CONFIG manages reusable templates. The current site template is highlighted; legacy sites with no template use Default.</p>
+      <div id="configFields"></div>
+      <div class="button-row config-actions">
+        <button id="applyConfigButton" type="button">Apply</button>
+        <button id="restoreConfigDefaultsButton" type="button" class="secondary">Edit Template</button>
+        <button id="saveConfigToSiteButton" type="button" class="secondary">Save</button>
+      </div>
+      <p class="muted small-hint">Create New Template makes another reusable configuration. Edit Template loads the chosen template for B01/B02/B04/B05 editing. Apply assigns the chosen template to the current site. Save stores new or edited templates; Close also saves pending template edits.</p>
+    </div>
+  </aside>
+
+  <aside id="communicationActivityPanel" class="communication-setup-panel hidden" aria-hidden="true">
+    <div class="communication-setup-card">
+      <div class="detail-header"><div><h2>Email Activity</h2><p id="communicationActivitySite" class="muted small-hint">Draft activity for this site</p></div><div class="button-row"><button id="clearCommunicationActivityButton" type="button" class="secondary danger">Clear Activity</button><button id="closeCommunicationActivityButton" type="button" class="secondary">Close</button></div></div>
+      <p class="muted communication-setup-intro">Each entry starts collapsed. Expand it to see the linked record and a preview of the email text. “Sent” is only a user-reported status.</p>
+      <div id="communicationActivityLog" class="communication-activity-log"></div>
+    </div>
+  </aside>
+
+  <aside id="communicationSetupPanel" class="communication-setup-panel hidden" aria-hidden="true">
+    <div class="communication-setup-card">
+      <div class="detail-header">
+        <div>
+          <h2>Contacts / Departments</h2>
+          <p id="communicationSetupSite" class="muted small-hint">Contacts and routing for this saved site</p>
+        </div>
+        <button id="closeCommunicationSetupButton" type="button" class="secondary">Close</button>
+      </div>
+      <p class="muted communication-setup-intro">These contacts and departments belong to the saved site named above. They are saved in that site's browser copy, JSON export, and Dropbox copy. This prepares routing only; SiteScribe does not send email.</p>
+      <div id="communicationSetupWarnings" class="communication-setup-warnings" aria-live="polite"></div>
+      <div class="communication-setup-actions">
+        <button id="allSiteContactsButton" type="button" class="secondary">All Site Contacts</button>
+        <button id="addInternalDepartmentButton" type="button">Add Internal Department</button>
+        <button id="addExternalCompanyButton" type="button">Add External Company</button>
+      </div>
+      <p class="muted small-hint">All Site Contacts is a read-only lookup of contacts already saved on this device. Add or move contacts deliberately in the appropriate site.</p>
+      <div id="communicationSetupFields" class="communication-setup-fields"></div>
+      <div class="button-row communication-setup-footer">
+        <button id="saveCommunicationSetupButton" type="button">Save Contacts / Departments</button>
+      </div>
+    </div>
+  </aside>
+
+  <aside id="allSiteContactsPanel" class="communication-setup-panel hidden" aria-hidden="true">
+    <div class="communication-setup-card all-site-contacts-card">
+      <div class="detail-header">
+        <div>
+          <h2>All Site Contacts</h2>
+          <p class="muted small-hint">Read-only contacts and departments saved across all sites on this device.</p>
+        </div>
+        <button id="closeAllSiteContactsButton" type="button" class="secondary">Close</button>
+      </div>
+      <label class="all-site-contacts-search">Find a contact, site, department, company, role, or email
+        <input id="allSiteContactsSearch" type="search" autocomplete="off" placeholder="Start typing to filter" />
+      </label>
+      <p id="allSiteContactsSummary" class="muted small-hint" aria-live="polite"></p>
+      <div id="allSiteContactsList" class="all-site-contacts-list"></div>
+    </div>
+  </aside>
+
+  <aside id="detailPanel" class="detail-panel" aria-hidden="true">
+    <div class="detail-card">
+      <div class="detail-header">
+        <h2 id="detail-title">Record Detail</h2>
+        <button id="closeDetailButton" type="button" class="secondary">Close</button>
+      </div>
+      <div id="detailContent"></div>
+    </div>
+  </aside>
+
+
+  <aside id="reportsPanel" class="reports-panel" aria-hidden="true">
+    <div class="reports-card">
+      <div class="detail-header">
+        <h2 id="reportsTitle">Reports</h2>
+        <button id="closeReportsButton" type="button" class="secondary">Close</button>
+      </div>
+      <div class="report-toolbar" aria-label="Report controls">
+        <label class="field-label report-field">Report Type
+          <select id="reportType">
+            <option value="daily">Daily Site Report</option>
+            <option value="open">Open Items Report</option>
+            <option value="hours">Hours Report</option>
+            <option value="mds">MDS Billing Report</option>
+            <option value="email_activity">Communication Activity Report</option>
+          </select>
+        </label>
+        <label class="field-label report-field">AI Report
+          <select id="aiReportMode" aria-controls="customAiReportPrototype">
+            <option value="none">None</option>
+            <option value="blank">Blank custom report</option>
+            <optgroup label="Saved prompts for this site">
+              <option value="schedule_delivery_status">Delivered vs. remaining schedule work</option>
+              <option value="crane_window_readiness">Crane-window readiness and risks</option>
+              <option value="open_work_hours">Open work, hours, and missing confirmations</option>
+            </optgroup>
+          </select>
+        </label>
+        <label class="field-label report-field">From Date
+          <input id="reportFromDate" type="date" />
+        </label>
+        <label class="field-label report-field">To Date
+          <input id="reportToDate" type="date" />
+        </label>
+        <label class="field-label report-field">Date Order
+          <select id="reportSortOrder">
+            <option value="default">Report default</option>
+            <option value="date_asc">Oldest to newest</option>
+            <option value="date_desc">Newest to oldest</option>
+          </select>
+        </label>
+        <fieldset class="report-filter-group">
+          <legend>Categories</legend>
+          <label><input type="checkbox" class="reportCategory" value="event" checked /> Event</label>
+          <label><input type="checkbox" class="reportCategory" value="action" checked /> Action</label>
+          <label><input type="checkbox" class="reportCategory" value="followup" checked /> Followup</label>
+          <label><input type="checkbox" class="reportCategory" value="scheduled" checked /> Scheduled</label>
+          <label><input type="checkbox" class="reportCategory" value="safety" checked /> Safety</label>
+          <label><input type="checkbox" class="reportCategory" value="communication" checked /> Communication</label>
+          <label><input type="checkbox" class="reportCategory" value="document" checked /> Document</label>
+        </fieldset>
+        <fieldset class="report-filter-group">
+          <legend>Status</legend>
+          <label><input id="reportStatusOpen" type="checkbox" checked /> Open</label>
+          <label><input id="reportStatusClosed" type="checkbox" checked /> Closed</label>
+        </fieldset>
+        <div class="button-row report-actions">
+          <button id="printReportButton" type="button" class="secondary desktop-tooltip" data-tooltip="Print the report exactly as it appears on screen, or save it as a PDF.">Print</button>
+          <button id="copyReportButton" type="button" class="secondary desktop-tooltip" data-tooltip="Copy the current report as text so it can be pasted into an email or document.">Copy Text</button>
+          <button id="exportHoursExcelButton" type="button" class="secondary desktop-tooltip" data-tooltip="Download the selected Hours Report records as an Excel workbook." hidden>Export Excel</button>
+          <button id="exportMdsExcelButton" type="button" class="secondary desktop-tooltip" data-tooltip="Download the selected Reg, OT, and expense entries in the MDS monthly workbook format." hidden>Export MDS Excel</button>
+        </div>
+      </div>
+      <section id="customAiReportPrototype" class="custom-ai-report-prototype" aria-labelledby="customAiReportPrototypeTitle" hidden>
+        <div class="custom-ai-report-heading">
+          <div><span class="prototype-badge">PROTOTYPE · NO API CALL</span><h3 id="customAiReportPrototypeTitle">Custom AI Report</h3></div>
+          <p>Ask for a focused draft based on the current SiteScribe report scope. This prototype does not send data, generate a report, or change records.</p>
+        </div>
+        <div class="custom-ai-scope" aria-label="Proposed report scope">
+          <div><span>Site</span><strong>Active site</strong></div>
+          <div><span>Date range</span><strong>Current report filters</strong></div>
+          <div><span>Records</span><strong>Selected report records</strong></div>
+          <div><span>Source text</span><strong>Off by default</strong></div>
+        </div>
+        <label class="field-label custom-ai-prompt-label">What report do you need?
+          <textarea id="customAiReportPromptPrototype" rows="3" placeholder="Example: Report on what has been delivered and what remains to be done in the Phase 4A schedule." disabled></textarea>
+        </label>
+        <div class="custom-ai-example-row" aria-label="Example custom report prompts">
+          <span>Examples</span>
+          <button type="button" class="secondary small" disabled>Delivered vs. remaining schedule work</button>
+          <button type="button" class="secondary small" disabled>Crane-window readiness and risks</button>
+          <button type="button" class="secondary small" disabled>Open work, hours, and missing confirmations</button>
+        </div>
+        <div class="custom-ai-prompt-library-actions">
+          <span>Prototype prompt library: saved prompts will remain with this site only.</span>
+          <button type="button" class="secondary small" disabled>Save current prompt as…</button>
+          <button type="button" class="secondary small" disabled>Manage saved prompts…</button>
+        </div>
+        <div class="custom-ai-options">
+          <label><input type="checkbox" disabled> Include source text</label>
+          <span>Default report evidence: record title, parent path, dates, status, hours, deliverables, and operator-selected filters.</span>
+        </div>
+        <div class="custom-ai-actions">
+          <button type="button" disabled>Generate Draft Report</button>
+          <span>Future behavior: explicit request only; never writes to the site file.</span>
+        </div>
+        <label class="field-label custom-ai-draft-label">AI-generated draft report <span>Editable after generation</span>
+          <textarea id="customAiReportDraftPrototype" rows="10" placeholder="The reviewed draft report will appear here. It will separate confirmed work, remaining work, in-progress work, risks/dependencies, and items requiring confirmation." disabled></textarea>
+        </label>
+        <div class="custom-ai-export-actions">
+          <button type="button" class="secondary" disabled>Copy Draft</button>
+          <button type="button" class="secondary" disabled>Print Draft</button>
+          <button type="button" class="secondary" disabled>Download Text</button>
+          <button type="button" class="secondary" disabled>Save as Document Record</button>
+        </div>
+      </section>
+      <section id="hoursRecordSelector" class="hours-record-selector" hidden aria-labelledby="hoursRecordSelectorTitle">
+        <div class="hours-selector-header">
+          <div>
+            <h3 id="hoursRecordSelectorTitle">Choose Secondary Records</h3>
+            <p id="hoursRecordSelectorSite" class="muted"></p>
+          </div>
+          <div class="button-row hours-selector-actions">
+            <button id="selectAllHoursButton" type="button" class="secondary">Select All</button>
+            <button id="clearHoursButton" type="button" class="secondary">Clear All</button>
+          </div>
+        </div>
+        <div id="hoursRecordSelectionList" class="hours-record-selection-list"></div>
+      </section>
+      <article id="reportOutput" class="report-output" aria-live="polite"></article>
+    </div>
+  </aside>
+  <div class="footer-actions">
+    <div class="footer-button-row">
+      <button id="emailJsonButton" type="button" class="secondary desktop-tooltip" data-mobile-label="Email" aria-label="Email Current Memory" data-tooltip="Prepare an email with the current SiteScribe JSON file attached. Nothing is sent automatically.">Email Current Memory</button>
+    </div>
+    <p id="statusLine" class="footer-status" aria-live="polite">Working copy autosaves after edits.</p>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script src="sitescribe-parser-core.js?v=1.0.1"></script>
+  <script src="exceljs.min.js?v=4.4.0-bare"></script>
+  <script src="sitescribe-hours-excel.js?v=0.6.78"></script>
+  <script src="sitescribe-mds-excel.js?v=0.7.19"></script>
+  <script src="app.js?v=0.8.13"></script>
+  <script src="sitescribe-add-data.js?v=0.8.13"></script>
+  <!-- SiteScribe Review Console v0.6.68a Dropbox Panel Polish / Advanced Settings Cleanup.
+       Loads after app.js and reuses the existing import choice workflow for selected Dropbox JSON files. -->
+  <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
+  <script src="dropbox-sync-proof.js?v=0.8.13"></script>
+</body>
+</html>

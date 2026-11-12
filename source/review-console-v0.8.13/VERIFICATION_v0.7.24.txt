@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.7.24 Verification Evidence
+Date: 2026-08-14
+
+Requested behavior verified by code path
+- A new secondary editor (no selected secondary record) resolves its Billing selector to Reg.
+- The blank editor reset after saving a new secondary record restores Reg.
+- An existing selected secondary record resolves the selector from its stored billingType/hourType, including an intentional blank/None legacy value.
+- The established billing persistence, Expense state handling, Work Date fallback, landscape reports repair, and MDS sort connection remain protected.
+
+Automated verification
+- PASS node --check for all first-party JavaScript and regression_check_v0.7.24.js.
+- PASS 10 focused/protected regression checks.
+- PASS no duplicate HTML IDs.
+- PASS no duplicate function declarations.
+- PASS CSS brace integrity: 896 opening / 896 closing.

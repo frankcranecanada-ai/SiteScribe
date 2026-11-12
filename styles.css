@@ -1,0 +1,4553 @@
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --ink: #1f2933;
+  --muted: #697386;
+  --line: #d9dee7;
+  --brand: #263b59;
+  --brand-2: #36567f;
+  --danger: #8a1f1f;
+  --danger-bg: #fff0f0;
+  --ok: #237047;
+  --closed: #8a8f98;
+  --records-panel-bg: #eef4fb;
+  --record-open-bg: #d8e7f7;
+  --record-open-border: #9db8d7;
+  --record-closed-bg: #f3f7fb;
+  --record-closed-border: #d3dde9;
+  --shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+}
+
+/* v0.6.82 communication routing review and activity log */
+.manual-intent-label { display:flex; align-items:center; gap:6px; font-size:.84rem; color:#5b6878; }
+.manual-intent-label select { max-width:220px; }
+.add-data-intent { margin-top:7px; font-size:.84rem; color:#38516c; }
+.add-data-routing { display:grid; gap:3px; margin-top:8px; padding:8px 10px; border-radius:8px; background:#edf5fd; border:1px solid #bdd8f2; font-size:.84rem; }
+.add-data-routing.unresolved { background:#fff7e8; border-color:#efd39a; }
+.add-data-routing label { margin-top:3px; font-weight:600; }
+.communication-activity-log { display:grid; gap:9px; max-height:65vh; overflow:auto; }
+.communication-activity-entry { border:1px solid #d7e0ea; border-radius:9px; background:#f8fbff; overflow:hidden; }
+.communication-activity-entry > summary { display:flex; align-items:center; gap:10px; padding:11px; cursor:pointer; list-style:none; }
+.communication-activity-entry > summary::-webkit-details-marker { display:none; }
+.communication-activity-summary { display:grid; gap:3px; min-width:0; flex:1; }
+.communication-activity-summary span { color:#516275; }
+.communication-activity-chevron { color:#58728f; font-size:10px; transition:transform .18s ease; }
+.communication-activity-entry[open] .communication-activity-chevron { transform:rotate(180deg); }
+.communication-activity-detail { display:grid; gap:7px; padding:10px 11px 12px; border-top:1px solid #d7e0ea; background:#fff; color:#35475a; }
+.activity-detail-row { line-height:1.35; }
+.activity-draft-preview { display:grid; gap:4px; margin-top:2px; padding:9px 10px; border-radius:6px; background:#eef5fc; line-height:1.4; white-space:pre-wrap; }
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 18px 22px;
+  background: var(--brand);
+  color: #fff;
+}
+h1, h2, h3, p { margin-top: 0; }
+h1 { margin-bottom: 2px; font-size: 1.55rem; }
+h2 { font-size: 1.05rem; margin-bottom: 12px; }
+h3 { font-size: 0.98rem; margin-bottom: 8px; }
+.subhead { margin-bottom: 0; opacity: 0.82; }
+.version-pill, .pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(255,255,255,0.16);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.shell {
+  max-width: 1160px;
+  margin: 18px auto 72px;
+  padding: 0 14px;
+  display: grid;
+  gap: 14px;
+}
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.panel-title-row, .button-row, .import-grid {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.panel-title-row { justify-content: space-between; }
+button {
+  appearance: none;
+  border: 0;
+  border-radius: 999px;
+  background: var(--brand);
+  color: #fff;
+  padding: 9px 14px;
+  font-weight: 650;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+button:hover { background: var(--brand-2); }
+button.secondary { background: #eef1f6; color: var(--brand); border: 1px solid var(--line); }
+button.secondary:hover { background: #e4e9f1; }
+button.danger { background: var(--danger-bg); color: var(--danger); border: 1px solid #f1c4c4; }
+button.danger:hover { background: #ffe1e1; }
+button.small { padding: 6px 10px; font-size: 0.8rem; }
+
+/* v0.6.90 desktop help tooltips.  These are deliberately CSS-only so they
+   cannot intercept a click, focus, or any established SiteScribe action. */
+@media (hover: hover) and (pointer: fine) {
+  .desktop-tooltip {
+    position: relative;
+  }
+  .desktop-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    z-index: 10000;
+    left: 50%;
+    bottom: calc(100% + 9px);
+    width: max-content;
+    max-width: min(300px, calc(100vw - 28px));
+    padding: 7px 9px;
+    border: 1px solid #b7c1cd;
+    border-radius: 5px;
+    background: #fff;
+    color: #111;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.16);
+    font-size: 0.78rem;
+    font-weight: 500;
+    line-height: 1.28;
+    letter-spacing: normal;
+    text-align: left;
+    text-transform: none;
+    white-space: normal;
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transform: translate(-50%, 3px);
+    transition: opacity 120ms ease 380ms, transform 120ms ease 380ms, visibility 0s linear 500ms;
+  }
+  .desktop-tooltip:hover::after,
+  .desktop-tooltip:focus-visible::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition-delay: 380ms;
+  }
+
+  /* v0.7.18: Keep the first Dropbox action tooltip inside the clipped B01
+     panel instead of centering it past the panel's left border. */
+  #listDropboxFilesButton.desktop-tooltip::after {
+    left: 0;
+    transform: translate(0, 3px);
+  }
+  #listDropboxFilesButton.desktop-tooltip:hover::after,
+  #listDropboxFilesButton.desktop-tooltip:focus-visible::after {
+    transform: translate(0, 0);
+  }
+}
+input[type=file] { max-width: 220px; }
+.drop-zone {
+  margin-top: 12px;
+  border: 2px dashed #aab4c3;
+  border-radius: 14px;
+  padding: 22px;
+  text-align: center;
+  color: var(--muted);
+  background: #fbfcfe;
+}
+.drop-zone.dragover { border-color: var(--brand); background: #eef5ff; color: var(--brand); }
+.status-line, .hint, .muted { color: var(--muted); }
+.status-line { margin: 10px 0 0; }
+.field-label { display: block; color: var(--muted); font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; margin: 10px 0 5px; }
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  font: inherit;
+  resize: vertical;
+  margin-bottom: 10px;
+}
+.records-panel { background: var(--records-panel-bg); border-color: #c7d6e7; }
+.records-root.empty, .archive-list.empty { color: var(--muted); }
+.status-record-block { margin: 8px 0 14px; }
+.status-block-heading { font-size: 0.78rem; font-weight: 800; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin: 8px 0 4px; }
+.status-record-block.closed { margin-top: 18px; padding-top: 8px; border-top: 1px dashed #b5c9df; }
+.record-line, .archive-item, .comment-line, .flag-line {
+  border: 1px solid var(--line);
+  background: #fff;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 8px 0;
+}
+.record-line {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  background: var(--record-open-bg);
+  border-color: var(--record-open-border);
+}
+.record-row-leading {
+  display: inline-flex;
+  align-items: center;
+  align-self: stretch;
+  gap: 4px;
+  min-width: 30px;
+}
+.record-drag-grip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px;
+  min-height: 22px;
+  color: #718096;
+  font-size: 0.9rem;
+  line-height: 1;
+  letter-spacing: -0.14em;
+  cursor: grab;
+  opacity: 0.18;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity 140ms ease, color 140ms ease, background-color 140ms ease;
+}
+.record-line:hover .record-drag-grip:not(.is-locked),
+.secondary-record-line:hover .record-drag-grip:not(.is-locked),
+.record-drag-grip:focus-visible {
+  color: var(--brand);
+  opacity: 0.85;
+}
+.record-drag-grip:active {
+  cursor: grabbing;
+}
+.record-drag-grip.is-locked {
+  cursor: not-allowed;
+  opacity: 0.12;
+}
+@media (hover: none), (pointer: coarse) {
+  .record-drag-grip:not(.is-locked) {
+    opacity: 0.48;
+  }
+}
+.record-line:hover { background: #cfe0f2; }
+.record-line.closed {
+  opacity: 1;
+  background: var(--record-closed-bg);
+  border-color: var(--record-closed-border);
+}
+.comment-line.closed, .flag-line.closed { opacity: 0.72; background: #f4f5f7; }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ok); display: inline-block; }
+.dot.closed { background: var(--closed); }
+.record-title { font-weight: 650; }
+.record-meta { color: var(--muted); font-size: 0.82rem; margin-top: 3px; }
+.status-pill { border: 1px solid var(--line); background: #f8fafc; color: var(--brand); }
+.status-pill.closed { color: var(--closed); }
+button.pill.status-pill {
+  font-family: inherit;
+  font-weight: inherit;
+}
+button.pill.status-pill:hover { background: #f8fafc; }
+button.pill.status-pill.closed:hover { background: #f8fafc; }
+.archive-item { display: flex; justify-content: space-between; gap: 12px; align-items: center; flex-wrap: wrap; }
+.archive-title { font-weight: 700; }
+.detail-panel {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: rgba(15, 23, 42, 0.42);
+  padding: 22px;
+  z-index: 20;
+  overflow: hidden;
+}
+.detail-panel.open { display: flex; align-items: flex-start; justify-content: center; }
+.detail-card {
+  max-width: 880px;
+  width: 100%;
+  max-height: calc(100dvh - 44px);
+  margin: 0;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+}
+html.detail-panel-open,
+html.detail-panel-open body { overflow: hidden; overscroll-behavior: none; }
+.detail-header { display: flex; justify-content: space-between; gap: 12px; align-items: center; border-bottom: 1px solid var(--line); padding-bottom: 10px; margin-bottom: 12px; }
+#detailPanel .detail-card > .detail-header {
+  padding-bottom: 7px;
+  margin-bottom: 8px;
+}
+#detailPanel .detail-card > .detail-header h2 {
+  margin: 0;
+}
+#closeDetailButton {
+  padding: 7px 12px;
+}
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin: 10px 0; }
+.meta-box { border: 1px solid var(--line); background: #fbfcff; border-radius: 10px; padding: 8px; }
+.meta-label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.meta-value { font-weight: 650; margin-top: 2px; }
+.flag-resolution { margin-top: 4px; }
+.comment-line { cursor: pointer; }
+.comment-line.selected { outline: 2px solid var(--brand); }
+.footer-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 12px 8px;
+  background: rgba(244,245,247,0.94);
+  border-top: 1px solid var(--line);
+  backdrop-filter: blur(8px);
+  z-index: 20;
+}
+.footer-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+.footer-status {
+  width: min(520px, calc(100vw - 460px));
+  min-width: 180px;
+  flex: 0 1 520px;
+  margin: 0;
+  padding: 4px 10px;
+  border: 1px solid #c7d6e7;
+  border-radius: 7px;
+  background: rgba(255,255,255,0.88);
+  color: #506174;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.report-actions [hidden] {
+  display: none !important;
+}
+.toast {
+  position: fixed;
+  right: 16px;
+  bottom: 76px;
+  background: #1f2933;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: 0.18s ease;
+  z-index: 40;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+@media (max-width: 640px) {
+  .app-header { align-items: flex-start; flex-direction: column; }
+  .record-line { grid-template-columns: auto 1fr; }
+  .record-line .pill { grid-column: 2; width: fit-content; }
+  .detail-panel { padding: 8px; }
+  .footer-button-row { justify-content: stretch; width: 100%; }
+  .footer-button-row button { flex: 1; }
+}
+
+.closed-secondary-divider {
+  margin: 14px 0 6px;
+  padding-top: 8px;
+  border-top: 1px dashed #b5c9df;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.import-choice-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  background: rgba(15, 23, 42, 0.52);
+}
+.import-choice-card {
+  width: min(720px, 100%);
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+.import-choice-buttons {
+  margin: 14px 0 10px;
+}
+
+/* v0.5.6 presentation refinements */
+.records-panel h2 {
+  margin-bottom: 8px;
+}
+.status-record-block {
+  margin: 4px 0 8px;
+}
+.status-record-block.closed {
+  margin-top: 8px;
+  padding-top: 6px;
+}
+.record-line {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 8px;
+  padding: 7px 9px;
+  margin: 4px 0;
+  min-height: 36px;
+}
+.record-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.92rem;
+}
+.record-right {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  min-width: max-content;
+}
+.record-inline-meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.status-pill {
+  padding: 3px 8px;
+  font-size: 0.72rem;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+}
+@media (max-width: 640px) {
+  .record-line {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+  .record-right {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 2px;
+  }
+}
+
+/* v0.5.7 inline update rows under main records */
+.record-stack {
+  margin: 4px 0;
+}
+.record-stack > .record-line {
+  margin-bottom: 2px;
+}
+.inline-secondary-list {
+  margin-left: 20px;
+  padding-left: 7px;
+  border-left: 2px solid #c7d6e7;
+}
+.inline-activity-list {
+  margin: 2px 0 3px 14px;
+  padding-left: 7px;
+  border-left: 2px solid #d7e1ec;
+}
+.activity-record-line {
+  background: #fbfdff;
+}
+.activity-branch-toggle {
+  min-width: 20px;
+  min-height: 16px;
+}
+@media (max-width: 640px) {
+  .inline-activity-list {
+    margin-left: 9px;
+    padding-left: 5px;
+  }
+}
+.secondary-record-line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid #d9e3ef;
+  background: #f8fbff;
+  border-radius: 10px;
+  padding: 5px 8px;
+  margin: 3px 0;
+  min-height: 30px;
+}
+.secondary-record-line:hover {
+  background: #eef5ff;
+}
+.secondary-record-line.closed {
+  background: #f6f7f9;
+  border-color: #e0e4ea;
+  opacity: 0.82;
+}
+.secondary-record-line.selected {
+  outline: 2px solid var(--brand);
+}
+.secondary-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  display: inline-block;
+}
+.secondary-dot.closed {
+  background: var(--closed);
+}
+.secondary-record-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.84rem;
+  color: #344054;
+}
+.secondary-status-pill {
+  padding: 2px 7px;
+  font-size: 0.68rem;
+}
+@media (max-width: 640px) {
+  .inline-secondary-list {
+    margin-left: 12px;
+    padding-left: 6px;
+  }
+  .secondary-record-line {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+  .secondary-record-line .record-right {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 1px;
+  }
+}
+/* v0.5.8 inline update limit */
+.secondary-more-line {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 8px 4px 18px;
+  margin: 2px 0 4px;
+  cursor: pointer;
+}
+.secondary-more-line:hover {
+  color: var(--brand);
+  text-decoration: underline;
+}
+.secondary-more-line:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+
+/* v0.5.9 compressed update rows in detail panel */
+.detail-update-line {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: center;
+  padding: 5px 8px;
+  margin: 3px 0;
+  min-height: 30px;
+  background: #f8fbff;
+  border-color: #d9e3ef;
+}
+.detail-update-line:hover {
+  background: #eef5ff;
+}
+.detail-update-line.closed {
+  background: #f6f7f9;
+  border-color: #e0e4ea;
+  opacity: 0.82;
+}
+.detail-update-right {
+  gap: 5px;
+}
+.detail-update-right .small {
+  padding: 3px 8px;
+  font-size: 0.7rem;
+}
+@media (max-width: 640px) {
+  .detail-update-line {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+  .detail-update-line .record-right {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 1px;
+  }
+}
+
+
+/* v0.5.16+ compact expandable flag rows in detail panel */
+.compact-flag-line {
+  cursor: pointer;
+  padding: 5px 8px;
+  margin: 3px 0;
+  min-height: 30px;
+  background: #f8fbff;
+  border-color: #d9e3ef;
+}
+.compact-flag-line:hover {
+  background: #eef5ff;
+}
+.compact-flag-line.closed {
+  background: #f6f7f9;
+  border-color: #e0e4ea;
+  opacity: 0.82;
+}
+.flag-row-main {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 7px;
+  align-items: center;
+}
+.compact-flag-line.selected {
+  outline: 2px solid var(--brand);
+}
+.flag-expanded {
+  margin: 8px 0 0 20px;
+  padding: 9px 10px;
+  border-left: 2px solid #c7d6e7;
+  background: #fbfcff;
+  border-radius: 10px;
+}
+.flag-right {
+  gap: 6px;
+}
+@media (max-width: 640px) {
+  .flag-row-main {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+  .flag-right {
+    grid-column: 2;
+    justify-content: flex-start;
+    margin-top: 2px;
+    flex-wrap: wrap;
+  }
+  .flag-expanded {
+    margin-left: 12px;
+  }
+}
+
+/* v0.5.18 shared compact-row renderer
+   Primary records, secondary/update records, and flags all use the same compact row structure.
+   Existing role-specific classes provide size, indentation, and action controls. */
+.compact-record-row {
+  min-width: 0;
+}
+
+.compact-note {
+  margin: 5px 0;
+  font-size: 0.82rem;
+}
+code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.82em;
+  background: #eef1f6;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1px 5px;
+}
+
+/* v0.5.21 drag/drop housekeeping: primary records can receive moved records/updates. */
+.compact-record-row[draggable="true"],
+.record-drag-grip[draggable="true"] {
+  user-select: none;
+}
+.compact-record-row.dragging {
+  opacity: 0.55;
+}
+.record-line.drop-target {
+  outline: 2px dashed var(--brand);
+  outline-offset: 2px;
+  background: #cfe0f2;
+}
+
+/* v0.5.22 drag-left promotion: secondary/update rows can be promoted back to primary alignment. */
+.records-root.promote-target {
+  outline: 2px dashed var(--brand);
+  outline-offset: 3px;
+  background: #eaf3ff;
+}
+.records-root.promote-target::before {
+  content: "Drop left to promote update to primary record";
+  display: block;
+  color: var(--brand);
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+}
+
+/* v0.5.24 manual Working Memory ordering */
+.sort-row { justify-content: flex-end; }
+.working-memory-mode {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 6px;
+}
+.compact-record-row.reorder-before { border-top: 3px solid var(--brand); box-shadow: 0 -1px 0 #fff; }
+.compact-record-row.reorder-after { border-bottom: 3px solid var(--brand); box-shadow: 0 1px 0 #fff; }
+.archive-item.archive-reorder-before { border-top: 3px solid var(--brand); }
+.archive-item.archive-reorder-after { border-bottom: 3px solid var(--brand); }
+.archive-item.archive-merge-target { outline: 3px dashed var(--brand); outline-offset: 3px; background: rgba(21, 101, 192, 0.08); }
+.archive-item.dragging { opacity: 0.55; }
+.records-root.promote-target { outline: 2px dashed var(--brand-2); outline-offset: 4px; }
+
+/* v0.5.36 primary row disclosure toggle */
+.record-leading {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1px;
+  min-width: 30px;
+}
+.record-indicator-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  min-height: 10px;
+}
+.update-indicator-line + .flag-indicator-line {
+  margin-top: 0;
+}
+.record-leading .dot {
+  display: none;
+}
+.secondary-toggle-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  font-size: 0.68rem;
+  line-height: 1;
+  font-weight: 900;
+}
+.secondary-branch-toggle {
+  appearance: none;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  min-width: 22px;
+  min-height: 18px;
+  margin: 0;
+  padding: 1px 2px;
+  cursor: pointer;
+}
+.secondary-branch-toggle:hover { background: #e7f0fb; }
+.secondary-branch-toggle:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 1px;
+}
+.secondary-toggle-indicator.collapsed { color: #a72626; }
+.secondary-toggle-indicator.expanded { color: #237047; }
+.secondary-toggle-count {
+  min-width: 8px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.secondary-toggle-placeholder {
+  display: inline-block;
+  width: 18px;
+}
+
+/* v0.7.33 record-only detail view and compact two-level branch. */
+.secondary-parent-context {
+  border-left: 3px solid #c7d6e7;
+  padding-left: 12px;
+}
+.secondary-parent-context p { margin: 3px 0; }
+.secondary-parent-label {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.secondary-branch-guidance h3 { margin-bottom: 4px; }
+.secondary-branch-guidance p { margin: 0; }
+
+/* v0.5.51/v0.5.52 compact open-flag indicator for Working Memory rows. v0.5.52 stacks update and flag indicators vertically in the left gutter. */
+.flag-toggle-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  font-size: 0.68rem;
+  line-height: 1;
+  font-weight: 900;
+  color: #c58a00;
+}
+.flag-toggle-count {
+  min-width: 8px;
+  color: #8a6500;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+}
+.open-primary-pill {
+  cursor: pointer;
+  user-select: none;
+}
+.record-line .record-title,
+.record-line .record-inline-meta {
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+/* v0.5.26 closed-record lock state */
+.locked-banner {
+  border: 1px solid #d7dde8;
+  background: #f6f8fb;
+  color: var(--muted);
+  border-radius: 12px;
+  padding: 9px 11px;
+  margin: 0 0 12px;
+  font-size: 0.86rem;
+  font-weight: 650;
+}
+.locked-pill {
+  background: #eef1f6;
+  color: var(--closed);
+  border: 1px solid var(--line);
+  padding: 3px 8px;
+  font-size: 0.68rem;
+}
+
+.small-hint {
+  margin: 6px 0 0;
+  font-size: 0.8rem;
+}
+
+/* v0.5.37 compact import panel */
+.compact-import-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.compact-import-row h2 {
+  margin-bottom: 0;
+}
+.compact-import-actions {
+  justify-content: flex-end;
+}
+.drop-zone.compact-drop-button {
+  margin-top: 0;
+  border: 0;
+  border-radius: 999px;
+  padding: 9px 14px;
+  text-align: center;
+  color: #fff;
+  background: var(--brand);
+  font-weight: 650;
+  cursor: pointer;
+  font-size: 0.92rem;
+}
+.drop-zone.compact-drop-button:hover,
+.drop-zone.compact-drop-button.dragover {
+  background: var(--brand-2);
+  color: #fff;
+  outline: 2px dashed #9db8d7;
+  outline-offset: 3px;
+}
+.compact-status {
+  margin-top: 8px;
+  font-size: 0.84rem;
+}
+@media (max-width: 640px) {
+  .compact-import-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .compact-import-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* v0.5.38 compact import uses native label -> file input for iOS reliability */
+.visually-hidden-file {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+}
+
+
+
+
+/* v0.5.47 closed Working Memory records
+   Closed primary records default to collapsed updates.
+   v0.5.48 strengthens the closed-row treatment so closed records are visibly more compact. */
+.record-stack.closed-primary-stack {
+  margin: 2px 0;
+}
+.record-line.closed {
+  min-height: 26px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  opacity: 0.72;
+}
+.record-line.closed .record-title {
+  font-size: 0.76rem;
+  font-weight: 600;
+}
+.record-line.closed .record-inline-meta {
+  font-size: 0.64rem;
+}
+.record-line.closed .status-pill {
+  font-size: 0.58rem;
+  padding: 1px 6px;
+}
+.record-line.closed .secondary-toggle-indicator,
+.record-line.closed .secondary-toggle-count {
+  font-size: 0.56rem;
+}
+.closed-primary-stack .inline-secondary-list {
+  margin-left: 18px;
+}
+.closed-primary-stack .secondary-record-line {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  min-height: 24px;
+  opacity: 0.78;
+}
+.closed-primary-stack .secondary-record-title {
+  font-size: 0.74rem;
+}
+.closed-primary-stack .record-inline-meta {
+  font-size: 0.62rem;
+}
+.closed-primary-stack .secondary-status-pill {
+  font-size: 0.56rem;
+  padding: 1px 6px;
+}
+
+/* v0.5.46 iOS/mobile row containment fix
+   Keeps primary and secondary record metadata/status pills inside their row boxes. */
+.compact-record-row,
+.record-line,
+.secondary-record-line {
+  max-width: 100%;
+  overflow: hidden;
+}
+.record-right {
+  min-width: 0;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+.record-inline-meta {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.status-pill {
+  max-width: 100%;
+}
+@media (max-width: 640px) {
+  .record-line,
+  .secondary-record-line {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .record-line .record-right,
+  .secondary-record-line .record-right {
+    grid-column: 2;
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+  }
+  .record-inline-meta {
+    flex: 1 1 100%;
+    white-space: normal;
+    line-height: 1.25;
+  }
+  .record-right .status-pill {
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+}
+
+
+/* v0.5.49 Working Memory closed-record visibility toggle */
+button.active-toggle {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.working-memory-empty-filter {
+  color: var(--muted);
+  font-size: 0.86rem;
+  padding: 10px 12px;
+  border: 1px dashed #b5c9df;
+  border-radius: 10px;
+  background: #f8fbff;
+}
+
+/* v0.5.50 secondary/update compact-row refinement
+   Secondary rows now keep title, metadata, and OPEN/CLOSED pill on one compact line,
+   matching the primary Working Memory row layout more closely on desktop and iOS. */
+.secondary-record-line {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  min-height: 28px;
+  padding: 4px 8px;
+}
+.secondary-record-line .record-right {
+  grid-column: auto;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: auto;
+  min-width: max-content;
+  margin-top: 0;
+}
+.secondary-record-line .record-inline-meta {
+  flex: 0 1 auto;
+  white-space: nowrap;
+  line-height: 1;
+}
+.open-secondary-pill {
+  cursor: pointer;
+  user-select: none;
+}
+.secondary-record-line .secondary-record-title,
+.secondary-record-line .record-inline-meta {
+  pointer-events: auto;
+  cursor: pointer;
+}
+.secondary-record-line .open-secondary-pill {
+  pointer-events: auto;
+}
+@media (max-width: 640px) {
+  .secondary-record-line {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+  }
+  .secondary-record-line .record-right {
+    grid-column: auto;
+    justify-content: flex-end;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: auto;
+    min-width: max-content;
+    margin-top: 0;
+    gap: 5px;
+  }
+  .secondary-record-line .record-inline-meta {
+    flex: 0 1 auto;
+    white-space: nowrap;
+    line-height: 1;
+    max-width: 42vw;
+  }
+}
+
+
+/* v0.5.54 iPhone density refinement
+   Working Memory secondary rows display no metadata text, so more description remains visible. */
+.secondary-record-line .record-inline-meta {
+  max-width: none;
+}
+@media (max-width: 640px) {
+  .secondary-record-line .record-inline-meta {
+    max-width: none;
+  }
+}
+
+/* v0.5.55 primary Working Memory row height reduction
+   Keep the primary OPEN/CLOSED pill at the end of the compact metadata line.
+   Primary metadata omits time in app.js and uses no-spaces separators. */
+.record-line .record-right {
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  min-width: max-content;
+}
+.record-line .record-inline-meta {
+  white-space: nowrap;
+  line-height: 1;
+  flex: 0 1 auto;
+}
+@media (max-width: 640px) {
+  .record-line {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    min-height: 30px;
+  }
+  .record-line .record-right {
+    grid-column: auto;
+    width: auto;
+    min-width: max-content;
+    margin-top: 0;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+  .record-line .record-inline-meta {
+    flex: 0 1 auto;
+    max-width: 38vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1;
+  }
+  .record-line .status-pill {
+    flex: 0 0 auto;
+    margin-left: 0;
+  }
+}
+
+
+/* v0.5.56 mobile primary category abbreviation
+   Desktop keeps the full category. iPhone/narrow screens show only four characters. */
+.primary-category-mobile { display: none; }
+@media (max-width: 640px) {
+  .primary-category-full { display: none; }
+  .primary-category-mobile { display: inline; }
+}
+
+/* v0.5.57 mobile primary row: two-line description with compact tail.
+   Desktop keeps the normal right-side metadata. On iPhone/narrow screens,
+   show more primary description and move only compact date/category/status to the end. */
+.primary-date-mobile,
+.primary-mobile-tail {
+  display: none;
+}
+.primary-count-desktop {
+  display: inline;
+}
+@media (max-width: 640px) {
+  .primary-date-full,
+  .primary-category-full,
+  .primary-count-desktop,
+  .record-line > .record-right {
+    display: none;
+  }
+  .record-line {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    min-height: 38px;
+  }
+  .record-line .record-title {
+    grid-column: 2;
+    white-space: normal;
+    display: block;
+    overflow: hidden;
+    line-height: 1.16;
+    max-height: 2.36em;
+    font-size: 0.86rem;
+  }
+  .record-line .primary-mobile-tail {
+    display: inline-flex;
+    float: right;
+    align-items: center;
+    gap: 3px;
+    margin-left: 6px;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .record-line .primary-mobile-tail-meta {
+    color: var(--muted);
+    font-size: 0.66rem;
+    font-weight: 650;
+  }
+  .record-line .primary-mobile-tail .status-pill {
+    font-size: 0.62rem;
+    padding: 2px 6px;
+  }
+}
+
+
+/* v0.5.58 mobile primary-row correction
+   Ensure the mobile primary row always shows compact date + 4-character category + OPEN/CLOSED pill
+   at the end of the second description line. Mobile omits the open/closed update counter because
+   the triangle/count indicators already provide that information. */
+.record-title-text {
+  min-width: 0;
+}
+@media (max-width: 640px) {
+  .record-line .record-title {
+    position: relative;
+    padding-right: 74px;
+  }
+  .record-line .record-title-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.16;
+  }
+  .record-line .primary-mobile-tail {
+    display: inline-flex;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    gap: 2px;
+    margin-left: 0;
+    padding-left: 3px;
+    line-height: 1;
+    white-space: nowrap;
+    background: var(--record-open-bg);
+  }
+  .record-line.closed .primary-mobile-tail {
+    background: var(--record-closed-bg);
+  }
+}
+
+/* v0.5.59 mobile primary OPEN/CLOSED pill click fix
+   The mobile status pill lives inside .record-title, which is normally pointer-events:none
+   so row-body taps toggle secondary display. Re-enable pointer events only for the pill/tail. */
+.record-line .primary-mobile-tail,
+.record-line .primary-mobile-tail .open-primary-pill {
+  pointer-events: auto;
+}
+
+/* v0.5.60 mobile primary description width fix
+   Remove the right padding that shortened the first description line on iPhone.
+   The compact mobile tail remains pinned to the lower-right so line 1 can use
+   the full available record width while line 2 still ends with date/category/status. */
+@media (max-width: 640px) {
+  .record-line .record-title {
+    padding-right: 0;
+    min-height: 2.32em;
+  }
+  .record-line .record-title-text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    line-height: 1.16;
+  }
+  .record-line .primary-mobile-tail {
+    right: 0;
+    bottom: 0;
+    max-width: 46%;
+    box-shadow: -8px 0 8px var(--record-open-bg);
+  }
+  .record-line.closed .primary-mobile-tail {
+    box-shadow: -8px 0 8px var(--record-closed-bg);
+  }
+}
+
+
+/* v0.5.61 mobile primary tail render fix
+   Keep first description line full width while ensuring the compact date/category and OPEN/CLOSED pill
+   render cleanly at the lower-right without clipping on iPhone. */
+@media (max-width: 640px) {
+  .record-line .record-title {
+    overflow: hidden;
+  }
+  .record-line .primary-mobile-tail {
+    right: 1px;
+    bottom: 1px;
+    max-width: none;
+    min-width: 84px;
+    z-index: 3;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    overflow: visible;
+    background: var(--record-open-bg);
+    box-shadow: -14px 0 10px var(--record-open-bg);
+  }
+  .record-line.closed .primary-mobile-tail {
+    background: var(--record-closed-bg);
+    box-shadow: -14px 0 10px var(--record-closed-bg);
+  }
+  .record-line .primary-mobile-tail-meta {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+  .record-line .primary-mobile-tail .status-pill {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-width: 43px;
+    text-align: center;
+    overflow: visible;
+  }
+}
+
+
+/* v0.5.62 mobile secondary OPEN/CLOSED pill size match
+   On iPhone/narrow screens, secondary/update row status pills use the same compact dimensions
+   as the primary record mobile OPEN/CLOSED pill. Desktop secondary pill sizing is unchanged. */
+@media (max-width: 640px) {
+  .secondary-record-line .secondary-status-pill {
+    font-size: 0.62rem;
+    padding: 2px 6px;
+    min-width: 43px;
+    text-align: center;
+    white-space: nowrap;
+    overflow: visible;
+    flex: 0 0 auto;
+  }
+}
+
+/* v0.5.64 mobile footer compaction
+   Keep desktop footer labels descriptive. On iPhone/narrow screens, shorten the labels
+   and reduce footer height so more Working Memory records remain visible. */
+@media (max-width: 640px) {
+  .shell {
+    margin-bottom: 82px;
+  }
+  .footer-actions {
+    flex-direction: column;
+    /* The desktop status uses a 520px flex basis for a horizontal footer.
+       In this vertical mobile footer, that basis becomes height and can cover
+       the entire iPhone display.  Reset the mobile footer to content height. */
+    height: auto;
+    min-height: 0;
+    max-height: none;
+    gap: 6px;
+    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
+  }
+  .footer-button-row button {
+    min-height: 30px;
+    padding: 5px 7px;
+    font-size: 0;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .footer-button-row button::after {
+    content: attr(data-mobile-label);
+    font-size: 0.72rem;
+    font-weight: 750;
+    line-height: 1;
+  }
+  .footer-status {
+    flex: 0 0 auto;
+    min-width: 0;
+    max-height: 2.5em;
+    width: 100%;
+    padding: 3px 7px;
+    font-size: 0.67rem;
+  }
+  .toast {
+    bottom: 48px;
+  }
+}
+
+/* v0.5.65 mobile Working Memory width and manual-entry compaction
+   On iPhone/narrow screens, record cards use almost the full Working Memory panel width.
+   Secondary rows are proportionally widened by reducing indentation.
+   The Add Manual Record cue descriptor is no longer displayed because the category cues are already in the textarea placeholder. */
+.entry-hint-hidden {
+  display: none;
+}
+@media (max-width: 640px) {
+  .shell {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .panel {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  .records-panel {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  .records-root,
+  .status-record-block,
+  .record-stack {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .record-line {
+    margin-left: 1px;
+    margin-right: 1px;
+    width: calc(100% - 2px);
+  }
+  .inline-secondary-list {
+    margin-left: 11px;
+    padding-left: 5px;
+    margin-right: 1px;
+  }
+  .secondary-record-line {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  .entry-panel .button-row {
+    gap: 0;
+  }
+}
+
+
+/* v0.5.66 mobile flag detail compaction
+   Expanded Record Flags show at least two lines of flag text on mobile.
+   Save Resolution and Resolve Flag remain side-by-side to reduce vertical space. */
+.flag-expanded-description {
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.28;
+  margin: 0 0 6px;
+}
+.flag-action-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.flag-action-row button {
+  flex: 1 1 0;
+  min-width: 0;
+  white-space: nowrap;
+}
+@media (max-width: 640px) {
+  .flag-expanded {
+    padding: 7px 8px;
+  }
+  .flag-expanded-description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.56em;
+    font-size: 0.82rem;
+  }
+  .flag-action-row {
+    gap: 6px;
+  }
+  .flag-action-row button {
+    padding: 5px 6px;
+    font-size: 0.68rem;
+  }
+}
+
+/* v0.5.68 flag/update status distinction
+   Record Flag status controls keep the original emphasis: OPEN is blue, CLOSED is grey.
+   Only secondary/update status controls are subdued on mobile because those controls indicate status, not expansion. */
+
+
+/* v0.5.71 cleaned detail update status controls
+   The OPEN/CLOSED controls on secondary/update rows in the detail panel are
+   low-contrast status indicators on desktop and mobile. They must not look
+   like primary expand/open actions. Record Flag status controls are unaffected.
+   Obsolete v0.5.69 mobile-only override block removed; these are the single source rules. */
+.detail-update-line button[data-action="set-comment-status"] {
+  border: 1px solid var(--line);
+  padding: 2px 7px;
+  min-width: 44px;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  box-shadow: none;
+}
+.detail-update-line button[data-action="set-comment-status"][data-status="open"] {
+  background: #eaf3ff;
+  color: var(--brand);
+  border-color: #c7d6e7;
+}
+.detail-update-line button[data-action="set-comment-status"][data-status="open"]:hover {
+  background: #dfeeff;
+  color: var(--brand);
+}
+.detail-update-line button[data-action="set-comment-status"][data-status="closed"] {
+  background: #eef1f6;
+  color: var(--closed);
+  border-color: var(--line);
+}
+.detail-update-line button[data-action="set-comment-status"][data-status="closed"]:hover {
+  background: #e4e9f1;
+  color: var(--closed);
+}
+@media (max-width: 640px) {
+  .detail-update-line button[data-action="set-comment-status"] {
+    padding: 2px 6px;
+    min-width: 43px;
+    font-size: 0.62rem;
+  }
+}
+
+
+/* v0.5.73 secondary/update time tracking
+   Secondary/update records can optionally store Start, End, and Total Hours.
+   Mobile collapsed update rows show only compact total hours (for example 4.25hrs).
+   Desktop update rows can show the 24-hour range plus total hours. */
+.update-time-editor {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(78px, 0.72fr) auto;
+  gap: 8px;
+  margin: -2px 0 10px;
+  align-items: end;
+}
+/* v0.8.11: the Hrs label now carries its HH:MM format hint, so the labels must not wrap onto a
+   second line and push the inputs out of alignment. */
+.update-time-editor label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+.update-time-editor input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 0.86rem;
+  color: var(--ink);
+  background: #fff;
+}
+.hour-type-editor {
+  display: flex;
+  align-items: center;
+  align-self: end;
+  gap: 5px;
+  min-height: 31px;
+  padding: 0 2px 1px;
+  white-space: nowrap;
+}
+.hour-type-heading {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.hour-type-editor label {
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+  color: var(--ink);
+  font-size: 0.68rem;
+  letter-spacing: 0;
+  text-transform: none;
+  cursor: pointer;
+}
+.hour-type-editor input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--brand);
+}
+.billing-type-editor select,
+.expense-fields select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 8px;
+  font: inherit;
+  font-size: 0.82rem;
+  color: var(--ink);
+  background: #fff;
+}
+.billing-type-editor { min-width: 74px; }
+.expense-fields {
+  display: flex;
+  align-items: end;
+  gap: 6px;
+}
+.expense-fields[hidden] { display: none; }
+.expense-fields label { min-width: 0; }
+.expense-fields label:first-child { width: 84px; }
+.expense-fields label:last-child { width: 168px; }
+.expense-currency-choice { width: 76px !important; }
+/* v0.8.9: a partly entered Start/End time reads as empty to the page. Mark it visibly so an
+   incomplete entry cannot pass unnoticed the way a blank Hrs field could. */
+.update-time-editor input.time-input-incomplete {
+  border-color: var(--danger);
+  background: var(--danger-bg);
+}
+.time-entry-note {
+  grid-column: 1 / -1;
+  margin: 2px 0 0;
+  color: var(--danger);
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.time-entry-note[hidden] { display: none; }
+.expense-currency-choice select { width: 100%; min-width: 0; border: 1px solid var(--line); border-radius: 6px; padding: 5px 4px; font: inherit; color: var(--ink); background: #fff; }
+.billing-disabled { opacity: 0.52; background: #f1f3f6 !important; }
+
+.update-timestamp-line {
+  margin: -2px 0 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+.update-time-desktop,
+.update-time-mobile {
+  white-space: nowrap;
+  font-weight: 750;
+}
+.update-time-mobile {
+  display: none;
+}
+@media (max-width: 640px) {
+  .update-time-editor {
+    grid-template-columns: 1fr 1fr 0.85fr auto;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+  .update-time-editor label {
+    font-size: 0.64rem;
+  }
+  .update-time-editor input {
+    padding: 5px 6px;
+    font-size: 0.78rem;
+  }
+  .update-time-desktop {
+    display: none;
+  }
+  .update-time-mobile {
+    display: inline;
+  }
+}
+
+/* v0.5.78-v0.5.79 mobile update time-entry and metadata cleanup
+   Mobile secondary/update rows show date plus total hours only; no created time.
+   v0.5.79 keeps Start, End, and Hrs on one horizontal line using compact text inputs. */
+@media (max-width: 640px) {
+  .update-time-editor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(64px, 0.72fr) auto;
+    gap: 4px;
+    align-items: end;
+  }
+  .update-time-editor label {
+    min-width: 0;
+    font-size: 0.58rem;
+    gap: 2px;
+  }
+  .update-time-editor input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    padding: 5px 5px;
+    font-size: 0.72rem;
+    text-align: center;
+  }
+  .hour-type-editor {
+    gap: 3px;
+    min-height: 27px;
+    padding-bottom: 0;
+  }
+  .hour-type-heading { display: none; }
+  .hour-type-editor label { font-size: 0.58rem; gap: 2px; }
+  .hour-type-editor input[type="checkbox"] { width: 12px; height: 12px; }
+  .detail-update-line .record-right {
+    min-width: 0;
+  }
+  .detail-update-line .record-inline-meta {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* v0.5.80 report-only patch */
+.reports-panel {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: rgba(15, 23, 42, 0.42);
+  padding: 22px;
+  z-index: 22;
+  overflow: auto;
+}
+.reports-panel.open { display: block; }
+.reports-card {
+  max-width: 980px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+.report-toolbar {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(140px, 1fr));
+  gap: 12px;
+  align-items: start;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.report-field { margin: 0; }
+.report-field select,
+.report-field input[type="date"] {
+  width: 100%;
+  margin-top: 5px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 10px;
+  background: #fff;
+  color: var(--ink);
+}
+.report-filter-group {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px 10px 10px;
+  margin: 0;
+  display: grid;
+  gap: 5px;
+}
+.report-filter-group legend {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 4px;
+}
+.report-filter-group label {
+  color: var(--ink);
+  font-size: 0.9rem;
+}
+.report-actions { align-self: end; }
+.hours-record-selector {
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #f7faff;
+  padding: 12px;
+}
+.hours-record-selector[hidden] { display: none !important; }
+.hours-selector-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.hours-selector-header h3 {
+  margin: 0 0 2px;
+  font-size: 1rem;
+}
+.hours-selector-header p { margin: 0; }
+.hours-selector-actions {
+  flex: 0 0 auto;
+  margin: 0;
+}
+.hours-selector-actions button {
+  padding: 6px 10px;
+  font-size: 0.82rem;
+}
+.hours-record-selection-list {
+  display: grid;
+  gap: 8px;
+  overflow: visible;
+}
+.hours-selection-summary {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 750;
+}
+.hours-selection-group {
+  border: 1px solid #c8d8e9;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+.hours-selection-group-heading {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  background: #e8f1fb;
+  color: var(--ink);
+  font-size: 0.88rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+.hours-selection-group-heading:hover { background: #dfeefa; }
+.hours-selection-group-heading input { margin: 0; }
+.hours-primary-count {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.hours-selection-rows { display: grid; }
+.hours-selection-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-top: 1px solid #e2eaf3;
+  cursor: pointer;
+}
+.hours-selection-row:first-child { border-top: 0; }
+.hours-selection-row:hover { background: #f8fbff; }
+.hours-selection-row input { margin: 0; }
+.hours-selection-text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.88rem;
+}
+.hours-selection-meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+.report-output {
+  padding-top: 16px;
+}
+
+/* v0.8.4 non-functional Custom AI Report prototype */
+.custom-ai-report-prototype {
+  margin-top: 14px;
+  padding: 16px;
+  border: 1px solid #c8d9ed;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f7fbff, #eef5fc);
+}
+.custom-ai-report-heading { display: flex; justify-content: space-between; gap: 18px; align-items: start; }
+.custom-ai-report-heading h3 { margin: 6px 0 0; color: var(--brand); }
+.custom-ai-report-heading p { max-width: 500px; margin: 0; color: var(--muted); font-size: .86rem; line-height: 1.35; }
+.prototype-badge { display: inline-flex; border: 1px solid #90afd0; border-radius: 999px; padding: 3px 7px; color: #315a83; background: #e5f1fc; font-size: .64rem; font-weight: 850; letter-spacing: .05em; }
+.custom-ai-scope { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 14px 0; }
+.custom-ai-scope > div { padding: 8px 9px; border: 1px solid #d5e2ee; border-radius: 9px; background: rgba(255,255,255,.72); }
+.custom-ai-scope span { display: block; color: var(--muted); font-size: .68rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; }
+.custom-ai-scope strong { display: block; margin-top: 3px; color: var(--ink); font-size: .82rem; line-height: 1.25; }
+.custom-ai-prompt-label, .custom-ai-draft-label { display: grid; gap: 5px; margin: 0; font-weight: 750; }
+.custom-ai-prompt-label textarea, .custom-ai-draft-label textarea { width: 100%; resize: vertical; border: 1px solid #b8cde2; border-radius: 10px; padding: 10px; background: #fff; color: var(--ink); font: inherit; line-height: 1.4; }
+.custom-ai-prompt-label textarea:disabled, .custom-ai-draft-label textarea:disabled { opacity: 1; color: #697386; background: #fbfdff; cursor: not-allowed; }
+.custom-ai-example-row, .custom-ai-options, .custom-ai-actions, .custom-ai-export-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.custom-ai-example-row { margin: 10px 0; }
+.custom-ai-example-row > span { color: var(--muted); font-size: .78rem; font-weight: 800; }
+.custom-ai-example-row button { border-radius: 999px; font-size: .72rem; }
+.custom-ai-prompt-library-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin: 10px 0; padding: 8px 10px; border: 1px dashed #b9cde1; border-radius: 9px; color: var(--muted); background: rgba(255,255,255,.5); font-size: .76rem; }
+.custom-ai-options { margin: 10px 0; color: var(--muted); font-size: .78rem; }
+.custom-ai-options label { color: var(--ink); font-weight: 700; }
+.custom-ai-actions { justify-content: space-between; margin: 12px 0; padding: 10px; border-radius: 9px; background: rgba(213, 229, 244, .72); color: #4f657a; font-size: .78rem; }
+.custom-ai-actions button { min-width: 180px; }
+.custom-ai-draft-label span { color: var(--muted); font-size: .74rem; font-weight: 600; }
+.custom-ai-export-actions { justify-content: flex-end; margin-top: 10px; }
+.custom-ai-report-prototype button:disabled { opacity: .58; cursor: not-allowed; }
+@media (max-width: 640px) {
+  .custom-ai-report-heading { display: grid; gap: 8px; }
+  .custom-ai-scope { grid-template-columns: 1fr 1fr; }
+  .custom-ai-actions { align-items: stretch; flex-direction: column; }
+  .custom-ai-actions button, .custom-ai-export-actions button { width: 100%; }
+  .custom-ai-prompt-library-actions button { width: 100%; }
+  .custom-ai-export-actions { display: grid; grid-template-columns: 1fr 1fr; }
+}
+.report-hours-note {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-style: italic;
+}
+.report-title-block h1 {
+  font-size: 1.85rem;
+  margin-bottom: 2px;
+}
+.report-title-block h2 {
+  color: var(--brand);
+  margin-bottom: 2px;
+}
+.report-date-range,
+.report-meta,
+.report-empty {
+  color: var(--muted);
+}
+
+.report-update-timestamp {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.78rem;
+  line-height: 1.25;
+}
+.report-section {
+  margin: 18px 0;
+}
+.report-list,
+.report-sublist {
+  margin: 8px 0 0 20px;
+  padding: 0;
+}
+.report-list li,
+.report-sublist li {
+  margin: 7px 0;
+}
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 8px;
+  font-size: 0.92rem;
+}
+.report-table th,
+.report-table td {
+  border: 1px solid var(--line);
+  padding: 8px;
+  text-align: left;
+  vertical-align: top;
+}
+.report-table th {
+  background: #eef4fb;
+  color: var(--brand);
+}
+.report-total-hours {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+@media (max-width: 640px) {
+  .reports-panel { padding: 8px; }
+  .reports-card { padding: 14px; }
+  .report-toolbar { grid-template-columns: 1fr; }
+  .report-filter-group { grid-template-columns: 1fr 1fr; }
+  .report-actions button { flex: 1; }
+  .hours-selector-header { align-items: stretch; flex-direction: column; }
+  .hours-selector-actions { align-self: flex-start; }
+  .hours-selection-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .hours-selection-meta {
+    grid-column: 2;
+    white-space: normal;
+  }
+  .hours-selection-group-heading {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .hours-primary-count {
+    grid-column: 2;
+    white-space: normal;
+  }
+  .report-table { font-size: 0.84rem; }
+}
+
+@media print {
+  .app-header,
+  .shell,
+  .detail-panel,
+  .footer-actions,
+  .toast,
+  .reports-card > .detail-header,
+  .report-toolbar {
+    display: none !important;
+  }
+  .reports-panel,
+  .reports-panel.open {
+    position: static;
+    display: block;
+    background: #fff;
+    padding: 0;
+  }
+  .reports-card {
+    box-shadow: none;
+    border-radius: 0;
+    max-width: none;
+    padding: 0;
+  }
+  .report-output { padding: 0; }
+  .report-title-block h1 { font-size: 22pt; }
+  .report-title-block h2 { font-size: 15pt; }
+}
+
+
+.report-update-timeblock{font-size:.78rem;color:var(--muted);margin-top:.15rem;line-height:1.25;}
+
+/* v0.5.86 primary COPY pill beside OPEN/CLOSED in Working Memory */
+.copy-primary-pill {
+  background: #fff;
+  border-color: var(--line);
+  color: var(--ink);
+}
+.record-line .primary-mobile-tail .copy-primary-pill {
+  font-size: 0.62rem;
+  padding: 2px 5px;
+}
+.record-line .primary-mobile-tail .copy-primary-pill {
+  pointer-events: auto;
+}
+@media (max-width: 640px) {
+  .record-line .primary-mobile-tail {
+    min-width: 124px;
+  }
+}
+
+/* v0.5.87 developer box identifiers */
+.panel.has-box-id {
+  position: relative;
+}
+/* v0.7.06 restores the established Site Walk banner colours. */
+.site-walk-panel { padding: 0; overflow: hidden; transition: opacity 120ms ease; }
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.site-walk-header { min-height: 44px; padding: 10px 14px; background: #5c6bc0; color: #fff; display: flex; align-items: center; gap: 0; cursor: pointer; user-select: none; box-shadow: 0 1px 3px rgba(0,0,0,.20); transition: background .15s; }
+.site-walk-header:hover, .site-walk-header:focus { background: #3949ab; outline: none; }
+.site-walk-header:focus-visible { outline: 3px solid #8fc6ff; outline-offset: -3px; }
+.site-walk-drag-grip { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; min-height: 32px; margin: -5px 4px -5px -5px; font-size: 15px; line-height: 1; opacity: .78; cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; }
+.site-walk-drag-grip:active { cursor: grabbing; }
+/* Reordering must own the gesture. This removes the competing document scroll
+   and temporarily makes every other Site Walk control inert until release. */
+html.site-walk-reorder-active,
+html.site-walk-reorder-active body { overflow: hidden; overscroll-behavior: none; touch-action: none; -webkit-user-select: none; user-select: none; }
+html.site-walk-reorder-active .site-walk-panel:not(.drag-source) { pointer-events: none; }
+.site-walk-header h2 { flex: 1; margin: 0; color: inherit; font-size: 13px; font-weight: 700; letter-spacing: .3px; }
+.site-walk-title-divider { width: 1px; height: 20px; margin: 0 10px 0 9px; background: rgba(255,255,255,.75); }
+.site-walk-chevron { margin-left: 8px; font-size: 11px; transition: transform .2s; }
+.collapsed-section-summary { display: none; margin-left: auto; max-width: 48%; overflow: hidden; color: #fff; font-size: .76rem; font-weight: 650; line-height: 1.25; text-align: right; text-overflow: ellipsis; white-space: nowrap; opacity: .92; }
+.site-walk-panel > :not(.site-walk-header) { margin-left: 16px; margin-right: 16px; }
+.site-walk-panel > :last-child { margin-bottom: 16px; }
+.site-walk-panel.is-collapsed > :not(.site-walk-header) { display: none !important; }
+.site-walk-panel.is-collapsed .collapsed-section-summary { display: block; }
+.site-walk-panel.is-collapsed .site-walk-chevron { transform: rotate(180deg); }
+.site-walk-panel.drag-source { opacity: .35; }
+.site-walk-panel .box-id { position: static; flex: 0 0 auto; min-width: auto; min-height: auto; margin: 0; padding: 0; border: 0; border-radius: 0; background: transparent; color: #fff; font-size: 11px; opacity: .95; }
+.site-walk-panel .box-id:hover, .site-walk-panel .box-id:focus { background: transparent; color: #fff; outline: 2px solid rgba(255,255,255,.85); outline-offset: 3px; }
+.site-walk-drag-ghost { position: fixed; z-index: 5000; pointer-events: none; padding: 9px 14px; border-radius: 6px; background: #1565c0; color: #fff; box-shadow: 0 7px 20px rgba(0,0,0,.32); font-size: 12px; font-weight: 800; white-space: nowrap; }
+.site-walk-drop-line { height: 4px; margin: 4px 0; border-radius: 3px; background: #2196f3; box-shadow: 0 0 0 1px rgba(255,255,255,.7); }
+@media (max-width: 640px) { .site-walk-header { min-height: 42px; padding: 9px 10px; } .collapsed-section-summary { max-width: 42%; font-size: .70rem; } .site-walk-panel > :not(.site-walk-header) { margin-left: 10px; margin-right: 10px; } .site-walk-panel > :last-child { margin-bottom: 10px; } }
+.box-id {
+  position: absolute;
+  top: 0.45rem;
+  right: 0.55rem;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  min-height: 1.2rem;
+  padding: 0.1rem 0.35rem;
+  border: 1px solid rgba(35, 93, 118, 0.35);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #235d76;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  pointer-events: auto;
+  cursor: pointer;
+}
+.panel.has-box-id > .panel-title-row,
+.panel.has-box-id > .compact-import-row {
+  padding-right: 2.5rem;
+}
+.panel.has-box-id.entry-panel > h2 {
+  padding-right: 2.5rem;
+}
+
+
+/* v0.5.89 CONFIG title editor */
+.hidden { display: none !important; }
+.config-panel {
+  position: fixed;
+  inset: 0;
+  display: none;
+  background: rgba(15, 23, 42, 0.42);
+  padding: 22px;
+  z-index: 25;
+  overflow: auto;
+}
+.config-panel.open { display: block; }
+.config-card {
+  max-width: 780px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+.config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 12px 0;
+}
+.config-grid input {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 9px 10px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
+}
+.config-actions { margin-top: 12px; }
+@media (max-width: 640px) {
+  .config-panel { padding: 8px; }
+  .config-actions button { flex: 1 1 100%; }
+}
+
+
+/* v0.5.93 Saved Sites active/edit workflow */
+.archive-item {
+  align-items: flex-start;
+  cursor: pointer;
+}
+.archive-main {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+.archive-actions {
+  flex: 0 0 auto;
+}
+.archive-item.active-archive-item {
+  background: #d8e7f7;
+  border-color: #9db8d7;
+}
+.archive-item.selected-archive-item:not(.active-archive-item) {
+  background: #f8fbff;
+  border-color: #c7d6e7;
+}
+.active-site-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 2px 7px;
+  margin-left: 6px;
+  background: #eef5ff;
+  color: var(--brand);
+  border: 1px solid #9db8d7;
+  font-size: 0.68rem;
+  font-weight: 800;
+}
+.archive-edit-box {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #c7d6e7;
+  border-radius: 12px;
+  background: #fbfcff;
+  cursor: default;
+}
+.archive-edit-box input {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-top: 5px;
+  font: inherit;
+  color: var(--ink);
+  background: #fff;
+}
+@media (max-width: 640px) {
+  .archive-actions { width: 100%; }
+  .archive-actions button { flex: 1; }
+  .archive-actions .archive-contacts-button { flex-basis: 100%; }
+}
+
+/* v0.7.27 Saved Sites uses the B01 Dropbox file hierarchy exactly:
+   site title, one Content updated line, then a two-by-two action grid at right. */
+.archive-list:not(.empty) {
+  display: grid;
+  gap: 5px;
+}
+.archive-list .archive-item {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 5px;
+  align-items: center;
+  margin: 0;
+  padding: 6px 7px;
+  border-color: #d9e3ef;
+  border-radius: 10px;
+}
+.archive-list .archive-main {
+  min-width: 0;
+}
+.archive-list .archive-title {
+  font-weight: 750;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.archive-list .archive-content-updated {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.25;
+}
+.archive-list .archive-actions {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  align-items: center;
+  justify-content: end;
+  gap: 4px;
+}
+.archive-list .archive-actions button {
+  padding: 4px 8px;
+  font-size: 0.70rem;
+  line-height: 1.1;
+}
+@media (max-width: 640px) {
+  .archive-list .archive-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .archive-list .archive-actions {
+    width: auto;
+    grid-template-columns: repeat(2, max-content);
+  }
+  .archive-list .archive-actions button,
+  .archive-list .archive-actions .archive-contacts-button {
+    width: fit-content;
+    flex-basis: auto;
+  }
+}
+
+/* v0.5.96 CONFIG renameable items list */
+.config-rename-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+  margin: 10px 0 12px;
+}
+.config-rename-list > div {
+  border: 1px solid var(--line);
+  background: #f8fbff;
+  border-radius: 12px;
+  padding: 8px 10px;
+}
+.config-rename-list strong {
+  display: block;
+  color: var(--brand);
+  font-size: 0.82rem;
+  margin-bottom: 2px;
+}
+.config-rename-list span {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+
+/* v0.5.97 clickable B-box CONFIG editors */
+.box-id:hover,
+.box-id:focus {
+  background: #eef5ff;
+  border-color: var(--brand);
+  color: var(--brand);
+  outline: 2px solid rgba(38, 59, 89, 0.18);
+}
+.config-scope-label {
+  display: inline-flex;
+  border: 1px solid #c7d6e7;
+  background: #f8fbff;
+  color: var(--brand);
+  border-radius: 999px;
+  padding: 4px 9px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin: 2px 0 10px;
+}
+.config-box-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 12px;
+}
+.config-box-tab.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.config-box-editor {
+  border: 1px solid #c7d6e7;
+  background: #fbfcff;
+  border-radius: 14px;
+  padding: 12px;
+}
+.config-box-editor h3 {
+  margin-bottom: 4px;
+}
+
+.box-id {
+  appearance: none;
+  font-family: inherit;
+}
+
+
+/* v0.6.00 CONFIG template manager */
+.config-template-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+.config-template-list {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0 12px;
+}
+.config-template-item {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  padding: 9px 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+}
+.config-template-item:hover { background: #eef5ff; color: var(--brand); }
+.config-template-item.active {
+  background: var(--record-open-bg);
+  border-color: var(--record-open-border);
+}
+.config-template-item.current-site-template:not(.active) {
+  background: #fff;
+  border-color: var(--line);
+}
+.config-template-item small {
+  color: var(--muted);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.68rem;
+}
+/* v0.6.11 CONFIG cleanup: selected/editing template summary pills removed. */
+.config-selected-template,
+.config-scope-label {
+  display: none;
+}
+.config-template-name {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  min-width: 0;
+}
+.config-template-version {
+  font-size: 0.62rem;
+  line-height: 1;
+  opacity: 0.78;
+}
+
+/* v0.6.08 B01 CONFIG cleanup: no subtitle/helper row for B01; keep title and pills aligned. */
+.config-grid-b01 {
+  align-items: end;
+}
+.config-grid-b01 .field-label {
+  margin-top: 0;
+}
+.config-grid-b01 input {
+  min-height: 40px;
+}
+
+/* v0.6.34a report print/PDF white-background patch
+   Scope: print/export view only. Prevents the app/body grey background
+   from appearing after short reports on printed/PDF pages. */
+@media print {
+  html,
+  body,
+  .reports-panel,
+  .reports-panel.open,
+  .reports-card,
+  .report-output {
+    background: #fff !important;
+  }
+
+  .reports-panel,
+  .reports-panel.open,
+  .reports-card,
+  .report-output {
+    min-height: 0 !important;
+  }
+}
+
+
+/* v0.6.41 deliverable indicators and editor */
+.deliverable-square,
+.deliverable-square-placeholder {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 2px;
+  border: 1px solid rgba(31, 41, 51, 0.22);
+  flex: 0 0 auto;
+}
+.deliverable-square-placeholder {
+  border-color: transparent;
+  background: transparent;
+}
+.deliverable-green { background: #2f9e44; }
+.deliverable-yellow { background: #f2c94c; }
+.deliverable-red { background: #c92a2a; }
+.deliverable-closed {
+  opacity: 0.42;
+  filter: saturate(0.65);
+}
+.secondary-leading {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 19px;
+}
+.record-leading .deliverable-square,
+.record-leading .deliverable-square-placeholder {
+  margin-bottom: 1px;
+}
+.deliverable-editor {
+  display: grid;
+  grid-template-columns: minmax(170px, max-content) minmax(170px, 240px);
+  gap: 10px;
+  align-items: end;
+  margin: 6px 0 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fbfcff;
+}
+.deliverable-editor label {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.deliverable-apply-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 34px;
+}
+.deliverable-apply-label input {
+  width: auto;
+}
+.deliverable-date-label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.deliverable-date-label input {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 8px;
+  font: inherit;
+  background: #fff;
+}
+.deliverable-date-label input:disabled,
+.deliverable-date-disabled {
+  background: #eef1f6;
+  color: var(--closed);
+}
+.report-deliverable-line {
+  font-weight: 750;
+}
+@media (max-width: 640px) {
+  .deliverable-editor {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .deliverable-square,
+  .deliverable-square-placeholder {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* v0.6.42 closed secondary/update row compaction
+   Closed secondary rows should visually match the subdued closed-primary treatment
+   even when the parent primary record remains open. */
+.secondary-record-line.closed {
+  min-height: 24px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  opacity: 0.72;
+}
+.secondary-record-line.closed .secondary-record-title {
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+.secondary-record-line.closed .record-inline-meta {
+  font-size: 0.62rem;
+}
+.secondary-record-line.closed .secondary-status-pill {
+  font-size: 0.56rem;
+  padding: 1px 6px;
+}
+.secondary-record-line.closed .secondary-dot,
+.secondary-record-line.closed .deliverable-square {
+  opacity: 0.62;
+}
+
+/* v0.6.71b: secondary status is information, unless a newer row renderer
+   explicitly supplies it as an OPEN control. */
+.secondary-state-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: 3px 7px;
+  border: 1px solid #8fb1cf;
+  border-radius: 3px;
+  background: #e8f3fc;
+  color: #244c6d;
+  font-size: 0.65rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  user-select: none;
+}
+.secondary-state-badge[data-action] {
+  pointer-events: auto;
+  cursor: pointer;
+  font: inherit;
+  appearance: none;
+}
+.secondary-hours-label {
+  display: inline-flex;
+  align-items: center;
+  min-height: 22px;
+  padding: 2px 6px;
+  border: 1px solid #c9d7e5;
+  border-radius: 3px;
+  background: #f5f8fb;
+  color: #415a72;
+  font-size: 0.66rem;
+  font-weight: 750;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.secondary-record-line.closed .secondary-hours-label,
+.detail-update-line.closed .secondary-hours-label {
+  border-color: #d4d9de;
+  background: #f0f2f4;
+  color: #6a737c;
+}
+
+/* v0.6.72l: B04 Record Intake separates AI parsing from manual entry. */
+.record-intake-title-row {
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.record-intake-title-row h2,
+.record-intake-option h3,
+.manual-entry-section h3 {
+  margin-top: 0;
+}
+
+.record-intake-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  padding: 0.85rem;
+  border: 1px solid var(--line, #cbd7e4);
+  border-radius: 0.75rem;
+  background: #f5f9fd;
+}
+
+.record-intake-copy {
+  min-width: 0;
+}
+
+.record-intake-copy h3,
+.manual-entry-section h3 {
+  margin-bottom: 0.25rem;
+  font-size: 0.95rem;
+}
+
+.record-intake-option .small-hint,
+.manual-entry-section .small-hint {
+  margin: 0;
+}
+
+.record-intake-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.9rem 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 750;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.record-intake-divider::before,
+.record-intake-divider::after {
+  content: "";
+  flex: 1 1 auto;
+  height: 1px;
+  background: var(--line, #cbd7e4);
+}
+
+.manual-entry-section textarea {
+  width: 100%;
+  margin-top: 0.55rem;
+}
+
+.add-data-launch {
+  flex: 0 0 auto;
+  min-width: 7.5rem;
+}
+
+@media (max-width: 640px) {
+  .record-intake-option {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .record-intake-option .add-data-launch {
+    width: 100%;
+  }
+}
+
+.add-data-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: none;
+  align-items: flex-start;
+  justify-content: center;
+  overflow: auto;
+  padding: clamp(0.5rem, 2vw, 1.5rem);
+  background: rgba(8, 20, 34, 0.76);
+}
+
+.add-data-overlay.open {
+  display: flex;
+}
+
+.add-data-card {
+  width: min(100%, 62rem);
+  margin: auto;
+  padding: clamp(0.8rem, 1.5vw, 1.1rem);
+  border: 1px solid var(--line, #cbd7e4);
+  border-radius: 1rem;
+  background: var(--panel, #fff);
+  box-shadow: 0 1.25rem 3rem rgba(0, 0, 0, 0.28);
+}
+
+.add-data-card .detail-header {
+  align-items: flex-start;
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.55rem;
+}
+
+.add-data-card .detail-header h2,
+.add-data-card .detail-header p {
+  margin: 0;
+}
+.add-data-card .detail-header p {
+  font-size: 0.88rem;
+  line-height: 1.3;
+}
+.add-data-card #closeAddDataButton {
+  padding: 7px 12px;
+}
+.add-data-card [hidden] {
+  display: none !important;
+}
+
+.add-data-context {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.55rem;
+  margin: 0.45rem 0 0.55rem;
+}
+
+.add-data-context > div {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.32rem 0.55rem;
+  border: 1px solid var(--line, #cbd7e4);
+  border-radius: 999px;
+  background: #f5f9fd;
+}
+
+.add-data-context span {
+  color: var(--muted, #52677c);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+#addDataRawText {
+  width: 100%;
+  min-height: 6rem;
+  max-height: 18rem;
+  padding: 0.65rem 0.75rem;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+#addDataParserInstruction {
+  width: 100%;
+  min-height: 4.75rem;
+  max-height: 11rem;
+  padding: 0.58rem 0.7rem;
+  line-height: 1.36;
+  resize: vertical;
+}
+
+.add-data-parser-instruction-label {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.add-data-parser-instruction-label span {
+  color: var(--muted, #52677c);
+  font-size: 0.76rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.add-data-parser-instruction-hint {
+  margin: 0.28rem 0 0;
+  line-height: 1.32;
+}
+
+.add-data-parser-instruction {
+  margin: 0 0 0.65rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #c7d7e8;
+  border-left: 0.25rem solid var(--brand, #234b6b);
+  border-radius: 0.45rem;
+  background: #f5f9fd;
+}
+
+.add-data-parser-instruction summary {
+  cursor: pointer;
+  color: var(--brand, #234b6b);
+  font-weight: 800;
+}
+
+.add-data-parser-instruction p {
+  margin: 0.42rem 0 0.25rem;
+  white-space: pre-wrap;
+}
+
+.add-data-parser-instruction small {
+  color: var(--muted, #52677c);
+}
+
+.button-like {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.15rem;
+  padding: 0.42rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid var(--line, #cbd7e4);
+  background: #eef1f6;
+  color: var(--brand, #234b6b);
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.add-data-intake-actions,
+.add-data-commit-actions {
+  margin-top: 0.5rem;
+  gap: 0.45rem;
+}
+
+.add-data-status {
+  min-height: 0;
+  margin: 0.5rem 0;
+  color: var(--muted, #52677c);
+  font-weight: 700;
+}
+.add-data-status:empty {
+  display: none;
+}
+
+.add-data-status.busy {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #9cc8ef;
+  border-radius: 0.6rem;
+  background: #edf7ff;
+  color: #075393;
+}
+
+.add-data-busy-indicator {
+  width: 0.8rem;
+  height: 0.8rem;
+  flex: 0 0 auto;
+  border: 0.16rem solid #8fc4ec;
+  border-top-color: #075393;
+  border-radius: 50%;
+  animation: add-data-spin 0.8s linear infinite;
+}
+
+.add-data-busy-message {
+  font-weight: 800;
+}
+
+.add-data-busy-elapsed {
+  padding-left: 0.45rem;
+  border-left: 1px solid #9cc8ef;
+  color: #39709a;
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.add-data-is-parsing #addDataRawText {
+  background: #f7fbff;
+}
+
+@keyframes add-data-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .add-data-busy-indicator { animation: none; }
+}
+
+.add-data-status.success {
+  color: #176b38;
+}
+
+.add-data-status.error {
+  color: #a32727;
+}
+
+.add-data-review-section {
+  margin-top: 0.65rem;
+  border-top: 1px solid var(--line, #cbd7e4);
+  padding-top: 0.55rem;
+}
+.add-data-review-section h3 {
+  margin-bottom: 0.45rem;
+}
+
+.add-data-proposals {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.add-data-empty {
+  padding: 0.6rem;
+  border: 1px dashed var(--line, #cbd7e4);
+  border-radius: 0.7rem;
+  color: var(--muted, #52677c);
+  text-align: center;
+}
+
+.add-data-proposal {
+  display: grid;
+  grid-template-columns: 6.6rem minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid var(--line, #cbd7e4);
+  border-radius: 0.8rem;
+  background: #fff;
+}
+
+.add-data-proposal.excluded {
+  opacity: 0.58;
+}
+
+.add-data-proposal-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  padding: 0.85rem;
+  background: #eef5fb;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.add-data-proposal-body {
+  min-width: 0;
+  padding: 0.85rem;
+}
+
+.add-data-proposal-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.add-data-category,
+.add-data-deliverable,
+.add-data-secondary-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.18rem 0.42rem;
+  border-radius: 0.35rem;
+  background: #dcecf9;
+  color: #174f78;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.add-data-deliverable {
+  background: #e7f4df;
+  color: #2e6520;
+}
+
+.add-data-warning,
+.add-data-email-summary {
+  margin-top: 0.65rem;
+  padding: 0.6rem;
+  border-left: 0.25rem solid #d79b22;
+  border-radius: 0.3rem;
+  background: #fff7df;
+}
+
+.add-data-warning ul,
+.add-data-validation-warnings ul {
+  margin: 0.35rem 0 0;
+  padding-left: 1.2rem;
+}
+
+.add-data-secondary-list {
+  display: grid;
+  gap: 0.5rem;
+  margin-top: 0.65rem;
+}
+
+.add-data-secondary {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  background: #f4f7fa;
+}
+.add-data-activity {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 6px;
+  margin: 6px 0 0 14px;
+  padding: 6px 8px;
+  border-left: 2px solid #d7e1ec;
+  background: #fbfdff;
+  border-radius: 6px;
+}
+
+.add-data-email-summary {
+  display: grid;
+  gap: 0.2rem;
+  margin-top: 0.3rem;
+  font-size: 0.86rem;
+}
+
+.add-data-email-summary.complete {
+  border-left-color: #39975a;
+  background: #edf8f0;
+}
+
+.add-data-validation-warnings {
+  margin: 0.45rem 0;
+  color: #754d08;
+}
+.add-data-commit-hint {
+  margin: 0.4rem 0 0;
+  line-height: 1.3;
+}
+
+.add-data-proposal details {
+  margin-top: 0.65rem;
+  color: var(--muted, #52677c);
+}
+
+.add-data-proposal details p {
+  margin: 0.45rem 0 0;
+  white-space: pre-wrap;
+}
+
+@media (max-width: 640px) {
+  .add-data-overlay {
+    padding: 0;
+  }
+
+  .add-data-card {
+    min-height: 100%;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .add-data-proposal {
+    grid-template-columns: 1fr;
+  }
+
+  .add-data-proposal-toggle {
+    align-items: center;
+    padding: 0.6rem 0.8rem;
+  }
+
+  .add-data-intake-actions > * {
+    flex: 0 1 auto;
+  }
+
+  .add-data-intake-actions #parseAddDataButton {
+    flex: 1 1 140px;
+  }
+
+  .add-data-commit-actions #appendAddDataButton {
+    flex: 1 1 180px;
+  }
+
+  .add-data-commit-actions #cancelAddDataButton {
+    flex: 0 1 auto;
+  }
+}
+.secondary-state-badge.closed {
+  border-color: #c5cbd1;
+  background: #edf0f2;
+  color: #66717b;
+}
+.selected-secondary-status {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 2px;
+}
+.secondary-record-line,
+.detail-update-line {
+  cursor: pointer;
+}
+.secondary-record-line:focus-visible,
+.detail-update-line:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+}
+
+/* v0.6.43 report polish */
+.report-title-block {
+  border-bottom: 2px solid var(--brand);
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+}
+.report-title-block h1 {
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.report-title-block h2 {
+  font-weight: 800;
+}
+.report-header-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.report-header-item {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fbfcff;
+  padding: 8px 10px;
+}
+.report-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.report-value {
+  display: block;
+  margin-top: 2px;
+  color: var(--ink);
+  font-weight: 650;
+  line-height: 1.3;
+}
+.report-section h3 {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 5px;
+  color: var(--brand);
+  font-size: 1.02rem;
+}
+.report-category-block {
+  margin: 12px 0 16px;
+}
+.report-category-block h4 {
+  margin: 0 0 6px;
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 850;
+}
+.report-date-section {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.report-list > li {
+  padding: 4px 0;
+}
+.report-sublist {
+  margin-top: 6px;
+}
+.report-sublist li {
+  border-left: 3px solid #d9e3ef;
+  padding-left: 8px;
+}
+.report-priority-list li {
+  border-left: 3px solid var(--brand);
+  padding-left: 9px;
+}
+.report-closed-section {
+  opacity: 0.86;
+}
+.report-total-section {
+  border: 1px solid var(--line);
+  background: #fbfcff;
+  border-radius: 12px;
+  padding: 12px;
+}
+.report-total-section h3 {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 4px;
+}
+.report-deliverable-line {
+  color: var(--brand);
+  font-weight: 800;
+}
+.report-update-timeblock,
+.report-update-timestamp {
+  margin-top: 3px;
+}
+
+@media print {
+  @page { margin: 0.55in; }
+  html,
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  .reports-panel,
+  .reports-panel.open,
+  .reports-card,
+  .report-output {
+    background: #fff !important;
+    color: #000 !important;
+    min-height: auto !important;
+  }
+  .reports-card {
+    box-shadow: none !important;
+    border: 0 !important;
+  }
+  .report-title-block {
+    border-bottom: 2px solid #000;
+  }
+  .report-header-item {
+    background: #fff !important;
+    border-color: #bbb !important;
+  }
+  .report-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .report-section h3 {
+    color: #000 !important;
+    border-color: #bbb !important;
+  }
+  .report-table th {
+    background: #f3f3f3 !important;
+    color: #000 !important;
+  }
+  .report-table th,
+  .report-table td {
+    border-color: #bbb !important;
+  }
+}
+
+
+/* v0.6.49 exact visible-report print path
+   The Print button clones the currently displayed #reportOutput into #printReportRoot.
+   Print/PDF then prints only that clone, preserving the same v0.6.44 Hours Report
+   screen structure instead of using any alternate or summarized print layout. */
+#printReportRoot {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 0.35in;
+  }
+
+  body > :not(#printReportRoot) {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #1f2933 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  }
+
+  #printReportRoot {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #1f2933 !important;
+    overflow: visible !important;
+  }
+
+  #printReportRoot .report-print-output,
+  #printReportRoot .report-output {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: #1f2933 !important;
+    overflow: visible !important;
+    font-size: 10.5pt !important;
+    line-height: 1.35 !important;
+  }
+
+  #printReportRoot .report-title-block {
+    border-bottom: 2px solid #263b59 !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 14px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #printReportRoot .report-title-block h1 {
+    font-size: 22pt !important;
+    line-height: 1.05 !important;
+    margin: 0 0 2px !important;
+    color: #1f2933 !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.02em !important;
+  }
+
+  #printReportRoot .report-title-block h2 {
+    font-size: 12.5pt !important;
+    line-height: 1.15 !important;
+    margin: 0 0 8px !important;
+    color: #263b59 !important;
+    font-weight: 800 !important;
+  }
+
+  #printReportRoot .report-header-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+    margin-top: 8px !important;
+  }
+
+  #printReportRoot .report-header-item {
+    border: 1px solid #d9dee7 !important;
+    border-radius: 8px !important;
+    background: #fbfcff !important;
+    padding: 7px 9px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #printReportRoot .report-label {
+    display: block !important;
+    color: #697386 !important;
+    font-size: 7.5pt !important;
+    font-weight: 850 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    line-height: 1.15 !important;
+    margin: 0 !important;
+  }
+
+  #printReportRoot .report-value {
+    display: block !important;
+    margin-top: 2px !important;
+    color: #1f2933 !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+
+  #printReportRoot .report-total-section {
+    border: 1px solid #d9dee7 !important;
+    background: #fbfcff !important;
+    border-radius: 10px !important;
+    padding: 10px 12px !important;
+    margin: 12px 0 16px !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #printReportRoot .report-total-section h3 {
+    border-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    margin: 0 0 4px !important;
+  }
+
+  #printReportRoot .report-total-hours {
+    font-size: 17pt !important;
+    font-weight: 800 !important;
+    margin: 0 !important;
+  }
+
+  #printReportRoot .report-section {
+    margin: 12px 0 16px !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  #printReportRoot .report-section h3 {
+    color: #263b59 !important;
+    font-size: 11pt !important;
+    font-weight: 800 !important;
+    margin: 0 0 7px !important;
+    padding-bottom: 5px !important;
+    border-bottom: 1px solid #d9dee7 !important;
+    break-after: avoid !important;
+    page-break-after: avoid !important;
+  }
+
+  #printReportRoot .report-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin-top: 6px !important;
+    table-layout: auto !important;
+    font-size: 9.2pt !important;
+    line-height: 1.3 !important;
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  #printReportRoot .report-table thead {
+    display: table-header-group !important;
+  }
+
+  #printReportRoot .report-table tbody {
+    display: table-row-group !important;
+  }
+
+  #printReportRoot .report-table tr {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  #printReportRoot .report-table th,
+  #printReportRoot .report-table td {
+    border: 1px solid #d9dee7 !important;
+    padding: 7px 8px !important;
+    text-align: left !important;
+    vertical-align: top !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    color: #1f2933 !important;
+  }
+
+  #printReportRoot .report-table th {
+    background: #eef4fb !important;
+    color: #263b59 !important;
+    font-weight: 800 !important;
+  }
+
+  #printReportRoot .report-meta,
+  #printReportRoot .report-empty,
+  #printReportRoot .report-update-timeblock,
+  #printReportRoot .report-update-timestamp {
+    color: #697386 !important;
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
+  }
+}
+
+/* v0.6.50 print orientation choice
+   Do not force page orientation. Browser print settings may use Portrait or Landscape. */
+
+/* v0.6.51 Hours Report layout is controlled in app.js: detail table first, cumulative total after. */
+
+/* v0.6.60 report date default
+   Report To Date now defaults to today's date through app.js.
+   No visual/report layout CSS changes required. */
+
+/* v0.6.60 Hours Report table/modal fit
+   Keep Hours Report as a table. Make the report modal use available screen width
+   and keep wide tables inside an internal horizontal scroll area instead of squeezing columns. */
+.reports-card {
+  width: min(1360px, calc(100vw - 32px));
+  max-width: none;
+}
+.report-table-scroll {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: visible;
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  margin-top: 8px;
+  background: #fff;
+}
+.report-table-scroll .report-table {
+  margin-top: 0;
+  border: 0;
+}
+.report-table-scroll .report-table th:first-child,
+.report-table-scroll .report-table td:first-child {
+  border-left: 0;
+}
+.report-table-scroll .report-table th:last-child,
+.report-table-scroll .report-table td:last-child {
+  border-right: 0;
+}
+.hours-detail-table {
+  min-width: 1040px;
+  table-layout: fixed;
+}
+.hours-detail-table th,
+.hours-detail-table td {
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
+}
+.hours-detail-table th:nth-child(1),
+.hours-detail-table td:nth-child(1) { width: 72px; }
+.hours-detail-table th:nth-child(2),
+.hours-detail-table td:nth-child(2) { width: 150px; }
+.hours-detail-table th:nth-child(3),
+.hours-detail-table td:nth-child(3) { width: 185px; }
+.hours-detail-table th:nth-child(4),
+.hours-detail-table td:nth-child(4) { width: 390px; }
+.hours-detail-table th:nth-child(5),
+.hours-detail-table td:nth-child(5),
+.hours-detail-table th:nth-child(6),
+.hours-detail-table td:nth-child(6) { width: 86px; }
+.hours-detail-table th:nth-child(7),
+.hours-detail-table td:nth-child(7) { width: 92px; }
+.hours-detail-table th:nth-child(8),
+.hours-detail-table td:nth-child(8) { width: 78px; }
+
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  .reports-panel {
+    padding: 0;
+    overflow: hidden;
+  }
+  .reports-card {
+    width: 100vw;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow: auto;
+    border-radius: 0;
+    padding: 12px;
+  }
+  .report-toolbar {
+    grid-template-columns: 1fr;
+  }
+  .report-filter-group {
+    grid-template-columns: 1fr 1fr;
+  }
+  .report-actions button {
+    flex: 1;
+  }
+  .report-output {
+    max-width: 100%;
+    overflow: visible;
+  }
+  .report-table-scroll {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 100%;
+  }
+  .hours-detail-table {
+    min-width: 1000px;
+    font-size: 0.82rem;
+  }
+  .hours-detail-table th,
+  .hours-detail-table td {
+    padding: 6px 7px;
+  }
+}
+
+@media print {
+  .report-table-scroll,
+  #printReportRoot .report-table-scroll {
+    overflow: visible !important;
+    border: 0 !important;
+    margin-top: 6px !important;
+  }
+  .hours-detail-table,
+  #printReportRoot .hours-detail-table {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: auto !important;
+  }
+}
+
+
+/* v0.6.60 Mobile Hours Detail table swipe fix
+   Keep Hours Report as a table. On phones/tablets, the table keeps its working width
+   and the user swipes left/right inside the table area to reach columns to the right. */
+.hours-detail-scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
+  scrollbar-gutter: stable;
+}
+.hours-detail-scroll::before {
+  content: "Swipe table left/right to see all columns";
+  display: none;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 750;
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  background: #fbfcff;
+}
+.hours-detail-scroll .hours-detail-table {
+  min-width: 1040px;
+  width: 1040px;
+  max-width: none;
+  table-layout: fixed;
+  flex: 0 0 auto;
+}
+.hours-detail-table th {
+  white-space: nowrap;
+}
+.hours-detail-table td {
+  vertical-align: top;
+}
+.hours-detail-table th:nth-child(1),
+.hours-detail-table td:nth-child(1),
+.hours-detail-table th:nth-child(5),
+.hours-detail-table td:nth-child(5),
+.hours-detail-table th:nth-child(6),
+.hours-detail-table td:nth-child(6),
+.hours-detail-table th:nth-child(7),
+.hours-detail-table td:nth-child(7),
+.hours-detail-table th:nth-child(8),
+.hours-detail-table td:nth-child(8) {
+  white-space: nowrap;
+}
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  .hours-detail-scroll {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: scroll !important;
+    overflow-y: hidden;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #fff;
+  }
+  .hours-detail-scroll::before {
+    display: block;
+  }
+  .hours-detail-scroll .hours-detail-table {
+    min-width: 1040px !important;
+    width: 1040px !important;
+    max-width: none !important;
+    table-layout: fixed !important;
+  }
+  .reports-card,
+  .report-output,
+  .hours-detail-section {
+    min-width: 0;
+  }
+}
+
+/* v0.7.23 landscape phone report access
+   A short landscape viewport must not trap the bottom of a report inside a
+   fixed-height card. Let the overlay carry the vertical scroll, while the
+   wide Hours/MDS table keeps its own horizontal swipe surface. */
+@media (orientation: landscape) and (max-height: 600px) and (max-width: 900px) {
+  .reports-panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .reports-card {
+    min-height: auto;
+    max-height: none;
+    overflow: visible;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+  .hours-detail-scroll {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x pan-y;
+  }
+}
+@media print {
+  .hours-detail-scroll::before {
+    display: none !important;
+  }
+}
+
+/* v0.6.67 Dropbox Panel Polish / Advanced Settings Cleanup
+   Compact, non-invasive proof panel inside B01. Normal view shows only safe
+   Dropbox status, callback status, actions, and last action text. App Key and
+   Redirect URI settings are collapsed and the public app key is masked by default.
+   Selected-file IMPORT still uses the existing SiteScribe import choice workflow.
+   It does not upload to Dropbox, auto-import on startup, silently overwrite local
+   data, or change reports, records, Saved Sites, CONFIG, manual entry, Parser
+   compatibility, or protected file picker/drag-drop import. */
+.dropbox-sync-panel {
+  border: 1px dashed #b5c9df;
+  border-radius: 12px;
+  padding: 10px;
+  margin: 12px 0 0;
+  background: #f8fbff;
+}
+.dropbox-sync-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.dropbox-sync-header h3 {
+  margin: 0;
+  font-size: 0.94rem;
+  color: var(--brand);
+}
+.dropbox-safe-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 4px 0 8px;
+}
+.dropbox-summary-pill,
+.dropbox-masked-summary {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #c7d6e7;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--brand);
+  padding: 3px 8px;
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+.dropbox-connect-summary-button {
+  min-height: 0;
+  border: 1px solid #c7d6e7;
+  border-radius: 999px;
+  padding: 3px 9px;
+  font-size: 0.74rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+.dropbox-settings-details {
+  margin: 8px 0;
+  border: 1px solid #d9e3ef;
+  border-radius: 12px;
+  background: #fff;
+  overflow: hidden;
+}
+.dropbox-settings-details > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  color: var(--brand);
+  font-size: 0.78rem;
+  font-weight: 850;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  list-style: none;
+}
+.dropbox-settings-details > summary::-webkit-details-marker { display: none; }
+.dropbox-settings-details > summary::before {
+  content: "▸";
+  margin-right: 2px;
+  color: var(--muted);
+}
+.dropbox-settings-details[open] > summary::before { content: "▾"; }
+.dropbox-settings-grid {
+  display: grid;
+  grid-template-columns: minmax(190px, 0.85fr) auto minmax(240px, 1.15fr) auto;
+  gap: 8px;
+  align-items: end;
+  margin: 0;
+  padding: 0 10px 8px;
+}
+.dropbox-setting-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.dropbox-setting-label input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 7px 9px;
+  font: inherit;
+  font-size: 0.8rem;
+  color: var(--ink);
+  background: #fff;
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 500;
+}
+.dropbox-settings-hint {
+  margin: 4px 0 6px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.dropbox-settings-details .dropbox-settings-hint {
+  padding: 0 10px 9px;
+}
+
+.dropbox-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 6px 0 8px;
+}
+.dropbox-status-line,
+.dropbox-result-line {
+  margin: 5px 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.3;
+}
+.dropbox-feedback-error {
+  color: #a61b1b !important;
+  font-weight: 850;
+}
+.dropbox-feedback-checking {
+  color: #8a5b00 !important;
+  font-weight: 750;
+}
+.dropbox-feedback-success {
+  color: #17643a !important;
+  font-weight: 750;
+}
+.dropbox-summary-pill.dropbox-connection-error {
+  border-color: #d89292;
+  background: #fff0f0;
+  color: #a61b1b;
+}
+.dropbox-summary-pill.dropbox-connection-warning {
+  border-color: #dfc47a;
+  background: #fff8df;
+  color: #7b5700;
+}
+.dropbox-summary-pill.dropbox-connection-ok {
+  border-color: #91c6a8;
+  background: #edf9f2;
+  color: #17643a;
+}
+.dropbox-connect-required {
+  border-color: #b3261e !important;
+  background: #b3261e !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 3px rgba(179, 38, 30, 0.12);
+}
+.dropbox-files-list.dropbox-files-stale {
+  border: 2px solid #c9362e;
+  border-radius: 12px;
+  padding: 7px;
+  background: #fff4f3;
+}
+.dropbox-files-list.dropbox-files-stale::before {
+  content: "Dropbox connection unavailable — reconnect before importing these files.";
+  display: block;
+  grid-column: 1 / -1;
+  color: #a61b1b;
+  font-size: 0.8rem;
+  font-weight: 850;
+  line-height: 1.3;
+}
+.dropbox-import-button.dropbox-import-error {
+  border-color: #c9362e !important;
+  background: #fff0ef !important;
+  color: #a61b1b !important;
+}
+.dropbox-files-list {
+  display: grid;
+  gap: 7px;
+  margin-top: 8px;
+  max-height: 210px;
+  overflow: auto;
+}
+.dropbox-empty,
+.dropbox-file-row {
+  border: 1px solid #d9e3ef;
+  border-radius: 10px;
+  padding: 8px;
+  background: #fff;
+}
+.dropbox-file-name {
+  font-weight: 750;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.dropbox-file-meta,
+.dropbox-file-path {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 640px) {
+  .dropbox-sync-panel { padding: 8px; }
+  .dropbox-safe-summary { gap: 5px; }
+  .dropbox-summary-pill,
+  .dropbox-masked-summary { font-size: 0.68rem; }
+  .dropbox-settings-grid { grid-template-columns: 1fr; }
+  .dropbox-sync-actions button { flex: 1 1 100%; }
+  .dropbox-files-list { max-height: 180px; }
+}
+
+/* v0.6.67 Dropbox Panel Polish / Advanced Settings Cleanup selected-file import controls */
+.dropbox-file-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+}
+.dropbox-file-main {
+  min-width: 0;
+}
+.dropbox-import-button {
+  align-self: center;
+  padding: 5px 10px;
+  font-size: 0.74rem;
+}
+.dropbox-file-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+.dropbox-delete-button {
+  align-self: center;
+  padding: 5px 10px;
+  font-size: 0.74rem;
+  border-color: #b74b45;
+  color: #941f1a;
+  background: #fff7f6;
+}
+.dropbox-delete-button:hover:not(:disabled),
+.dropbox-delete-button:focus-visible:not(:disabled) {
+  border-color: #941f1a;
+  background: #fff0ef;
+}
+.dropbox-delete-button.dropbox-delete-error {
+  border-color: #c9362e !important;
+  background: #fff0ef !important;
+  color: #a61b1b !important;
+}
+@media (max-width: 640px) {
+  .dropbox-file-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .dropbox-import-button {
+    width: fit-content;
+  }
+  .dropbox-file-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dropbox-delete-button {
+    width: fit-content;
+  }
+}
+
+/* v0.6.65 Dropbox JSON metadata preview rows */
+.dropbox-file-row-previewed .dropbox-file-name {
+  color: var(--brand);
+}
+.dropbox-file-summary {
+  margin-top: 4px;
+  color: var(--ink);
+  font-size: 0.78rem;
+  line-height: 1.28;
+  overflow-wrap: anywhere;
+}
+.dropbox-file-row-warning {
+  background: #fffaf0;
+  border-color: #eed9a8;
+}
+
+.dropbox-freshness-line {
+  margin-top: 0.22rem;
+  font-weight: 650;
+}
+
+.dropbox-freshness-badge {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.12rem 0.4rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  line-height: 1.2;
+  vertical-align: middle;
+  white-space: nowrap;
+  background: #e5e7eb;
+  color: #374151;
+}
+
+.dropbox-freshness-badge.freshness-current {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.dropbox-freshness-badge.freshness-local-newer {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.dropbox-freshness-badge.freshness-dropbox-newer {
+  background: #dbeafe;
+  color: #1e40af;
+}
+.dropbox-file-warning-text {
+  margin-top: 3px;
+  color: #8a6500;
+  font-size: 0.78rem;
+  font-weight: 650;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+/* v0.6.67 Dropbox Panel Polish / Advanced Settings Cleanup */
+.dropbox-helper-text {
+  margin: 4px 0 8px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+.dropbox-source-line {
+  font-weight: 800;
+  color: var(--brand);
+}
+
+/* v0.6.69 isolated Email Action Proof */
+.email-action-proof {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid #bfd4ea;
+  border-radius: 12px;
+  background: #f5faff;
+}
+.email-action-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.email-action-heading h3 { margin: 0; }
+.email-action-contact { margin: 5px 0 10px; }
+
+/* v0.6.80 — Phase 2 site-specific Communication Setup. */
+.communication-setup-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  overflow: auto;
+  padding: 24px 14px;
+  background: rgba(15, 36, 61, 0.46);
+}
+.communication-setup-panel.hidden { display: none; }
+.communication-setup-card {
+  width: min(980px, 100%);
+  margin: 0 auto;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 18px 52px rgba(11, 31, 52, 0.26);
+}
+.communication-setup-card .detail-header { align-items: flex-start; }
+.communication-setup-card .detail-header h2 { margin-bottom: 2px; }
+.communication-setup-intro { margin: 0 0 12px; max-width: 78ch; }
+.communication-setup-actions,
+.communication-contact-heading,
+.communication-contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.communication-setup-actions { margin: 10px 0 6px; }
+.communication-setup-warnings {
+  margin: 10px 0;
+  padding: 9px 11px;
+  border: 1px solid #d4a654;
+  border-radius: 10px;
+  background: #fff8e8;
+  color: #624500;
+  font-size: .84rem;
+}
+.communication-setup-warnings:has(ul) { border-color: #d4a654; }
+.communication-setup-warnings ul { margin: 5px 0 0 18px; padding: 0; }
+.communication-setup-fields { display: grid; gap: 14px; margin-top: 14px; }
+.communication-group-section {
+  padding: 12px;
+  border: 1px solid #d6e1ee;
+  border-radius: 12px;
+  background: #f8fbff;
+}
+.communication-group-section > h3 { margin: 0 0 8px; color: var(--brand); font-size: 1rem; }
+.communication-group-card {
+  margin-top: 9px;
+  border: 1px solid #bfcee0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.communication-group-card > summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px;
+  background: #eaf3ff;
+  cursor: pointer;
+  color: var(--brand);
+  font-weight: 800;
+  list-style: none;
+}
+.communication-group-card > summary::-webkit-details-marker { display: none; }
+.communication-group-title { flex: 1; }
+.communication-group-drag-grip { display: inline-flex; align-items: center; justify-content: center; min-width: 28px; min-height: 28px; margin: -4px 0 -4px -5px; color: #235d76; font-size: 15px; line-height: 1; opacity: .82; cursor: grab; touch-action: none; -webkit-user-select: none; user-select: none; }
+.communication-group-drag-grip:active { cursor: grabbing; }
+.communication-group-chevron { color: #58728f; font-size: 10px; transition: transform .2s; }
+.communication-group-card:not([open]) .communication-group-chevron { transform: rotate(180deg); }
+.communication-group-card.drag-source { opacity: .35; }
+.communication-group-drag-ghost { position: fixed; z-index: 5000; pointer-events: none; padding: 9px 14px; border-radius: 6px; background: #1565c0; color: #fff; box-shadow: 0 7px 20px rgba(0,0,0,.32); font-size: 12px; font-weight: 800; white-space: nowrap; }
+.communication-group-drop-line { height: 4px; margin: 4px 0; border-radius: 3px; background: #2196f3; box-shadow: 0 0 0 1px rgba(255,255,255,.7); }
+html.communication-group-reorder-active,
+html.communication-group-reorder-active body { overflow: hidden; overscroll-behavior: none; touch-action: none; -webkit-user-select: none; user-select: none; }
+html.communication-group-reorder-active .communication-group-card:not(.drag-source) { pointer-events: none; }
+html.communication-group-reorder-active .communication-setup-card > :is(.detail-header, .communication-setup-intro, .communication-setup-warnings, .communication-setup-actions, .communication-setup-footer) { pointer-events: none; }
+.communication-group-card > summary small { color: var(--muted); font-weight: 600; }
+.communication-group-fields { padding: 11px; border-top: 1px solid #dbe5ef; }
+.communication-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 10px;
+}
+.communication-grid label {
+  display: grid;
+  gap: 3px;
+  color: var(--muted);
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+.communication-grid input,
+.communication-grid select {
+  min-width: 0;
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  padding: 6px 8px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 500;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.communication-wide { grid-column: 1 / -1; }
+.communication-intents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin: 11px 0 8px;
+  padding: 8px 9px;
+  border: 1px solid #d8e3ef;
+  border-radius: 8px;
+}
+.communication-intents legend { padding: 0 4px; color: var(--muted); font-size: .72rem; font-weight: 800; text-transform: uppercase; }
+.communication-check, .communication-active { color: var(--ink); font-size: .8rem; font-weight: 650; }
+.communication-contact-heading { justify-content: flex-end; margin: 12px 0 7px; }
+.communication-contact-heading h4 { margin: 0 auto 0 0; color: var(--brand); font-size: .88rem; }
+.communication-contacts { display: grid; gap: 8px; }
+.communication-contact-card { padding: 10px; border: 1px solid #d9e4ef; border-radius: 8px; background: #fbfdff; }
+.contact-prefill { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 10px; padding: 10px; border: 1px solid #b9d0e6; border-radius: 8px; background: #eef7ff; color: var(--brand) !important; }
+.contact-prefill-title, .contact-prefill small { grid-column: 1 / -1; }
+.contact-prefill-title { font-size: .8rem; font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
+.contact-prefill small { color: var(--muted); font-size: .78rem; font-weight: 600; letter-spacing: normal; text-transform: none; }
+.contact-prefill select { border-color: #8cb5db; }
+.communication-contact-actions { justify-content: space-between; margin-top: 8px; }
+.communication-setup-footer { margin-top: 14px; }
+.all-site-contacts-card { max-width: 840px; }
+.all-site-contacts-search { display: grid; gap: 4px; margin: 14px 0 7px; color: var(--muted); font-size: .74rem; font-weight: 800; letter-spacing: .025em; text-transform: uppercase; }
+.all-site-contacts-search input { min-height: 38px; border: 1px solid var(--line); border-radius: 8px; padding: 7px 9px; background: #fff; color: var(--ink); font: inherit; font-size: .92rem; font-weight: 500; letter-spacing: normal; text-transform: none; }
+.all-site-contacts-list { display: grid; gap: 9px; margin-top: 12px; }
+.all-site-contact-card { padding: 11px; border: 1px solid #bfcee0; border-radius: 10px; background: #f8fbff; }
+.all-site-contact-name { color: var(--brand); font-weight: 800; }
+.all-site-contact-meta { margin-top: 3px; color: var(--muted); font-size: .84rem; }
+.all-site-contact-locations { display: grid; gap: 5px; margin-top: 9px; }
+.all-site-contact-location { padding: 7px 8px; border-left: 3px solid #6b9bc8; border-radius: 5px; background: #fff; color: var(--ink); font-size: .84rem; }
+.all-site-contact-location strong { color: var(--brand); }
+.all-site-contacts-empty { padding: 18px; border: 1px dashed #b9cadb; border-radius: 10px; background: #f8fbff; color: var(--muted); text-align: center; }
+button.danger { background: #fff; border-color: #c97d7d; color: #8b2525; }
+button.danger:hover { background: #fff1f1; }
+@media (max-width: 640px) {
+  .communication-setup-panel { padding: 8px; }
+  .communication-setup-card { padding: 13px; border-radius: 12px; }
+  .communication-grid { grid-template-columns: 1fr; }
+  .contact-prefill { grid-template-columns: 1fr; }
+  .communication-wide { grid-column: auto; }
+  .communication-setup-actions > button { flex: 1 1 100%; }
+  .communication-contact-heading { align-items: flex-start; }
+  .communication-contact-heading h4 { flex-basis: 100%; }
+}
+.email-action-proof .field-label { display: block; margin-top: 8px; }
+.email-action-proof input,
+.email-action-proof textarea { width: 100%; margin-top: 4px; }
+
+/* v0.6.72l record detail visual hierarchy */
+#detailContent {
+  display: grid;
+  gap: 12px;
+}
+.record-detail-section {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid #cfdae7;
+  border-radius: 14px;
+  background: #f7faff;
+}
+.record-detail-section > h3,
+.record-detail-section > h4,
+.record-flags-block > h4 {
+  margin: 0 0 9px;
+  color: var(--ink);
+}
+.primary-record-card {
+  border-left: 4px solid var(--brand);
+  background: #f3f8fe;
+  padding: 11px 13px;
+}
+.primary-record-heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px 12px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+.primary-record-heading-row h3 {
+  margin: 0;
+}
+.primary-record-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.primary-record-actions button {
+  min-height: 31px;
+  padding: 5px 9px;
+}
+.primary-record-description {
+  margin: 0 0 6px;
+  font-size: 0.96rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+.primary-record-meta-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  padding: 6px 0;
+  border-top: 1px solid #d7e1ec;
+  border-bottom: 1px solid #d7e1ec;
+}
+.primary-meta-item {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.primary-meta-label {
+  color: var(--muted);
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.primary-meta-value {
+  color: var(--ink);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+.primary-record-card > .compact-deliverable-editor {
+  margin: 5px 0 0;
+  min-height: 31px;
+}
+.primary-record-card .record-flags-block {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #cfdae7;
+}
+.source-text-card {
+  padding: 0;
+  background: #fbfcfe;
+  overflow: hidden;
+}
+.source-text-card summary {
+  padding: 13px 14px;
+  cursor: pointer;
+  font-weight: 800;
+  color: var(--ink);
+  list-style-position: inside;
+}
+.source-text-card summary:hover {
+  background: #f2f6fb;
+}
+.source-text-content {
+  margin: 0;
+  padding: 0 14px 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+.secondary-editor-card {
+  border-left: 4px solid #6f93bb;
+  background: #f8fbff;
+  padding: 9px 11px;
+}
+.secondary-editor-card > h3 {
+  margin-bottom: 6px;
+}
+.secondary-editor-card textarea {
+  background: #fff;
+  min-height: 58px;
+  max-height: 180px;
+  padding: 8px 10px;
+  resize: none;
+  line-height: 1.42;
+}
+.secondary-quick-entry-row {
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin: 5px 0 2px;
+}
+.secondary-editor-card .update-time-editor {
+  grid-template-columns: 104px 104px 84px 136px 76px auto;
+  justify-content: start;
+  gap: 6px;
+  margin: 0;
+}
+.secondary-editor-card .update-time-editor input {
+  padding: 5px 8px;
+}
+.compact-deliverable-editor {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  min-height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+.compact-deliverable-editor .deliverable-apply-label {
+  min-height: 30px;
+}
+.compact-deliverable-editor .deliverable-date-label {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.compact-deliverable-editor .deliverable-date-label input {
+  width: 160px;
+  padding: 5px 8px;
+}
+.compact-deliverable-editor .deliverable-date-hidden {
+  display: none;
+}
+.secondary-editor-card .update-timestamp-line {
+  margin: 2px 0 4px;
+  font-size: 0.7rem;
+  line-height: 1.35;
+}
+.secondary-editor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 14px;
+  flex-wrap: wrap;
+  margin-top: 3px;
+  padding-top: 3px;
+  border-top: 0;
+}
+.secondary-new-footer {
+  justify-content: flex-end;
+}
+.secondary-editor-footer .selected-secondary-status {
+  margin: 0;
+  gap: 6px;
+}
+.secondary-status-caption {
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 750;
+}
+.secondary-editor-actions {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+}
+.secondary-editor-actions button {
+  min-height: 34px;
+  padding: 5px 10px;
+}
+.secondary-save-action {
+  background: var(--brand);
+  color: #fff;
+}
+.secondary-list-card {
+  border-left: 4px solid #9aafc6;
+  background: #fbfdff;
+}
+.record-detail-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.record-detail-section-heading h3 {
+  margin: 0;
+}
+.secondary-record-count {
+  display: inline-flex;
+  min-width: 26px;
+  min-height: 26px;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  border: 1px solid #c6d5e5;
+  border-radius: 999px;
+  background: #edf4fb;
+  color: var(--brand);
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+@media (max-width: 640px) {
+  .detail-panel {
+    padding: 8px;
+  }
+  .detail-card {
+    padding: 12px;
+    max-height: calc(100dvh - 16px);
+  }
+  .record-detail-section {
+    padding: 11px;
+    border-radius: 12px;
+  }
+  .secondary-editor-card {
+    padding: 8px 9px;
+  }
+  .primary-record-card {
+    padding: 9px 10px;
+  }
+  .primary-record-heading-row {
+    align-items: flex-start;
+  }
+  .primary-record-meta-strip {
+    gap: 4px 11px;
+    padding: 5px 0;
+  }
+  .primary-meta-item {
+    white-space: normal;
+  }
+  .source-text-card {
+    padding: 0;
+  }
+  .source-text-card summary {
+    padding: 11px;
+  }
+  .source-text-content {
+    padding: 0 11px 11px;
+  }
+  .secondary-editor-card .update-time-editor {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(64px, 0.7fr);
+    gap: 6px;
+  }
+  .secondary-editor-card .update-time-editor > label:nth-child(4) {
+    grid-column: span 2;
+  }
+  .secondary-editor-card .update-time-editor > label:nth-child(5) {
+    grid-column: span 1;
+  }
+  .secondary-editor-card .update-time-editor input {
+    min-height: 34px;
+    font-size: 0.82rem;
+  }
+  .secondary-editor-card .update-time-editor label {
+    font-size: 0.64rem;
+  }
+  .expense-fields { grid-column: 1 / -1; width: 100%; }
+  .expense-fields label:first-child { width: 34%; }
+  .expense-fields label:last-child { width: 66%; }
+  .expense-currency-choice { width: 66px !important; }
+  .secondary-quick-entry-row {
+    display: grid;
+    gap: 4px;
+  }
+  .compact-deliverable-editor {
+    gap: 6px 9px;
+  }
+  .compact-deliverable-editor .deliverable-date-label input {
+    width: 145px;
+  }
+  .secondary-editor-footer {
+    align-items: flex-start;
+    margin-top: 2px;
+    padding-top: 2px;
+  }
+  .secondary-editor-actions {
+    margin-left: 0;
+  }
+  .secondary-editor-actions button {
+    min-height: 38px;
+  }
+}
+
+/* v0.8.13: portrait phone real estate for B05 secondary and activity rows.
+   Measured at 375px portrait: the right-hand cluster (work date, hours badge, OPEN pill) took
+   168px of a 342px row while the record description got 106px -- the metadata occupied more of
+   the row than the text it described. Drop the row to two grid columns and place that cluster on
+   a second line, indented under the title, so the description gets the full row width. Nothing is
+   removed; the date and hours badge both remain.
+   This block sits at the end of the stylesheet deliberately: several earlier
+   @media (max-width: 640px) rules set the same grid-template-columns and record-right properties,
+   and at equal specificity the later rule wins.
+   Landscape is explicitly excluded by the orientation query -- a phone turned sideways has room
+   for one line and keeps the original layout. Primary rows are untouched at every size. */
+@media (max-width: 640px) and (orientation: portrait) {
+  .secondary-record-line {
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 3px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .secondary-record-line .record-right {
+    grid-column: 2;
+    justify-content: flex-start;
+    width: 100%;
+    min-width: 0;
+  }
+  .secondary-record-line .record-inline-meta {
+    max-width: none;
+  }
+}
