@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.7.00 — Saved Site Contacts / Departments
+
+- Adds a Contacts / Depts action to every Saved Site row.
+- Selecting it opens that exact saved site first, then opens its Contacts / Departments editor.
+- Removes the ambiguous global Communication Setup action from Bring In Site Notes.
+- Renames the editor and Save action to Contacts / Departments.
+- Clarifies that contacts, departments, and routing are stored with the named saved site in browser storage, JSON exports, and Dropbox copies.
+- No changes to record processing, parser behavior, routing rules, email drafts, reports, Dropbox uploads, or mobile section reordering.

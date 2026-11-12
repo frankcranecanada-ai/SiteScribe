@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.7.03 — Contact Prefill
+
+- When Add Contact creates a new blank contact card, it now loads the existing All Site Contacts list from saved sites on this device.
+- The new card has an optional "Prefill from All Site Contacts" dropdown.
+- Choosing a person copies their name, email, phone, role, aliases, and active status into the new contact card.
+- The original contact remains unchanged in its source site and department/company. The new contact is still separate and must be saved in the current site.
+- If saved-site contacts cannot be read, manual contact entry remains available.

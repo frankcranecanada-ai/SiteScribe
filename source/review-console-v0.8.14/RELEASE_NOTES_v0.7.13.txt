@@ -1,0 +1,6 @@
+SiteScribe Review Console v0.7.13 — Email Activity Reset
+
+- Adds a confirmed Clear Activity control inside Email Activity for the currently open site.
+- Clearing removes only that site's Email Activity history. It does not remove records, email-draft secondary items, contacts, or reports.
+- The clear is saved immediately to the device; use Update Dropbox Site File separately when the site backup should reflect the reset.
+- Email drafts continue to remain open until the user explicitly presses MARK SENT; that action closes the draft secondary item as confirmation of completion.

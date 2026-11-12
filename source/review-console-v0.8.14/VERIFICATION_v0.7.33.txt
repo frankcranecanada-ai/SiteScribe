@@ -1,0 +1,30 @@
+SiteScribe Review Console v0.7.33 verification evidence
+
+Required automated checks run before packaging:
+- node --check app.js
+- node --check dropbox-sync-proof.js
+- node --check sitescribe-add-data.js
+- node --check sitescribe-hours-excel.js
+- node --check sitescribe-mds-excel.js
+- node regression_check_v0.7.33.js
+- Duplicate named function declaration scan
+- Duplicate HTML id scan
+- CSS brace-balance scan
+- Flat nine-file deploy package scan
+
+Focused B05 manual test plan:
+1. Open a primary with secondary records in B05. Click the primary body; only the primary detail should open, without an Existing Secondary Records list.
+2. Close detail. Click the arrow/count control; the secondary branch should expand or collapse without opening the detail.
+3. Click a visible secondary; only its own editor/detail should open with a light parent reference and no sibling list.
+4. Confirm primary Add Secondary Record remains available, and closed primary protections still lock child editing/movement.
+5. Test arrow/count control, primary body, and secondary body on desktop and iPhone.
+
+Results
+- PASS: Node syntax checks completed for all six first-party JavaScript files.
+- PASS: regression_check_v0.7.33.js completed with all inherited B04/Dropbox protections and all B05 focused checks passing.
+- PASS: duplicate function scan found none; duplicate HTML id scan found none; CSS brace balance is zero.
+- PASS: local browser workflow confirmed primary body opens primary-only detail, branch control hides/shows children, and a secondary opens secondary-only detail without siblings.
+- PASS: 390 px browser layout has no horizontal page overflow (B05 branch width 349 px inside a 361 px records root).
+- PASS: root deploy files were refreshed from v0.7.33.
+- PASS: the deployable ZIP is flat and contains exactly the approved nine web files.
+- PASS: the full source ZIP contains these release notes and verification evidence.

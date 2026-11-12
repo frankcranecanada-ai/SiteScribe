@@ -1,0 +1,16 @@
+SiteScribe Review Console v0.8.3 verification
+
+Automated checks
+- node --check passed on all first-party JavaScript files and the focused regression script.
+- regression_check_v0.8.3.js passed the protected three-level, parser,
+  reporting, Dropbox, B04, branch-click, inline-entry, and B05 pill checks.
+- Version/cache markers agree on v0.8.3; no duplicate functions or HTML IDs;
+  CSS brace balance is zero.
+
+Focused UI check
+- Primary, secondary, and activity B05 OPEN controls use the shared compact
+  status-pill class and retain their respective explicit open actions.
+
+Packaging checks
+- Root deploy files refreshed from v0.8.3 after confirming they matched the preceding v0.8.2 candidate.
+- Deployable ZIP is flat and contains exactly the required nine web files.

@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.7.06 — Contacts / Departments Title Bars
+
+- Restores the established indigo Site Walk B01, B02, B04, and B05 title-bar colours from v0.7.04.
+- Contacts / Departments groups retain their light, bordered title strip, like Imported Project Contacts.
+- Each department/company strip now has a dot-matrix grip. Drag it to reorder only within that site’s Internal Departments or External Companies list.
+- Collapse/expand continues to work by pressing the title strip, not the grip.
+- The touch move owns the gesture: page scrolling and other controls are locked until it is dropped or cancelled.
+- No changes to contacts, routing, records, Dropbox, reports, autosave, or parsing.

@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.7.01 — Contacts / Departments persistence repair
+
+Fixes a defect where Save Contacts / Departments only scheduled the normal delayed
+browser autosave. The save action now waits for any prior save to complete, writes
+the current site's contact configuration immediately, and confirms success only
+after the local saved-site record has been updated. The button is temporarily
+disabled while that write is in progress to prevent duplicate taps.
+
+No record, parser, routing, report, Dropbox upload, or site-walk behaviour changed.

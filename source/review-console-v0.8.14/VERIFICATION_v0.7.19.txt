@@ -1,0 +1,37 @@
+SiteScribe Review Console v0.7.19 Verification Evidence
+Date: 2026-08-12
+
+Automated checks
+- PASS node --check: app.js
+- PASS node --check: dropbox-sync-proof.js
+- PASS node --check: sitescribe-add-data.js
+- PASS node --check: sitescribe-hours-excel.js
+- PASS node --check: sitescribe-mds-excel.js
+- PASS node --check: sitescribe-parser-core.js
+- PASS node --check: regression_check_v0.7.19.js
+- PASS regression_check_v0.7.19.js: 12 focused/protected checks
+- PASS duplicate HTML ID check
+- PASS duplicate function declaration check
+- PASS CSS brace integrity: 892 opening / 892 closing
+- PASS visible version, APP_VERSION, app cache marker, stylesheet cache marker, and MDS Excel cache marker identify v0.7.19
+
+Focused behavior covered
+- Date Order field contains Report default, Oldest to newest, and Newest to oldest.
+- Default resolution is oldest-to-newest for Daily/Hours/MDS, urgency for Open Items, and newest-to-oldest for Communication Activity.
+- Primary date basis prefers createdAt.
+- Secondary date basis prefers workDate and falls back to createdAt.
+- Report selection groups and secondary rows use non-mutating copied-array sorts.
+- Hours/MDS on-screen rows use the same selected secondary order.
+- MDS Excel receives the resolved direction, applies it to summary detail, and orders week tabs accordingly.
+- v0.7.18 Dropbox list-tooltip clipping protection remains present.
+
+Local browser smoke check
+- PASS candidate loaded from a local HTTP server.
+- PASS visible application version: v0.7.19.
+- PASS initial SiteScribe UI rendered without a page-load failure.
+
+User acceptance still required
+- Test with a real saved site containing mixed primary Created Dates and secondary Work Dates.
+- Verify all report types in both directions.
+- Verify printed/copy output and downloaded Hours/MDS workbooks.
+- Verify the deployed website and iPhone/PWA cache refresh before accepting v0.7.19 as baseline.

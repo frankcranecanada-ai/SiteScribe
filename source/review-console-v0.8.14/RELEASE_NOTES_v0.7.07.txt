@@ -1,0 +1,6 @@
+SiteScribe Review Console v0.7.07 — Contacts / Departments Header State
+
+- Contacts / Departments title strips now have the same light-blue background as primary Working Memory rows.
+- Reordering a collapsed department/company no longer opens it when released.
+- The dot-matrix grip no longer triggers the title strip's native expand/collapse action.
+- No changes to contacts, routing, records, Dropbox, reports, autosave, or parsing.

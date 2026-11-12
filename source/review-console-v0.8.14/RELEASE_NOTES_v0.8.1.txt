@@ -1,0 +1,21 @@
+SiteScribe Review Console v0.8.1
+B05 Branch Click Repair
+
+Purpose
+- Correct the B05 click mapping following operator feedback.
+
+Changes
+- Clicking a primary record body now shows or hides its secondary records.
+- Clicking a secondary record body now shows or hides its activity records.
+- The existing primary OPEN pill still opens primary detail.
+- The secondary OPEN status pill is now an explicit control that opens secondary detail.
+- Activity records continue to open their detail because they are the capped third level and have no children.
+- Branch arrows/counts remain explicit show/hide controls.
+
+Protected behavior retained
+- Capped primary > secondary > activity model; no fourth level.
+- Direct activity reporting and parent-context exports.
+- sourceText, protected import choices, closed-record locks, Dropbox safeguards, parser protections, draft-only communications, and no credentials.
+
+Candidate status
+- Test candidate only. v0.7.33 remains the accepted baseline; this does not become accepted until user testing and approval.

@@ -1,0 +1,12 @@
+SiteScribe Review Console v0.8.7 verification
+
+Automated checks
+- node --check, focused regression, duplicate function/ID checks, and CSS brace check passed.
+- The focused regression verifies the separate editor-lock and status-control paths for closed secondary recovery.
+
+Focused interaction note
+- The test browser's B05 panel state prevented a completed visible-row interaction after creating the test record. No browser success claim is made for that final visible control check.
+
+Packaging checks
+- Root deploy files refreshed from v0.8.7.
+- Deployable ZIP is flat and contains exactly the required nine web files.

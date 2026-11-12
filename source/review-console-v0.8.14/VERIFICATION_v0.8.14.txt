@@ -1,0 +1,6 @@
+SiteScribe Review Console v0.8.14 verification
+
+- First-party JavaScript syntax checked.
+- v0.8.13 protected regression and v0.8.14 focused exclusion regression passed.
+- Root deploy files match v0.8.14 candidate; deploy ZIP is flat with nine web files.
+- Live iPhone/Dropbox UI confirmation remains for the user after deployment.

@@ -1,0 +1,65 @@
+SiteScribe Review Console v0.8.13 verification
+
+Static checks
+- Version and changed cache markers match v0.8.13.
+- node --check passed for all six first-party JS files and regression_check_v0.8.13.js.
+- Focused regression_check_v0.8.13.js: 58 PASS, 0 FAIL, exit 0.
+- Duplicate first-party function declarations within any single file: none.
+- Duplicate DOM IDs across index.html and app.js: none.
+- CSS brace integrity: 978 opening / 978 closing. The count rose from 974 because one media block
+  containing three rules was added; it is balanced.
+
+Files proven untouched (byte-identical to v0.8.12 by cmp)
+- dropbox-sync-proof.js
+- sitescribe-hours-excel.js
+- sitescribe-mds-excel.js
+- sitescribe-parser-core.js
+Changed: styles.css (the fix), app.js (release-note block and APP_VERSION only), index.html and
+sitescribe-add-data.js (version markers only).
+
+The regression genuinely catches the change
+- regression_check_v0.8.13.js run unchanged against a scratch copy of the v0.8.12 sources exits 1
+  with 3 failures: the version markers and both new CSS checks. The v0.8.12 folder was not
+  modified; copies were used in a scratch directory.
+- Two of the new checks deliberately pass on both builds: "stylesheet-only change, row markup and
+  rendering untouched" and "the hours badge and work date are still rendered, not removed". Both
+  assert properties that must hold before and after, and would fail if a later change moved this
+  into app.js or dropped the badge.
+
+Live browser measurement (isolated localhost:8782 session)
+Test row: "Teams meeting MDS/WECC -Eddy, work on minutes. meeting at 11:30 and 15:30", with a
+work date, an Hours badge and an OPEN pill, under a primary with three secondaries.
+
+  viewport            orientation   layout      description width   row height
+  375x812             portrait      two lines   281px               60px
+  812x375             landscape     one line    466px               33px
+  1200x900            landscape     one line    829px               33px
+
+- Before the change, the same row at 375x812 measured 106px of description against a 168px right
+  cluster. After, the description measures 281px - 2.65 times more - and
+  "MDS/Wayne Bros./Maxim Crane Teams" renders in full where it previously truncated to
+  "MDS/Wayne Br...".
+- The second line renders indented under the title, not under the drag grip, and carries the work
+  date, the Hours badge and the OPEN pill.
+- Landscape at 812x375 and desktop at 1200x900 are unchanged at 33px row height and single line,
+  confirming the orientation query excludes them.
+- Primary rows measured 45px in both orientations; unchanged.
+- No console errors.
+
+A first attempt failed and is recorded so it is not repeated
+- The media block was initially inserted next to the other .secondary-record-line rules, partway
+  through the stylesheet. It had no effect: several later @media (max-width: 640px) rules set the
+  same grid-template-columns and .record-right properties, and at equal specificity the later rule
+  wins. Browser measurement caught this - the row still reported two_lines: false with the
+  description at 106px. The block was moved to the end of the stylesheet and then took effect.
+  This is why the change was verified by measuring the rendered layout rather than by confirming
+  the CSS was present in the file.
+
+Protected regression coverage retained
+- v0.8.12 B02 content date, v0.8.11 H:MM hours display, v0.8.10 typed 24-hour entry, v0.8.9
+  partial-entry protection and commit-before-close: all still passing.
+- B05 row bodies toggle their own branches while OPEN pills open record detail: still passing, and
+  untouched by this change since no markup or handler was modified.
+- Capped three-level model, sourceText retention, AI report prototype inertness, closed-secondary
+  recovery footer, closed descendant reporting, Dropbox post-update listing, protected imports and
+  operator-initiated append: all still covered and passing.

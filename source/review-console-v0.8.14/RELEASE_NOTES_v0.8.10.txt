@@ -1,0 +1,77 @@
+SiteScribe Review Console v0.8.10
+Typed 24-hour Start/End entry without locale interference
+Branched from: source/review-console-v0.8.9 (user-authorized continuation of the v0.8 candidate line)
+Status: CANDIDATE - NOT ACCEPTED
+
+REPORTED PROBLEM
+----------------
+An operator entering a secondary record could not type a 24-hour time. Typing "20" for 20:00
+committed 2 as the hour and jumped to the minutes segment, so 20:00 could not be entered at all.
+A separate observation in the same report was that the hours "did not add up": a record showed
+START 07:43 PM, END 09:00 PM and HRS 1.28.
+
+DIAGNOSIS
+---------
+1. The Start and End boxes were <input type="time">. That control renders in the browser's own
+   locale, not the document's. This machine is en-CA, which pairs ISO dates with a 12-hour clock,
+   which is why WORK DATE renders 2026-08-29 while the time boxes render hh:mm AM/PM.
+2. In a 12-hour hour segment no valid hour begins with 2 except 2 itself, so the browser commits
+   the digit immediately and advances to minutes. The operator's second keystroke lands in the
+   minutes box. 20:00 is unreachable, and the meridiem is set from whatever the segment already
+   held.
+3. The 1.28 was not an arithmetic fault. 19:43 to 21:00 is 77 minutes, which is 1.28 hours. The
+   calculation was correct; the times were not the ones the operator intended, because the
+   control had set the meridiem on its own.
+4. The storage layer was already 24-hour and already tolerant. normalizeTimeInput accepted both
+   "20:00" and "2000" and stored HH:MM. Only the input element type forced 12-hour entry.
+
+CHANGES
+-------
+app.js
+- commentStartTime, commentEndTime, activityEntryStartTime and activityEntryEndTime are now
+  type="text" with inputmode="numeric", maxlength="5" and data-time-text="1". The browser no
+  longer imposes a locale format, so the operator types the time directly. inputmode="numeric"
+  gives the numeric keypad on iPhone. The placeholders (07:30, 11:45) are unchanged.
+- New isTimeTextInput(input) identifies these boxes by their data-time-text marker.
+- New timeTextInputIsPartial(input). A text box holds the literal keystrokes, so it has its own
+  half-entered state: "2" or "20" is neither a usable time nor a deliberate clear. This is the
+  text-box equivalent of the segmented-control problem fixed in v0.8.9.
+- inputEntryIsPartial routes a time-text box to timeTextInputIsPartial and leaves every other
+  control on the existing validity.badInput path. The date boxes are unchanged.
+- New normalizeTimeTextInput(input) settles a completed entry to canonical HH:MM. "2000",
+  "20:00", "805" and "8:05" all become 08:05 / 20:00 form. Text that does not parse is left
+  exactly as typed so the operator can see what is unfinished and correct it.
+- New settleTimeTextEntry(target) calls that normalization and then refreshes the matching hours
+  calculation. It runs at the top of handleDetailFocusOut and handleDetailChange, so the box is
+  settled before the existing commit in those handlers reads it.
+
+WHAT THIS DOES NOT CHANGE
+-------------------------
+- Stored values. Times were already stored as 24-hour HH:MM strings.
+- Hours arithmetic. calculateHoursFromTimes is untouched, including its existing overnight rule
+  that adds 24 hours to a negative span, so 20:00 to 02:00 remains 6 hours.
+- Reports, Hours and MDS Excel output, and every consumer of startTime / endTime / totalHours.
+- Work Date and both deliverable dates keep the native <input type="date"> control and keep the
+  v0.8.9 partial-entry protection on the validity.badInput path.
+- The v0.8.9 protection itself. An unfinished time still cannot delete an already-stored one; it
+  is now detected through the text box rather than through the segmented control.
+- The v0.8.9 incomplete-entry marking and note, which now also fire for a half-typed text entry.
+
+No change to the capped three-level model, B05 row/pill behaviour, the closed-record recovery
+footer, deletion confirmation, drag rules, Dropbox authentication or naming, the protected import
+choices, MDS billing metadata, or the parser. No API key, token, or credential is introduced. No
+automatic status change, email, or date change is introduced. styles.css is unchanged: the
+existing .update-time-editor input rules and the v0.8.9 .time-input-incomplete treatment already
+cover a text box, as the Hrs field already demonstrated.
+
+index.html
+- Title, visible version pill, and the styles.css / app.js / sitescribe-add-data.js /
+  dropbox-sync-proof.js cache markers move to 0.8.10.
+
+sitescribe-add-data.js
+- MODULE_VERSION moves to v0.8.10.
+
+DEPLOY SET
+----------
+app.js, dropbox-sync-proof.js, exceljs.min.js, index.html, sitescribe-parser-core.js,
+sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, styles.css

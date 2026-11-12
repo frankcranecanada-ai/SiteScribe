@@ -1,0 +1,5 @@
+SiteScribe Review Console v0.8.14
+
+- Dropbox LIST ignores le-initial-sms-receipts-v1.json, an ECR Booking / Lift Estimator receipt-template file that is present in the SiteScribe Dropbox app folder.
+- The file remains in Dropbox. Other JSON files, including other unrecognized files, still appear normally.
+- Dropbox paths, authorization, import, update, backup, and delete behavior are unchanged.

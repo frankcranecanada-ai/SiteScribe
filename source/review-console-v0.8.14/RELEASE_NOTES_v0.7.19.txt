@@ -1,0 +1,31 @@
+SiteScribe Review Console v0.7.19
+Report Date Ordering
+
+What changed
+- Added a Date Order field to the Reports panel with Report default, Oldest to newest, and Newest to oldest choices.
+- Primary records are ordered by Record Date, whose authoritative basis is Created Date with the existing legacy fallbacks.
+- Secondary records are ordered by Work Date when entered in the Hours section; Created Date remains the fallback for secondary records without a Work Date.
+- Daily Site, Hours, and MDS Billing reports default to oldest-to-newest.
+- Open Items retains urgency priority by default. An explicit oldest/newest choice orders its records by their record/work dates while preserving the report's urgency sections.
+- Communication Activity defaults to newest-to-oldest by its activity timestamp.
+- The report header states the effective ordering and date basis.
+- Record selection lists, on-screen reports, printed reports, copied report text, Hours Excel rows, and MDS Excel summary rows use the selected ordering.
+- MDS weekly tabs follow the selected week direction while preserving the required Saturday-Friday layout within each timesheet.
+
+Data integrity
+- No record schema change was made.
+- No stored Created Date, Work Date, sourceText, status, deliverable, billing, or contact data is changed by sorting.
+- Sorting operates on copied arrays and does not reorder Working Memory.
+- Dropbox, Parser, email, import/export, and autosave behavior are unchanged.
+
+Date rules
+- Primary: createdAt; legacy fallback updatedAt, sourceDate, sourceLogDate, then site shift date.
+- Secondary: workDate; fallback createdAt, updatedAt, then the parent primary record date.
+- Communication Activity: activity timestamp.
+- Open Items default: deliverable urgency, then deliverable date.
+
+Verification
+- Run node --check on all first-party JavaScript files.
+- Run regression_check_v0.7.19.js, which includes the protected v0.7.18 Dropbox tooltip safeguard.
+- Manually verify all five report types with mixed Created Dates and Work Dates in both directions.
+- Verify Hours and MDS Excel ordering matches the selected on-screen direction.

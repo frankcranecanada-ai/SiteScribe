@@ -1,0 +1,14 @@
+SiteScribe Review Console v0.8.7
+Closed Secondary Recovery Repair
+
+Change
+- A closed secondary record under an open primary now displays Reopen and Delete controls when opened.
+- Its editor remains locked until it is reopened.
+- Delete remains restricted to closed secondary records and continues to require confirmation.
+
+Protected behavior retained
+- Closed primary and closed-parent activity locks remain intact.
+- No automatic delete, status change, report, parser, Dropbox, or communication behavior is added.
+
+Candidate status
+- Test candidate only. It is not an accepted baseline until user testing and explicit approval.

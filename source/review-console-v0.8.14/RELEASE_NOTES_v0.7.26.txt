@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.7.26
+B02 Saved Sites Vertical Compaction
+
+Change
+- B02 retains the compact Site — Date and Content updated presentation from v0.7.25.
+- OPEN, Contacts / Depts, Export, and Delete now appear as two pill columns by two rows on the right.
+- Row padding and list spacing are reduced.
+
+Scope protection
+- All Saved Sites actions, editing, opening, ordering, contacts, export, deletion, local persistence, and drag/reorder behavior remain unchanged.
+- No JSON data, Dropbox operation, Parser, record, billing, report, or autosave behavior is changed.

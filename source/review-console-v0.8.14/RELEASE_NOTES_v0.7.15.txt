@@ -1,0 +1,6 @@
+SiteScribe Review Console v0.7.15
+
+- Mobile secondary time entry now uses two rows: Start, End, and Hours; then Work Date and Billing.
+- The secondary detail card owns vertical scrolling on mobile and contains overscroll.
+- The background page is locked while a record-detail screen is open.
+- The secondary detail backdrop remains inert; only Close dismisses it.

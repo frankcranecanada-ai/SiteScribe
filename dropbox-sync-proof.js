@@ -44,6 +44,7 @@
   const STORAGE_PREFIX = "sitescribe_dropbox_sync_proof_";
   const PERSISTENT_REFRESH_TOKEN_KEY = STORAGE_PREFIX + "persistent_refresh_token";
   const DROPBOX_PATHS = ["", "/incoming", "/saved-sites"];
+  const OTHER_APP_JSON_FILES = new Set(["le-initial-sms-receipts-v1.json"]);
   const DROPBOX_BACKUP_FOLDER = "/saved-sites";
 
   let elements = {};
@@ -274,6 +275,7 @@
         entries
           .filter(entry => entry && entry[".tag"] === "file")
           .filter(entry => String(entry.name || "").toLowerCase().endsWith(".json"))
+          .filter(entry => !OTHER_APP_JSON_FILES.has(String(entry.name || "").toLowerCase()))
           .forEach(entry => allEntries.push({ folder: path, entry }));
       } catch (error) {
         if (isDropboxAuthorizationError(error)) {

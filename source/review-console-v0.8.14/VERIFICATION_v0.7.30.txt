@@ -1,0 +1,17 @@
+SiteScribe Review Console v0.7.30 Verification Evidence
+Date: 2026-08-16
+
+B04 Parse Notes operator-instruction feature
+- Optional per-parse instruction is separately placed in the parser request before the raw source-note delimiter.
+- The raw note remains unchanged, and the staged package records the instruction separately from source.rawText for review only.
+- Proposal review shows the instruction used and states that it is not source text.
+- Clear and accepted-append close paths remove the instruction from the staged UI state.
+
+Automated verification
+- PASS `node --check` for all six first-party JavaScript files and the focused regression script.
+- PASS `node regression_check_v0.7.30.js`: 10 schedule-instruction and protected-workflow checks.
+- PASS duplicate HTML ID check (92 static IDs).
+- PASS duplicate function-declaration check within each first-party JavaScript file.
+- PASS CSS brace integrity: 922 opening / 922 closing.
+- PASS local browser smoke test: B04 Parse Notes displays the separate optional field and guidance; typed instruction cleared correctly through the existing Clear control.
+- Browser smoke was performed without calling the production parser API or appending records, so no site record, email, Dropbox, or external state was changed.

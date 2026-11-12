@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.7.25
+B02 Saved Sites Compact File Format
+
+Change
+- B02 Saved Sites rows now mirror the compact B01 Dropbox-file presentation.
+- Each row shows a bold Site — Date title, an OPENED badge when applicable, and one Content updated line.
+- OPEN, Contacts / Depts, Export, and Delete remain grouped at the right.
+
+Scope protection
+- Saved-site ordering, opening, editing, local persistence, export, contacts, drag/reorder, and deletion behavior are unchanged.
+- No JSON data, Dropbox operation, Parser, record, billing, report, or autosave behavior is changed.

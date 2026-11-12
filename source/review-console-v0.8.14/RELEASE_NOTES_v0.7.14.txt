@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.7.14 — Email Activity Record Detail
+
+- Email Activity entries are now collapsed, expandable records.
+- The collapsed line shows subject, timestamp, activity/status, and recipient.
+- Expanding an entry shows the linked primary record, any originating secondary record, routing intent, and a readable preview of the draft email text.
+- New email activity preserves a snapshot of the record descriptions and draft text so history remains understandable even after later record edits.
+- Existing activity entries remain compatible: where a linked record/draft still exists, SiteScribe fills in the available context when shown.
+- No automatic email sending, contact routing, record status, Dropbox, or report-selection behaviour changed.

@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.7.18
+
+Dropbox List Tooltip Border Fix
+
+- The desktop help text for LIST DROPBOX JSON FILES now opens inward from the
+  left edge of the pill instead of extending beyond the B01 panel boundary.
+- The complete help text remains visible on hover and keyboard focus.
+- The pill's label, size, action, and mobile behavior are unchanged.
+
+No Dropbox connection, listing, import, delete, upload, overwrite, record,
+contact, email, report, Saved Sites, or parsing behavior changed.
