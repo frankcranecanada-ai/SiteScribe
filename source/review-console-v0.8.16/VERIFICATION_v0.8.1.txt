@@ -1,0 +1,23 @@
+SiteScribe Review Console v0.8.1 verification
+
+Automated checks
+- node --check passed: app.js, dropbox-sync-proof.js, sitescribe-add-data.js,
+  sitescribe-hours-excel.js, sitescribe-mds-excel.js, sitescribe-parser-core.js,
+  and regression_check_v0.8.1.js.
+- regression_check_v0.8.1.js passed all v0.8 capped-three-level, parser,
+  reporting, Dropbox refresh, and B04 protection checks.
+- Version and changed cache markers agree on v0.8.1.
+- No duplicate function declarations or duplicate HTML IDs found.
+- CSS brace balance is zero.
+
+Focused browser test
+- Primary row body click hid its secondary record and a second click restored it.
+- Secondary row body click hid its activity records.
+- Secondary OPEN button opened the Secondary Record editor while the activity
+  branch remained hidden.
+- The branch arrows/counts remained explicit show/hide controls.
+
+Packaging checks
+- Root deploy files refreshed from the v0.8.1 candidate after confirming they
+  still matched the prior deployed-ready v0.8.0 candidate before the refresh.
+- Deployable ZIP is flat and contains exactly the required nine web files.

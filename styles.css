@@ -662,7 +662,8 @@ code {
 .compact-record-row.dragging {
   opacity: 0.55;
 }
-.record-line.drop-target {
+.record-line.drop-target,
+.secondary-record-line.drop-target {
   outline: 2px dashed var(--brand);
   outline-offset: 2px;
   background: #cfe0f2;

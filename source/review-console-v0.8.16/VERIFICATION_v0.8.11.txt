@@ -1,0 +1,66 @@
+SiteScribe Review Console v0.8.11 verification
+
+Static checks
+- Version and changed cache markers match v0.8.11 (app.js release block, APP_VERSION, index.html
+  title / version pill / four ?v= markers, sitescribe-add-data.js MODULE_VERSION).
+- node --check passed for app.js, dropbox-sync-proof.js, sitescribe-add-data.js,
+  sitescribe-hours-excel.js, sitescribe-mds-excel.js, sitescribe-parser-core.js, and
+  regression_check_v0.8.11.js.
+- Focused regression_check_v0.8.11.js: 49 PASS, 0 FAIL, exit 0.
+- Duplicate first-party function declarations within any single file: none.
+- Duplicate DOM IDs across index.html and app.js: none.
+- CSS brace integrity: 974 opening / 974 closing braces, unchanged - the stylesheet edits changed
+  property values and added one property to an existing rule; no rule was added or removed.
+
+The regression genuinely catches the change
+- regression_check_v0.8.11.js run unchanged against a scratch copy of the v0.8.10 sources exits 1
+  with 21 failures, including all nine new v0.8.11 checks. The v0.8.10 folder was not modified;
+  copies were used in a scratch directory.
+- The harness extracts and executes the real shipped functions, now including formatHoursClock,
+  parseHoursInput, formatHoursInputValue, setHoursInputValue and readHoursInputValue, so the
+  round trip is exercised rather than pattern-matched.
+- One new check deliberately passes on both builds: "reports, MDS billing and both Excel exports
+  keep the decimal form" asserts a property that must hold before and after this change.
+
+Live browser test (isolated localhost:8780 session, real keystrokes)
+1. The label renders HRS HH:MM on one line in both the secondary editor and the activity
+   composer, and the row still fits START / END / HRS HH:MM / WORK DATE / BILLING / DELIVERABLE
+   DATE without wrapping.
+2. Typed 1943 into START and 2100 into END. HRS HH:MM displayed 1:17 with 1.28 stamped in
+   data-hours-exact. This is the operator's reported case, previously shown as 1.28.
+3. Added the secondary. Stored totalHours is the decimal 1.28; the Working Memory badge reads
+   "Hours: 1:17".
+4. Typed 1:30 over the Hrs box and tabbed out: stored 1.5, box 1:30, badge "Hours: 1:30". The box
+   accepts H:MM directly.
+5. Activity composer: 07:00 to 08:43 calculated 1:43 with 1.72 stamped.
+6. Reports were rendered from the live data through renderHoursReport. The Hours Detail row cell
+   reads 1.28 and Cumulative Total Hours reads "1.28 hrs". No H:MM value appears anywhere in the
+   report output, confirming the editor/report split.
+7. iPhone viewport (375x812): START, END and HRS HH:MM remain on one row with no wrapping.
+8. No console errors at any point.
+
+No-silent-rewrite test, run clean
+- With the detail closed and no record selected, totalHours was set to 1.29 - a value that is not
+  minute-aligned and so cannot survive a naive H:MM round trip.
+- Opening the secondary displayed 1:17 with data-hours-exact="1.29"; stored value still 1.29.
+- Clicking into the record text and tabbing away exercises the real focusout commit path.
+- Final stored value: 1.29, unchanged. Box 1:17, badge "Hours: 1:17".
+- A first attempt at this test was discarded as invalid: the value was set while the editor was
+  open, so the click that reopened the record committed the previous editor contents first and
+  confounded the result. The clean run above replaced it.
+
+Behaviour confirmed but NOT changed
+- Blurring START or END still recomputes Hrs from the two times and overwrites whatever the box
+  held, including a stored value that disagrees with them. That is existing behaviour from before
+  this change, not a consequence of the H:MM display, and the exact-value stamp deliberately does
+  not override it. The stamp protects a record that is opened and left alone, not one whose times
+  are edited.
+- calculateHoursFromTimes and its overnight +24h wrap remain untouched.
+
+Protected regression coverage retained
+- v0.8.10 typed 24-hour Start/End entry: all checks still passing.
+- v0.8.9 partial-entry protection for times, Work Date and both deliverable dates: still passing.
+- v0.8.9 commit-before-close ordering: still passing.
+- Capped three-level model, sourceText retention, AI report prototype inertness,
+  closed-secondary recovery footer, closed descendant reporting, Dropbox post-update listing,
+  protected imports, and operator-initiated append: all still covered and passing.

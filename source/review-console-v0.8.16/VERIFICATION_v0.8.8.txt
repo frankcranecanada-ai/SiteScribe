@@ -1,0 +1,21 @@
+SiteScribe Review Console v0.8.8 verification
+
+Static checks
+- Version and changed cache markers match v0.8.8.
+- node --check passed for app.js, dropbox-sync-proof.js, sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, sitescribe-parser-core.js, and regression_check_v0.8.8.js.
+- Focused regression_check_v0.8.8.js: 17 PASS, 0 FAIL.
+- Duplicate first-party function declarations: none.
+- Duplicate HTML IDs: none.
+- CSS brace integrity: 971 opening / 971 closing braces.
+
+Changed-workflow browser test (isolated localhost session)
+1. Created an open primary record and a secondary record.
+2. Opened the secondary, selected Close Record, and verified its editor was unavailable.
+3. Verified the locked secondary detail visibly displayed: "This record is closed. Use Reopen below before editing." plus Reopen and Delete controls.
+4. Selected Reopen and verified the normal editable secondary editor and Close Record control returned.
+
+Protected regression coverage
+- Capped three-level model remains intact; a fourth activity level is discarded by normalization.
+- sourceText and separate parser instruction remain retained.
+- AI report prompt selector remains a nonfunctional prototype with no API fetch.
+- Closed descendant reporting, Dropbox post-update listing, protected imports, and operator-initiated append paths remain covered by the focused regression.

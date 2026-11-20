@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.15
+SiteScribe Review Console v0.8.16
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.15";
+const APP_VERSION = "v0.8.16";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -907,7 +907,26 @@ function handleWorkingMemoryDragOver(event) {
     return;
   }
 
+  if (payload.kind === "comment" && targetActivityRow) return;
+
   if (payload.kind === "comment" && targetSecondaryRow && targetRecordId && targetCommentId && payload.commentId !== targetCommentId && canMoveSecondaryPayload(payload)) {
+    const rect = targetSecondaryRow.getBoundingClientRect();
+    const ratio = rect.height ? (event.clientY - rect.top) / rect.height : 0.5;
+    if (ratio >= 0.28 && ratio <= 0.72) {
+      // Never silently reorder when a middle drop requested nesting but the
+      // target is locked or the source already owns third-level activities.
+      event.preventDefault();
+      if (secondaryActivityMoveBlockReason(payload.sourceRecordId, payload.commentId, targetRecordId, targetCommentId)) {
+        // Accept the drop event only to explain why nesting was blocked.
+        // Do not highlight it as a valid destination or mutate the records.
+        event.dataTransfer.dropEffect = "move";
+        return;
+      }
+      event.dataTransfer.dropEffect = "move";
+      workingMemoryDropIntent = { action: "move-comment-as-activity", targetRecordId, targetCommentId };
+      targetSecondaryRow.classList.add("drop-target");
+      return;
+    }
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
     const position = getBeforeAfterPosition(event, targetSecondaryRow);
@@ -1002,6 +1021,17 @@ function handleWorkingMemoryDrop(event) {
 
   if (intent && payload.kind === "comment" && intent.action === "move-comment-at") {
     moveCommentUnderRecord(payload.sourceRecordId, payload.commentId, intent.targetRecordId, intent.targetCommentId, intent.position);
+    finishWorkingMemoryDrag();
+    return;
+  }
+
+  if (payload.kind === "comment" && targetActivityRow) {
+    finishWorkingMemoryDrag();
+    return;
+  }
+
+  if (payload.kind === "comment" && targetSecondaryRow) {
+    moveSecondaryAsActivity(payload.sourceRecordId, payload.commentId, targetRecordId, targetSecondaryRow.dataset.commentId);
     finishWorkingMemoryDrag();
     return;
   }
@@ -1479,6 +1509,54 @@ function movePrimaryRecordUnderRecord(sourceRecordId, targetRecordId) {
   closeDetail();
   setStatus("Record moved under receiving primary record as an update. Saving working copy...");
   showToast("Record moved under primary.");
+}
+
+function secondaryActivityMoveBlockReason(sourceRecordId, commentId, targetRecordId, targetCommentId) {
+  const source = getRecordById(sourceRecordId);
+  const target = getRecordById(targetRecordId);
+  const comment = (source?.comments || []).find(item => item.id === commentId);
+  const parent = (target?.comments || []).find(item => item.id === targetCommentId);
+  if (!source || !target || !comment || !parent || comment === parent) return "Choose a different secondary record.";
+  if (isRecordLocked(source) || isRecordLocked(target) || isCommentLocked(parent)) return "Closed record locked. Reopen it before moving records.";
+  if (isCommentMovementLocked(comment)) return "Reopen the source record or remove its deliverable before moving it.";
+  if ((comment.activities || []).length) return "This secondary already has activities. It cannot become an activity because a fourth level is not supported.";
+  return "";
+}
+
+function moveSecondaryAsActivity(sourceRecordId, commentId, targetRecordId, targetCommentId) {
+  const reason = secondaryActivityMoveBlockReason(sourceRecordId, commentId, targetRecordId, targetCommentId);
+  if (reason) { showToast(reason); return false; }
+  const source = getRecordById(sourceRecordId);
+  const target = getRecordById(targetRecordId);
+  const index = source.comments.findIndex(item => item.id === commentId);
+  const comment = source.comments[index];
+  const parent = target.comments.find(item => item.id === targetCommentId);
+  const movedAt = new Date().toISOString();
+  // Reparent the same leaf object: retain its ID, dates, source text, direct
+  // hours/expenses, email action and all other fields without normalization loss.
+  const activities = sortActivityRecordsForComment(parent);
+  activities.push(comment);
+  activities.forEach((activity, order) => { activity.activitySortOrder = (order + 1) * 1000; });
+  source.comments.splice(index, 1);
+  parent.activities = activities;
+  comment.updatedAt = movedAt;
+  parent.updatedAt = movedAt;
+  source.updatedAt = movedAt;
+  target.updatedAt = movedAt;
+  setRecordSecondaryCollapsed(target.id, false);
+  setCommentActivityCollapsed(parent.id, false);
+  expandedInlineSecondaryRecordIds.add(target.id);
+  selectedRecordId = null;
+  selectedCommentId = null;
+  selectedActivityId = null;
+  newActivityParentId = null;
+  selectedFlagId = null;
+  markDirty();
+  render();
+  closeDetail();
+  setStatus("Secondary record moved as an activity. Saving working copy...");
+  showToast("Moved under secondary as an activity.");
+  return true;
 }
 
 function moveCommentUnderRecord(sourceRecordId, commentId, targetRecordId, targetCommentId = "", position = "after") {

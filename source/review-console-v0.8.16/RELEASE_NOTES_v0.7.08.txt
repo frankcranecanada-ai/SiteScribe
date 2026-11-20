@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.7.08 — Contacts / Departments Reorder State
+
+Fix:
+- Moving a Contacts / Departments title bar no longer changes the expanded/collapsed state of any other title bar.
+- During reorder, the app now captures and restores the state of every department/company card after it redraws the sorted list.
+
+Preserved:
+- Light-blue Contacts / Departments title bars.
+- Dot-matrix reorder grip and exclusive mobile gesture lock.
+- Title-bar click for normal expand/collapse.
+- Site Walk sections, contacts, routing, Dropbox, records, reports, and autosave.
