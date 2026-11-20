@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SiteScribe Review Console v0.8.26</title>
-  <link rel="stylesheet" href="styles.css?v=0.8.26" />
+  <title>SiteScribe Review Console v0.8.27</title>
+  <link rel="stylesheet" href="styles.css?v=0.8.27" />
 </head>
 <body>
   <header class="app-header">
@@ -12,7 +12,7 @@
       <h1>SiteScribe</h1>
       <p class="subhead">Site Memory &amp; Action Review</p>
     </div>
-    <div id="appVersion" class="version-pill">v0.8.26</div>
+    <div id="appVersion" class="version-pill">v0.8.27</div>
   </header>
 
   <main class="shell">
@@ -41,14 +41,13 @@
           <span id="dropboxRedirectSummary" class="dropbox-summary-pill">Callback redirect: active</span>
           <button id="connectDropboxButton" type="button" class="secondary small dropbox-connect-summary-button desktop-tooltip" data-tooltip="Connect this browser to Dropbox before listing, importing, or saving SiteScribe files.">CONNECT DROPBOX</button>
         </div>
-        <p class="dropbox-helper-text">LIST views Dropbox SiteScribe JSON files. IMPORT brings one selected file into SiteScribe using Create New / Append / Cancel. DELETE removes only the selected Dropbox file after confirmation. UPDATE replaces the stable Dropbox site file after confirmation. SAVE NEW BACKUP COPY creates a dated restore-point copy in /saved-sites.</p>
         <div class="dropbox-sync-actions">
           <button id="listDropboxFilesButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Show available SiteScribe JSON files in Dropbox so you can import one.">LIST DROPBOX JSON FILES</button>
           <button id="updateDropboxSiteFileButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Replace the stable Dropbox site file with the current site after confirmation.">UPDATE DROPBOX SITE FILE</button>
           <button id="saveNewDropboxBackupCopyButton" type="button" class="secondary small desktop-tooltip" data-tooltip="Save a dated backup copy to Dropbox. Your current stable site file is not replaced.">SAVE NEW BACKUP COPY</button>
         </div>
         <p id="dropboxStatusLine" class="dropbox-status-line">Dropbox: not connected.</p>
-        <p id="dropboxSyncResultLine" class="dropbox-result-line">Last action: no Dropbox action run yet. Manual backup/import only: UPDATE asks before overwrite; SAVE NEW BACKUP COPY never overwrites.</p>
+        <p id="dropboxSyncResultLine" class="dropbox-result-line">Last action: no Dropbox action run yet.</p>
         <details id="dropboxSettingsDetails" class="dropbox-settings-details">
           <summary><span>Advanced Dropbox Settings</span><span id="dropboxMaskedKeySummary" class="dropbox-masked-summary">App key: configured</span></summary>
           <div class="dropbox-settings-grid" aria-label="Dropbox settings">
@@ -336,11 +335,11 @@
   <script src="pdfmake.min.js?v=0.3.12"></script>
   <script src="vfs_fonts.js?v=0.3.12"></script>
   <script src="sitescribe-report-pdf.js?v=0.8.26"></script>
-  <script src="app.js?v=0.8.26"></script>
+  <script src="app.js?v=0.8.27"></script>
   <script src="sitescribe-add-data.js?v=0.8.13"></script>
   <!-- SiteScribe Review Console v0.6.68a Dropbox Panel Polish / Advanced Settings Cleanup.
        Loads after app.js and reuses the existing import choice workflow for selected Dropbox JSON files. -->
   <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
-  <script src="dropbox-sync-proof.js?v=0.8.26"></script>
+  <script src="dropbox-sync-proof.js?v=0.8.27"></script>
 </body>
 </html>

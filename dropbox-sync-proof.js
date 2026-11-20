@@ -102,7 +102,7 @@
     }
 
     setDropboxStatus("Dropbox: NOT CONNECTED — connect before using Dropbox files.", "error");
-    setSyncResult("Manual Dropbox backup/import ready. LIST views Dropbox JSON files; IMPORT opens SiteScribe choices; SAVE NEW BACKUP COPY uploads a timestamped copy; UPDATE DROPBOX SITE FILE replaces the stable site file after confirmation. No generalized sync.");
+    setSyncResult("Manual Dropbox backup/import ready.");
     updateDropboxSafeSummary();
 
     handleDropboxRedirectIfNeeded()
@@ -971,8 +971,8 @@
               <div class="dropbox-file-meta dropbox-freshness-line">Content updated: ${escapeHtml(formatDateTime(filePreview.contentUpdatedAt))}</div>
             </div>
             <div class="dropbox-file-actions">
-              <button type="button" class="secondary small dropbox-import-button" data-dropbox-import-path="${path}" data-dropbox-import-name="${name}">IMPORT</button>
-              <button type="button" class="secondary small dropbox-delete-button" data-dropbox-delete-path="${path}" data-dropbox-delete-name="${name}">DELETE</button>
+              <button type="button" class="secondary small dropbox-import-button" title="Open import choices for this file. Current memory is never silently replaced." data-dropbox-import-path="${path}" data-dropbox-import-name="${name}">IMPORT</button>
+              <button type="button" class="secondary small dropbox-delete-button" title="Delete only this Dropbox file after confirmation. Browser-saved sites are not deleted." data-dropbox-delete-path="${path}" data-dropbox-delete-name="${name}">DELETE</button>
             </div>
           </div>
         `;
@@ -988,7 +988,7 @@
             ${fileMeta}
           </div>
           <div class="dropbox-file-actions">
-            <button type="button" class="secondary small dropbox-delete-button" data-dropbox-delete-path="${path}" data-dropbox-delete-name="${name}">DELETE</button>
+            <button type="button" class="secondary small dropbox-delete-button" title="Delete only this Dropbox file after confirmation. Browser-saved sites are not deleted." data-dropbox-delete-path="${path}" data-dropbox-delete-name="${name}">DELETE</button>
           </div>
         </div>
       `;

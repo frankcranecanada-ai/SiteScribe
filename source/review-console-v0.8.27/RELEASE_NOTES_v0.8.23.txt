@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.8.23
+
+- Daily report output nests activities beneath their secondary parents rather than printing them as same-level records. Parent-only context is included when only a child is selected; it does not add selected rows or parent hours.
+- Primary descriptions are bold; secondary descriptions with children use weight 600; activity descriptions are italic. Childless secondaries use regular weight. Metadata stays upright.
+- Open Items retains urgency sections, showing primary/secondary context with nested activity formatting inside each applicable section.
+- Hours and MDS retain their table columns, date order and direct-hour/expense calculations. Description cells retain parent context and use matching bold/italic formatting.
+- Printed clones retain nested lists and title emphasis. Copy Text supplies explicit plain-text list indentation and, where supported, an HTML clipboard alternative with styled titles for rich-text destinations; existing plain-text fallback remains.
+- No stored data migration, changes to eligible report selections, Excel export logic, parser or Dropbox operations.

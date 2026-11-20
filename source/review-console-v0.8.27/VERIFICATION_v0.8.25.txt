@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.25 verification
+
+- Six first-party JavaScript modules and focused test passed syntax checks.
+- v0.8.25 live-code regression passed: Windows (including touch) and desktop Mac bypass sharing, download once and request a mailto draft; visible retry/manual attachment message; iPhone/Android/iPad desktop-UA sharing; mobile no-share fallback; cancellation and download failure; button restored; Dropbox URL retained.
+- Prior v0.8.23 and earlier report hierarchy/picker/title/clipboard/drag/style tests passed with historical marker expectations virtualized. Superseded v0.8.24 tests assumed all desktops should share; that behavior is intentionally replaced by the focused v0.8.25 platform tests. v0.8.14 Dropbox exclusion test passed.
+- Legacy v0.8.13 retains its documented obsolete version/fixed-row-class failures, with behavioral report/hour/export checks passing.
+- Actual browser button test with mocked OS/share and intercepted mailto clicks: desktop download=1/share=0/draft=1, retry link works and attachment warning visible; mobile download=0/share=1/automatic draft=0, optional draft link works. HTML attachment retains Dropbox URL; phone-width layout fits.
+- Desktop status-area screenshot visually inspected. No real email app, send, file download or share sheet invoked during tests; real OS/default-mail and iPhone handoff remain for user confirmation.
+- Static DOM IDs/function declarations unique; CSS braces balanced. Root/candidate hashes match across nine files; flat nine-file deploy ZIP and full source ZIP produced.

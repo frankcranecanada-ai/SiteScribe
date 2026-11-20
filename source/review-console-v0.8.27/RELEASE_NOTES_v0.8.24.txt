@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.24
+
+- Added Email Report beside Print and Copy Text. Prepares the current filtered/selected report as a self-contained HTML attachment, preserving hierarchy, bold/italics, tables and clickable URLs.
+- Uses the device share sheet for HTML files when supported; choose Mail and review before sending. Otherwise downloads the report and opens a short email draft reminding the operator to attach it manually. Share cancellation does not trigger a fallback download or draft. SiteScribe never sends automatically or chooses recipients.
+- Report web URLs, including Dropbox shared links, are rendered as real hyperlinks. Query parameters and link fragments are preserved. Trailing sentence punctuation is excluded; only HTTP/HTTPS URLs are linked. Existing anchors are not relinked.
+- Links are retained in copied rich report HTML, print clones and report email attachments. Long URLs wrap. Referenced Dropbox files are not downloaded or imported; access permissions remain Dropbox-controlled.
+- No changes to records, report selections/totals, Dropbox connection/permissions, parser or Excel exports.

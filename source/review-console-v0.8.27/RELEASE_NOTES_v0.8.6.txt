@@ -1,0 +1,14 @@
+SiteScribe Review Console v0.8.6
+Custom AI Report Prompt-Library Prototype
+
+Change
+- AI Report dropdown now offers None, Blank custom report, and three site-specific saved-prompt placeholders.
+- Prompt-library controls show the intended Save current prompt as / Manage saved prompts workflow.
+- Any non-None selection opens the non-functional Custom AI Report prototype.
+
+Safety
+- No prompt is prefilled, saved, sent, or generated in this prototype.
+- No API endpoint, credential, data transfer, generated report, record change, email, save, or automatic action is added.
+
+Candidate status
+- Test candidate only. It is not an accepted baseline until user testing and explicit approval.
