@@ -1707,6 +1707,7 @@ button.active-toggle {
   font-size: 0.9rem;
 }
 .report-actions { align-self: end; }
+.report-actions #emailReportButton { white-space: nowrap; }
 .hours-record-selector {
   margin-top: 12px;
   border: 1px solid var(--line);
@@ -1820,6 +1821,12 @@ button.active-toggle {
 }
 .report-output {
   padding-top: 16px;
+}
+.report-output .report-file-link {
+  color: #145b9b;
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 /* v0.8.4 non-functional Custom AI Report prototype */

@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.23
+SiteScribe Review Console v0.8.24
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.23";
+const APP_VERSION = "v0.8.24";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -745,6 +745,8 @@ function bindEvents() {
   });
   if (els.printReportButton) els.printReportButton.addEventListener("click", printCurrentReport);
   if (els.copyReportButton) els.copyReportButton.addEventListener("click", copyCurrentReportText);
+  els.emailReportButton = document.getElementById("emailReportButton");
+  if (els.emailReportButton) els.emailReportButton.addEventListener("click", emailCurrentReport);
   if (els.exportHoursExcelButton) els.exportHoursExcelButton.addEventListener("click", exportHoursReportExcel);
   if (els.exportMdsExcelButton) els.exportMdsExcelButton.addEventListener("click", exportMdsReportExcel);
   [els.reportType, els.reportFromDate, els.reportToDate, els.reportSortOrder, els.reportStatusOpen, els.reportStatusClosed].forEach(control => {
@@ -3252,6 +3254,117 @@ function generateReport() {
   else if (filters.type === "email_activity") body = renderCommunicationActivityReport(filters);
   else body = renderDailySiteReport(records, filters);
   els.reportOutput.innerHTML = renderReportHeader(meta) + body;
+  linkifyReportUrls(els.reportOutput);
+}
+
+function reportLinkParts(value) {
+  const text = String(value || "");
+  const parts = [];
+  const pattern = /\b(?:https?:\/\/|www\.)[^\s<>"\u0000-\u001f]+/gi;
+  let cursor = 0;
+  for (const match of text.matchAll(pattern)) {
+    let label = match[0];
+    let previous;
+    do {
+      previous = label;
+      label = label.replace(/[.,;!?'\u2019]+$/, "");
+      for (const [open, close] of [["(", ")"], ["[", "]"], ["{", "}"]]) {
+        while (label.endsWith(close) && label.split(close).length > label.split(open).length) label = label.slice(0, -1);
+      }
+    } while (label !== previous);
+    const href = /^www\./i.test(label) ? `https://${label}` : label;
+    try {
+      const parsed = new URL(href);
+      if (!["https:", "http:"].includes(parsed.protocol) || !parsed.hostname || parsed.username || parsed.password) continue;
+    } catch (_) { continue; }
+    if (match.index > cursor) parts.push({ text: text.slice(cursor, match.index) });
+    parts.push({ text: label, href });
+    cursor = match.index + label.length;
+  }
+  if (cursor < text.length) parts.push({ text: text.slice(cursor) });
+  return parts;
+}
+
+function linkifyReportUrls(root) {
+  if (!root) return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) {
+    const node = walker.currentNode;
+    if (!node.parentElement?.closest("a, script, style, textarea")) nodes.push(node);
+  }
+  nodes.forEach(node => {
+    const parts = reportLinkParts(node.textContent);
+    if (!parts.some(part => part.href)) return;
+    const fragment = document.createDocumentFragment();
+    parts.forEach(part => {
+      if (!part.href) { fragment.appendChild(document.createTextNode(part.text)); return; }
+      const link = document.createElement("a");
+      link.className = "report-file-link";
+      link.href = part.href;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = part.text;
+      fragment.appendChild(link);
+    });
+    node.replaceWith(fragment);
+  });
+}
+
+function reportEmailDocument(root, subject) {
+  return `<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(subject)}</title><style>
+    body{font-family:Arial,sans-serif;color:#1f2933;margin:20px;line-height:1.4}h1{font-size:24px}h2{font-size:18px}h3{font-size:16px}
+    .report-header-item{margin:5px 0}.report-label{font-weight:700;margin-right:8px}.report-meta{color:#58677a;font-size:12px}
+    .report-list,.report-sublist{margin:8px 0 8px 24px;padding:0}li{margin:8px 0}.report-primary-title{font-weight:700}
+    .report-secondary-title{font-weight:400}.report-secondary-title.has-activities{font-weight:600}.report-activity-title{font-style:italic;font-weight:400}
+    table{border-collapse:collapse;width:100%;font-size:13px}th,td{border:1px solid #c8d4e2;padding:7px;text-align:left;vertical-align:top}th{background:#eef4fb}
+    table .report-activity-title{display:block;padding-left:12px}.report-table-scroll{overflow-x:auto}.report-total-hours{font-weight:700}
+    a{color:#145b9b;text-decoration:underline;overflow-wrap:anywhere;word-break:break-word}.report-section{margin:20px 0}
+    </style></head><body>${root.innerHTML}</body></html>`;
+}
+
+function downloadReportEmailFile(file) {
+  const url = URL.createObjectURL(file);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = file.name;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 10000);
+}
+
+async function emailCurrentReport() {
+  if (els.emailReportButton?.disabled) return;
+  generateReport();
+  if (!els.reportOutput?.textContent.trim()) return showToast("No report to email.");
+  const filters = getReportFilters();
+  const subject = `SiteScribe ${reportTypeTitle(filters.type)} - ${reportSiteName()}`.replace(/[\r\n]+/g, " ");
+  const filename = `SiteScribe_Report_${sanitizeHoursExcelFilenamePart(reportSiteName(), "Site")}_${todayString()}.html`;
+  const file = new File([reportEmailDocument(els.reportOutput, subject)], filename, {type:"text/html"});
+  const body = "Please see the attached SiteScribe report. Dropbox links in the report open the shared files directly; Dropbox access permissions still apply.";
+  if (els.emailReportButton) els.emailReportButton.disabled = true;
+  try {
+    let fileShareAvailable = false;
+    try { fileShareAvailable = !!(navigator.canShare && navigator.share && navigator.canShare({files:[file]})); } catch (_) {}
+    if (fileShareAvailable) {
+      try {
+        await navigator.share({title:subject, text:body, files:[file]});
+        setStatus("Report handed to sharing. Choose Mail and review before sending; nothing is sent automatically.");
+        return;
+      } catch (error) {
+        if (error?.name === "AbortError") { setStatus("Report sharing cancelled. No email sent."); return; }
+      }
+    }
+    downloadReportEmailFile(file);
+    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body + "\r\n\r\nAttach the downloaded report file: " + filename)}`;
+    setStatus("Report downloaded. Attach the HTML report to the email draft before sending. No email sent by SiteScribe.");
+    showToast("Attach the downloaded HTML report before sending.");
+  } catch (_) {
+    showToast("Could not prepare email. Use Copy Text or try again.");
+  } finally {
+    if (els.emailReportButton) els.emailReportButton.disabled = false;
+  }
 }
 
 function reportTypeTitle(type) {

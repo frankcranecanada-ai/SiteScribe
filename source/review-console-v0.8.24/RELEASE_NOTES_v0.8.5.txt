@@ -1,0 +1,13 @@
+SiteScribe Review Console v0.8.5
+Selectable Custom AI Report Prototype
+
+Change
+- Adds an AI Report dropdown beside the normal Report Type selector.
+- Selecting “Add Custom AI Report” opens the non-functional Custom AI Report prototype.
+- Selecting “None” hides it again while leaving the chosen standard report visible.
+
+Safety
+- No API endpoint, credential, data transfer, generated report, record change, email, save, or automatic action is added.
+
+Candidate status
+- Test candidate only. It is not an accepted baseline until user testing and explicit approval.

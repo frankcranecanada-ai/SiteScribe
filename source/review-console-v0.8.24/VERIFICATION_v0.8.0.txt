@@ -1,0 +1,21 @@
+SiteScribe Review Console v0.8.0 verification evidence
+
+Automated checks
+- PASS: node --check completed for app.js, dropbox-sync-proof.js, sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, and sitescribe-parser-core.js.
+- PASS: regression_check_v0.8.0.js passed all checks for version/cache markers, capped normalization, parser shape, B04 source separation, activity editor isolation, activity drag cap, direct-hours reporting, legacy two-level compatibility, Dropbox list protection, and operator-initiated append.
+- PASS: duplicate named function declaration scan found none.
+- PASS: duplicate HTML id scan found none.
+- PASS: CSS brace balance is zero.
+
+Focused browser workflow
+1. Added a primary Schedule record, then an E-House delivery secondary.
+2. Opened the secondary and added Truck arrived as an activity with 08:00-09:30 direct time.
+3. Confirmed B05 retained E-House delivery as the secondary and Truck arrived as its activity (no parent overwrite).
+4. Confirmed activity detail uses the existing full secondary editor and shows a light Under secondary record reference.
+5. Confirmed Hours Report includes Truck arrived, 1.5 hours, and the direct-hours/no-double-counting notice.
+6. Confirmed a 390 px viewport has no horizontal page overflow; activity row width 326 px inside a 361 px Working Memory root.
+
+Packaging checks
+- PASS: root deploy files were refreshed from v0.8.0.
+- PASS: deployable ZIP is flat and contains exactly the approved nine web files.
+- PASS: full source ZIP contains these release notes and verification evidence.

@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.19
+
+- Added Edit title inside an opened primary record, with an inline title field, Save title and Cancel. Escape cancels on desktop.
+- Blank titles are rejected. Closed primary records cannot be renamed until reopened.
+- Updates the primary description and updated timestamp only; retains record identity, created/work dates, source text, children, hours, expenses and other metadata.
+- Refreshes the list and detail title without rebuilding the detail editor, preserving any new secondary draft below. Requests an immediate device save and reports unavailable/failed storage without falsely claiming success.
+- No change to drag nesting/promotion, Copy Record hierarchy, parser, Dropbox, reports, or email behavior.

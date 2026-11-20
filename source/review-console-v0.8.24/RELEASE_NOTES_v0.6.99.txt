@@ -1,0 +1,23 @@
+SiteScribe Review Console v0.6.99 — Mobile Site Walk Reorder Lock
+
+Baseline used
+- v0.6.98 iPhone Footer Fix deployable package.
+
+Changed
+- The dot-matrix Site Walk grip now acquires an exclusive touch gesture lock as soon as it is held.
+- Page/background scrolling, pinch gesture handling, text selection, and other Site Walk controls are blocked during the relocation.
+- The lock is released on normal drop, cancellation, or lost pointer capture.
+- Increased the dot-matrix grip to a mobile-friendly 32px target.
+
+Protected / not changed
+- Clicking a title bar still expands or collapses only that section.
+- The B01/B02/B04/B05 button still opens its template configuration panel.
+- Record movement rules, records, parser, Dropbox, reporting, MDS billing, autosave, and footer behaviour were not changed.
+
+Validation
+- node --check app.js
+- regression_check_v0.6.99.js
+- deployable ZIP integrity test
+
+User test requested
+- On iPhone, hold the dot matrix and move a Site Walk section. The page must remain fixed until the finger is lifted. Immediately after release, normal scrolling and all controls must work again.
