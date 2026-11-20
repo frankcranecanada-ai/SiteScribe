@@ -1,0 +1,548 @@
+{
+  "engine": "Edge/Chromium touch emulation; physical Safari not verified",
+  "sizes": [
+    {
+      "width": 320,
+      "height": 568,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 320,
+          "scroll": 320
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 320,
+          "scroll": 320
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 320,
+          "scroll": 320
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 320,
+          "scroll": 320
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 320,
+          "scroll": 320
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 320,
+          "scroll": 320
+        }
+      ],
+      "primaryTarget": {
+        "left": 267,
+        "right": 311,
+        "top": 266.328125,
+        "bottom": 302.328125,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 320
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 375,
+      "height": 667,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 375,
+          "scroll": 375
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 375,
+          "scroll": 375
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 375,
+          "scroll": 375
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 375,
+          "scroll": 375
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 375,
+          "scroll": 375
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 375,
+          "scroll": 375
+        }
+      ],
+      "primaryTarget": {
+        "left": 322,
+        "right": 366,
+        "top": 319.671875,
+        "bottom": 355.671875,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 375
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 390,
+          "scroll": 390
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 390,
+          "scroll": 390
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 390,
+          "scroll": 390
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 390,
+          "scroll": 390
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 390,
+          "scroll": 390
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 390,
+          "scroll": 390
+        }
+      ],
+      "primaryTarget": {
+        "left": 337,
+        "right": 381,
+        "top": 496.671875,
+        "bottom": 532.671875,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 390
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 430,
+          "scroll": 430
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 430,
+          "scroll": 430
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 430,
+          "scroll": 430
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 430,
+          "scroll": 430
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 430,
+          "scroll": 430
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 430,
+          "scroll": 430
+        }
+      ],
+      "primaryTarget": {
+        "left": 377,
+        "right": 421,
+        "top": 584.671875,
+        "bottom": 620.671875,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 430
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 568,
+      "height": 320,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 568,
+          "scroll": 568
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 568,
+          "scroll": 568
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 568,
+          "scroll": 568
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 568,
+          "scroll": 568
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 568,
+          "scroll": 568
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 568,
+          "scroll": 568
+        }
+      ],
+      "primaryTarget": {
+        "left": 515,
+        "right": 559,
+        "top": 142.4375,
+        "bottom": 178.4375,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 568
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 667,
+      "height": 375,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 667,
+          "scroll": 667
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 667,
+          "scroll": 667
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 667,
+          "scroll": 667
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 667,
+          "scroll": 667
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 667,
+          "scroll": 667
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 667,
+          "scroll": 667
+        }
+      ],
+      "primaryTarget": {
+        "left": 582,
+        "right": 626,
+        "top": 169.9375,
+        "bottom": 205.9375,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 667
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 844,
+          "scroll": 844
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 844,
+          "scroll": 844
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 844,
+          "scroll": 844
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 844,
+          "scroll": 844
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 844,
+          "scroll": 844
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 844,
+          "scroll": 844
+        }
+      ],
+      "primaryTarget": {
+        "left": 759,
+        "right": 803,
+        "top": 176.9375,
+        "bottom": 212.9375,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 844
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 932,
+      "height": 430,
+      "touch": true,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 932,
+          "scroll": 932
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 932,
+          "scroll": 932
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 932,
+          "scroll": 932
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 932,
+          "scroll": 932
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 932,
+          "scroll": 932
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 932,
+          "scroll": 932
+        }
+      ],
+      "primaryTarget": {
+        "left": 847,
+        "right": 891,
+        "top": 196.9375,
+        "bottom": 232.9375,
+        "w": 44,
+        "h": 36,
+        "hit": true,
+        "view": 932
+      },
+      "grip": {
+        "w": 28,
+        "h": 32
+      }
+    },
+    {
+      "width": 1200,
+      "height": 900,
+      "touch": false,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 880,
+          "scroll": 880
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 880,
+          "scroll": 880
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 880,
+          "scroll": 880
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 880,
+          "scroll": 880
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 880,
+          "scroll": 880
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 880,
+          "scroll": 880
+        }
+      ]
+    },
+    {
+      "width": 667,
+      "height": 375,
+      "touch": false,
+      "editors": [
+        {
+          "level": "primary",
+          "mode": "regular",
+          "client": 623,
+          "scroll": 623
+        },
+        {
+          "level": "primary",
+          "mode": "expense",
+          "client": 623,
+          "scroll": 623
+        },
+        {
+          "level": "secondary",
+          "mode": "regular",
+          "client": 623,
+          "scroll": 623
+        },
+        {
+          "level": "secondary",
+          "mode": "expense",
+          "client": 623,
+          "scroll": 623
+        },
+        {
+          "level": "activity",
+          "mode": "regular",
+          "client": 623,
+          "scroll": 623
+        },
+        {
+          "level": "activity",
+          "mode": "expense",
+          "client": 623,
+          "scroll": 623
+        }
+      ]
+    }
+  ],
+  "errors": []
+}

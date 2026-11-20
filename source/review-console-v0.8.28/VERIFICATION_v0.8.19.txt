@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.19 verification
+
+- Six first-party JavaScript modules passed node --check.
+- v0.8.19 live-code tests passed: inline edit/Save/Cancel/Escape, blank/unchanged title, closed lock, stale editor guard, child/date/hour/expense/source preservation, secondary draft preservation, saved-package title and storage-error reporting.
+- v0.8.18 clipboard and v0.8.17/v0.8.16 drag suites passed with historical release-marker expectations virtualized only. v0.8.14 Dropbox exclusion test passed. Older v0.8.13 behavioral checks passed except their expected historical version marker.
+- Actual candidate loaded in isolated headless Edge, 390px iframe viewport: clicked Edit title and Save title, confirmed displayed title and hidden editor after Save, no horizontal overflow. Reopened editor and visually inspected screenshot: Save/Cancel fully accessible.
+- Physical iPhone keyboard/gesture verification and full manual protected-workflow sweep remain pending.
+- No duplicate static DOM IDs or top-level function declarations. CSS braces balanced; new editor styles inspected at phone width.
+- Nine root deployment files match candidate SHA-256 hashes; deploy ZIP verified flat with nine files; source ZIP includes release notes and verification evidence.

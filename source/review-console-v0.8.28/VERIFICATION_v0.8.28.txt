@@ -1,0 +1,44 @@
+SiteScribe Review Console v0.8.28 verification - 2026-11-20
+
+- JavaScript syntax: seven first-party app modules and the two new focused
+  checks pass node --check.
+- regression_check_v0.8.28.js passes, including inherited record moves,
+  activity promotion, hierarchy/clipboard formatting, title editing/locking,
+  report tree/order/totals and PDF email handoff checks. The specific LE JSON
+  exclusion check also passes.
+- app.js matches v0.8.27 byte-for-byte after reversing the two version
+  strings. Dropbox, parser, intake, Excel and PDF modules/dependencies match
+  v0.8.27 hashes. No stored-data schema or handler changes.
+- No duplicate static DOM IDs or named app function declarations. CSS braces
+  balance. Previous CSS is retained unchanged, with scoped additions only.
+- browser_check_v0.8.28.cjs passes eight touch viewports: 320x568, 375x667,
+  390x844, 430x932, 568x320, 667x375, 844x390, 932x430; desktop 1200x900 and
+  a narrow 667x375 window retain the popup. Sixty primary/secondary/activity
+  REG/Expense combinations have no horizontal detail-card overflow and their
+  Save, expense fields, Back/Close and inline Add Activity controls are reachable.
+- Real synthetic touch taps in the added padding activate OPEN, COPY and
+  disclosure controls independently. Verified 44x36 OPEN/COPY boxes, 28x32
+  grips and 32x32 branch controls; visual capsule faces remain 22 px high.
+- An intentionally overlaid toast does not intercept the padded OPEN tap.
+- Full-screen dimensions, zero corner radius, sticky Back reachability after
+  scrolling, secondary Save, inline activity creation and activity commit
+  through Back pass. Background scroll lock releases on Back.
+- Forced 2x visual viewport zoom, rotation and reset recover at all eight
+  touch sizes. This is not proof of a real iPhone pinch gesture. Mobile CSS
+  explicitly permits pan-y pinch-zoom without disabling viewport scaling.
+- Independent broad display sweep: six sizes, main/B01 advanced/file list,
+  primary/secondary/activity editors, Reports, Contacts with department,
+  Config, Parser entry and Import choices: zero clipped/blocked controls and
+  zero page errors. Report bottom is reachable, one vertical report scroller,
+  Hours table horizontal scrolling retained. Reduced-height editor passes.
+- Portrait and landscape screenshots inspected. Source/root deployment-file
+  hashes and flat 14-file ZIP entries verified before commit. Full source ZIP
+  includes this verification, release notes, focused/browser checks and fixture-
+  based browser results. No personal data, email or Dropbox writes were used.
+
+Limitations / acceptance still pending:
+- Tests use Edge/Chromium touch emulation, not physical iPhone Safari/WebKit.
+- Physical pinch, Safari keyboard/automatic focus zoom and native iPhone drag
+  require user confirmation; no claim of full physical-device acceptance.
+- Live authenticated Dropbox/API/email flows were not executed. Their logic
+  is byte-identical to v0.8.27. Candidate is not a newly accepted baseline.

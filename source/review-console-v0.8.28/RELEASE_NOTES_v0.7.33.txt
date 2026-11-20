@@ -1,0 +1,21 @@
+SiteScribe Review Console v0.7.33 - B05 Record Detail and Two-Level Branches
+
+Purpose
+- Improve record navigation without changing the protected two-level data model.
+
+Changes
+- A normal click or Enter/Space on a primary Working Memory row opens that primary record's detail.
+- The small arrow/count control is now an explicit button and is the only primary-row control that expands or collapses its secondary branch.
+- A normal click or Enter/Space on a visible secondary row opens that secondary record's own editor.
+- Primary detail no longer lists every secondary record. It retains primary editing, source text, flags, deliverables, and the Add Secondary Record workflow, then directs the operator back to Working Memory to browse child records.
+- Secondary detail shows a light parent reference, the selected secondary's own source text, and that secondary's existing editor/actions. It does not show the parent record's details or sibling list.
+- Reduced B05 secondary-branch indentation slightly to protect description and control space on narrow displays.
+
+Preserved protections
+- Primary plus secondary records only; no third or deeper levels were added.
+- sourceText is not changed or synthesized.
+- No automatic email, status, date, scheduling, or jobsite action.
+- Closed-record and movement locks, drag-grip-only movement, JSON import choices, Parser endpoint protection, and Dropbox behavior remain unchanged.
+
+Candidate status
+- This is a test candidate, not an accepted baseline.

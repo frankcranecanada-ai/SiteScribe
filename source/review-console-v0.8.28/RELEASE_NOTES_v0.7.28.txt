@@ -1,0 +1,14 @@
+SiteScribe Review Console v0.7.28
+B05 Primary and Secondary Record Drag Grips
+
+Change
+- Each B05 primary and secondary record now has a six-dot grip at its left edge.
+- The grip is the deliberate place to start a drag for reordering, moving under another primary, promoting a secondary, or blending records.
+- On desktop, a movable grip becomes clear on row hover. On touch/coarse-pointer devices it stays lightly visible.
+- The grip carries the tooltip: Drag to reorder or move. Locked records display a disabled grip with an explanatory tooltip.
+- Valid move-under destinations retain their dashed highlight. Valid before/after reordering positions use a clear blue insertion line.
+
+Scope protection
+- Clicking a primary or secondary row retains its existing open/expand behavior. Clicking the grip does not open the record.
+- Closed and deliverable-locked movement rules remain unchanged.
+- No record data, date, status, billing, reporting, autosave, Dropbox, Parser, or saved-site behavior is changed.
