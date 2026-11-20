@@ -1,0 +1,74 @@
+SiteScribe Review Console v0.8.12
+B02 "Content updated" now shows the site's real content date
+Branched from: source/review-console-v0.8.11 (user-authorized continuation of the v0.8 candidate line)
+Status: CANDIDATE - NOT ACCEPTED
+
+REPORTED PROBLEM
+----------------
+A Dropbox file and its local saved site showed different "Content updated" dates while the Dropbox
+row was tagged CURRENT. The operator had updated Dropbox on Aug 30, the local B02 row read
+8/30/2026 8:43:01 AM, and the Dropbox row read 8/28/2026 9:37:17 PM. The operator reasonably read
+this as a failed or stale upload of a billing file.
+
+DIAGNOSIS
+---------
+The upload was fine and the CURRENT pill was correct. Two different quantities were being
+displayed under the same label.
+
+1. B02 showed record.lastModified, from app.js:
+     const contentUpdatedAt = record.lastModified || record.processedAt || record.importedAt;
+2. The B01 Dropbox row shows a content timestamp derived from the file's own contents - the newest
+   createdAt / updatedAt / closedAt found across its records, comments and flags.
+3. markDirty bumps the two differently:
+     if (options.contentChanged !== false) { ...contentUpdatedAt = now; }   // conditional
+     if (currentPackageRecord) currentPackageRecord.lastModified = now;     // unconditional
+   Three call sites pass contentChanged: false - "activity display toggled", "secondary display
+   toggled" and "closed visibility toggled". Expanding a Working Memory branch or pressing Hide
+   Closed therefore moved lastModified without moving contentUpdatedAt.
+4. The CURRENT pill compares contentUpdatedAt on both sides, so it was right: no record content
+   had changed since Aug 28, and the uploaded file correctly carried that date. Only the B02 line
+   was misleading, because it reported a touch time while claiming to be a content time.
+
+Reproduced on a live site: expanding a branch and pressing Hide Closed, with no record edited,
+moved the B02 date forward while the Dropbox-side date stayed put.
+
+CHANGES
+-------
+app.js
+- New savedSiteContentUpdatedAt(record). Returns the package's own content timestamp:
+  record.data.reviewConsole.contentUpdatedAt, falling back to derivePackageContentUpdatedAt for
+  older saved sites that predate the stamp, then processedAt, importedAt and finally lastModified
+  so the line can never render blank.
+- The B02 saved-site row uses it in place of record.lastModified.
+
+The value chosen is the same one the Dropbox freshness pill uses for the local side, so an
+identical date in B02 and B01 now means genuinely in sync, which is what an operator comparing the
+two rows is actually trying to establish.
+
+EXPLICITLY NOT CHANGED
+----------------------
+- dropbox-sync-proof.js is byte-identical to v0.8.11. No change to Dropbox upload, listing,
+  freshness comparison, authentication, redirect, app-folder scope, naming, or the protected
+  import choices.
+- styles.css, sitescribe-hours-excel.js, sitescribe-mds-excel.js and sitescribe-parser-core.js are
+  byte-identical to v0.8.11.
+- markDirty is unchanged. lastModified still bumps on every save, including view-state toggles,
+  because view state is genuinely persisted and saved-site ordering depends on it. Only the
+  display was wrong, so only the display was changed.
+- No stored value changes. This is a display fix; nothing is written differently.
+- The B05 row date is unchanged. It shows the record's Work Date
+  (secondaryCollapsedDisplayDate prefers comment.workDate), which is the day the work happened,
+  not the day the record was last edited. A record's true edit time remains visible on the
+  "Created ... - Updated ..." line inside its editor.
+
+index.html
+- Title, visible version pill, and the styles.css / app.js / sitescribe-add-data.js /
+  dropbox-sync-proof.js cache markers move to 0.8.12.
+
+sitescribe-add-data.js
+- MODULE_VERSION moves to v0.8.12.
+
+DEPLOY SET
+----------
+app.js, dropbox-sync-proof.js, exceljs.min.js, index.html, sitescribe-parser-core.js,
+sitescribe-add-data.js, sitescribe-hours-excel.js, sitescribe-mds-excel.js, styles.css

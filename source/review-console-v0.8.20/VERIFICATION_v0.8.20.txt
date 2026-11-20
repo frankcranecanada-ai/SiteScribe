@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.20 verification
+
+- Six first-party JavaScript syntax checks passed.
+- v0.8.20 focused style/cache check and previous title, clipboard and movement regressions passed (historical HTML release markers virtualized for old suites).
+- Dropbox script SHA-256 matches the preceding release; v0.8.14 exclusion regression passed. Older v0.8.13 behavioral checks passed with only their expected stale version-marker failure.
+- Headless Edge computed border and inset stroke both rgb(35,112,71); screenshot visually inspected. Existing secondary-button background and layout preserved.
+- Static DOM IDs/function declarations unique, CSS braces balanced. No behavioral app changes other than version markers.
+- Root/candidate nine-file hashes match. Flat deploy ZIP verified and full source ZIP produced.
+- Physical iPhone check and full manual protected-workflow sweep remain pending; no live Dropbox save was performed for a styling-only change.

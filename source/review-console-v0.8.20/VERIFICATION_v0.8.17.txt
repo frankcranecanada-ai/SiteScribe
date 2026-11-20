@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.8.17 verification
+
+- Six first-party JavaScript modules passed node --check.
+- v0.8.17 focused live-code regression passed: same/cross-primary activity promotion, top/bottom placement, center rejection, round-trip nesting, date/source/billing/expense/action preservation, and locked/missing-source guards.
+- v0.8.16 nesting suite passed with its version-only marker updated in memory. v0.8.14 Dropbox exclusion suite passed. Older v0.8.13 protected behavioral suite passed except its expected historical version marker.
+- Static DOM IDs and top-level function declarations are unique; CSS braces balance. No CSS changes.
+- Nine root deploy files match candidate hashes; flat nine-file deploy ZIP and full source ZIP produced.
+- Browser/iPhone drag gesture and full manual protected-workflow sweep have not been verified here; user confirmation remains pending.

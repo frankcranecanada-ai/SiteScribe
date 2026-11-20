@@ -1,0 +1,10 @@
+SiteScribe Review Console v0.7.22
+Primary-Screen Secondary Date
+
+Change
+- Inline secondary records on the Working Memory / primary screen now show a short date in their right-hand rail.
+- The date is Work Date when saved; otherwise it is that secondary record's Created Date.
+- The display is date-only (for example, Aug 12), so the row keeps as much title space as possible.
+
+Data protection
+- Display-only change. No record dates, JSON files, hours, billing, reports, or autosave data are changed.

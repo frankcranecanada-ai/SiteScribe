@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.8.5 verification
+
+Automated checks
+- node --check passed on all first-party JavaScript files and the focused regression script.
+- regression_check_v0.8.5.js passed existing protected workflows and verified the selector-controlled prototype has no API call path.
+- Version/cache markers agree on v0.8.5; no duplicate functions or HTML IDs; CSS brace balance is zero.
+
+Focused browser test
+- Choosing Add Custom AI Report reveals the prototype.
+- Choosing None hides it again.
+- The standard report remains available; no API call, data transfer, record mutation, or email action is present.
+
+Packaging checks
+- Root deploy files refreshed from v0.8.5 after confirming they matched the preceding v0.8.4 candidate.
+- Deployable ZIP is flat and contains exactly the required nine web files.
