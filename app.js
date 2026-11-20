@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.16
+SiteScribe Review Console v0.8.17
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.16";
+const APP_VERSION = "v0.8.17";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -889,6 +889,26 @@ function handleWorkingMemoryDragOver(event) {
     return;
   }
 
+  if (payload.kind === "activity" && !targetActivityRow && targetRecordId && !activitySecondaryMoveBlockReason(payload, targetRecordId)) {
+    if (targetRow) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+      workingMemoryDropIntent = { action: "promote-activity", targetRecordId };
+      targetRow.classList.add("drop-target");
+    } else if (targetSecondaryRow) {
+      const rect = targetSecondaryRow.getBoundingClientRect();
+      const ratio = rect.height ? (event.clientY - rect.top) / rect.height : 0.5;
+      if (ratio < 0.28 || ratio > 0.72) {
+        const position = getBeforeAfterPosition(event, targetSecondaryRow);
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+        workingMemoryDropIntent = { action: "promote-activity", targetRecordId, targetCommentId, position };
+        targetSecondaryRow.classList.add(`reorder-${position}`);
+      }
+    }
+    return;
+  }
+
   if (payload.kind === "record" && targetRow && targetRecordId && payload.recordId !== targetRecordId && canDropWorkingMemoryPayload(payload, targetRecordId)) {
     event.preventDefault();
     event.dataTransfer.dropEffect = "move";
@@ -985,6 +1005,12 @@ function handleWorkingMemoryDrop(event) {
 
   if (intent && payload.kind === "activity" && intent.action === "reorder-activity") {
     reorderActivityWithinComment(payload.sourceRecordId, payload.commentId, payload.activityId, intent.targetActivityId, intent.position);
+    finishWorkingMemoryDrag();
+    return;
+  }
+
+  if (intent && payload.kind === "activity" && intent.action === "promote-activity") {
+    moveActivityAsSecondary(payload, intent.targetRecordId, intent.targetCommentId, intent.position);
     finishWorkingMemoryDrag();
     return;
   }
@@ -1509,6 +1535,56 @@ function movePrimaryRecordUnderRecord(sourceRecordId, targetRecordId) {
   closeDetail();
   setStatus("Record moved under receiving primary record as an update. Saving working copy...");
   showToast("Record moved under primary.");
+}
+
+function activitySecondaryMoveBlockReason(payload, targetRecordId) {
+  if (!payload || payload.kind !== "activity") return "Choose an activity record.";
+  const source = getRecordById(payload.sourceRecordId);
+  const target = getRecordById(targetRecordId);
+  const parent = (source?.comments || []).find(item => item.id === payload.commentId);
+  const activity = (parent?.activities || []).find(item => item.id === payload.activityId);
+  if (!source || !target || !parent || !activity) return "Activity move unavailable.";
+  if (isRecordLocked(source) || isRecordLocked(target) || isCommentLocked(parent)) return "Reopen the parent records before moving this activity.";
+  if (isCommentMovementLocked(activity)) return "Reopen the activity or remove its deliverable before moving it.";
+  return "";
+}
+
+function moveActivityAsSecondary(payload, targetRecordId, targetCommentId = "", position = "after") {
+  const reason = activitySecondaryMoveBlockReason(payload, targetRecordId);
+  if (reason) { showToast(reason); return false; }
+  const source = getRecordById(payload.sourceRecordId);
+  const target = getRecordById(targetRecordId);
+  const parent = source.comments.find(item => item.id === payload.commentId);
+  const index = parent.activities.findIndex(item => item.id === payload.activityId);
+  const activity = parent.activities[index];
+  const ordered = sortSecondaryRecordsForRecord(target);
+  let targetIndex = ordered.length;
+  if (targetCommentId) {
+    const found = ordered.findIndex(item => item.id === targetCommentId);
+    if (found < 0) { showToast("Secondary destination not found."); return false; }
+    targetIndex = found + (position === "after" ? 1 : 0);
+  }
+  // Reparent the original object: no conversion that could discard dates,
+  // direct billing data, source text or email metadata.
+  parent.activities.splice(index, 1);
+  ordered.splice(targetIndex, 0, activity);
+  assignSecondarySortOrder(ordered);
+  target.comments = ordered;
+  target.secondarySortMode = "manual";
+  const movedAt = new Date().toISOString();
+  activity.updatedAt = movedAt;
+  parent.updatedAt = movedAt;
+  source.updatedAt = movedAt;
+  target.updatedAt = movedAt;
+  setRecordSecondaryCollapsed(target.id, false);
+  expandedInlineSecondaryRecordIds.add(target.id);
+  selectedRecordId = selectedCommentId = selectedActivityId = newActivityParentId = selectedFlagId = null;
+  markDirty();
+  render();
+  closeDetail();
+  setStatus("Activity moved back as a secondary record. Saving working copy...");
+  showToast("Activity moved back to secondary.");
+  return true;
 }
 
 function secondaryActivityMoveBlockReason(sourceRecordId, commentId, targetRecordId, targetCommentId) {
@@ -3952,7 +4028,7 @@ function renderInlineActivityRecord(record, comment, activity) {
   const status = normalizeLegacyStatus(activity.status);
   const compactDate = formatShortDate(secondaryCollapsedDisplayDate(activity));
   const canMove = !isRecordLocked(record) && !isCommentLocked(comment) && !isCommentMovementLocked(activity);
-  const dragGrip = `<span class="record-drag-grip${canMove ? "" : " is-locked"}" draggable="${canMove ? "true" : "false"}" title="${canMove ? "Drag to reorder" : "Reopen the parent record or remove its deliverable to move"}" aria-label="${canMove ? "Drag to reorder activity" : "Activity record cannot be moved"}">⠿</span>`;
+  const dragGrip = `<span class="record-drag-grip${canMove ? "" : " is-locked"}" draggable="${canMove ? "true" : "false"}" title="${canMove ? "Drag to reorder or move back to secondary" : "Reopen the parent record or remove its deliverable to move"}" aria-label="${canMove ? "Drag to reorder or move activity back to secondary" : "Activity record cannot be moved"}">⠿</span>`;
   return renderCompactRecordRow({
     classes: "activity-record-line secondary-record-line",
     dataAttrs: `data-record-id="${escapeHtml(record.id)}" data-comment-id="${escapeHtml(comment.id)}" data-activity-id="${escapeHtml(activity.id)}" role="button" tabindex="0" aria-label="Open activity record: ${escapeHtml(activity.text || "Untitled activity record")}"`,

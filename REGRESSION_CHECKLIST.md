@@ -29,7 +29,7 @@ Run the changed-area tests plus this core checklist before every candidate relea
 - [ ] Adding a secondary or an activity on mobile does not lose time/date/billing fields.
 - [ ] Manual record creation preserves entry rhythm and does not force-open detail.
 - [ ] Activities are created only under a secondary, and no fourth-level record is created.
-- [ ] Activities reorder only within their own secondary; they cannot be promoted or moved between parents.
+- [ ] Activities reorder within their own secondary. Dragging onto a primary or a secondary insertion edge promotes them to secondaries; closed ancestors/destinations block the move. Activity-to-activity drops never reparent or create a fourth level.
 - [ ] Hours stay direct-only. Parent totals appear in report/export output and are never written back to a parent record.
 
 ## Contacts, routing, and email
