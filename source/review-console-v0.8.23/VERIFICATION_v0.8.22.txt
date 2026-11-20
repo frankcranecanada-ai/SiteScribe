@@ -1,0 +1,13 @@
+SiteScribe Review Console v0.8.22 verification
+
+- Six first-party JavaScript modules plus focused regression passed node --check.
+- v0.8.22 live-code regression passed: B05 manual/hierarchy ordering, same eligible report keys for Daily/Open/Hours/MDS and date orders, parent context without extra selectable row, filtered closed-parent handling, direct-hour total and single-activity selection, no data mutation, B05 emphasis class and Reports open/close scroll-lock lifecycle.
+- Previous title/clipboard/movement/Dropbox style/activity-italics suites passed with historical release markers virtualized for old assertions; v0.8.14 Dropbox exclusion suite passed.
+- Older v0.8.13 suite retains two obsolete static failures: its historical version marker and fixed secondary-row class literal, intentionally changed to add the parent emphasis class. Behavioral checks passed.
+- Older v0.7.19 date suite passed date-source, output/Excel sort, header and non-mutation checks; its historical version and old direct-sort-call pattern assertions failed. v0.8.22 verifies output sort separately from picker order.
+- Actual app browser test at 1200x800, 390x700 and 844x390: only reportsPanel vertically scrolls; body locked, card overflow visible, bottom reachable. Horizontal Hours table scroll passed. Closing Reports releases the body lock.
+- Actual app group deselection, Select All and Clear All passed. Twelve filtered parents were context-only while their activities remained selectable. Phone-width selector screenshot inspected.
+- Browser B05 font weights: secondary with children 600, without children 400.
+- Static DOM IDs/function declarations unique; CSS braces balanced. Screen-only scroll rules leave print overrides intact (print not physically tested).
+- Root/candidate hashes match for all nine deployment files. Flat nine-file deploy ZIP and full source ZIP produced.
+- Physical iPhone gestures, printing and full manual protected-workflow sweep remain pending.

@@ -1,0 +1,12 @@
+SiteScribe Review Console v0.8.23 verification
+
+- Six first-party JavaScript modules passed syntax checks.
+- v0.8.23 live-code regression passed: nested narrative output, italic activities, weight-600 secondary parents, regular childless secondary titles, child-only context without adding parent hours, sibling date sort, output selection counts, Hours/MDS formatting and direct totals, non-mutation.
+- v0.8.22 and earlier picker/title/clipboard/drag/style suites passed with historical release-marker expectations virtualized only. v0.8.14 Dropbox exclusion regression passed.
+- Old v0.8.13 suite retained its documented version and fixed-row-class literal failures; behavioral hierarchy/hour/export tests passed.
+- Actual app in isolated headless Edge at 390px and 1200px: primary weight 700, parent-secondary weight 600, activity italic/weight400, nested further under parent. Screenshot of nested activity output inspected.
+- Actual app child-only selection displays context without parent direct hours. Hours table retains nine columns; Hours and MDS test totals both 6.5 hours. MDS activity descriptions include parent context.
+- Print clone preserves the nested structure. Mocked rich clipboard HTML retains title styling and lists; text/plain includes secondary/activity indentation. Simulated rich-copy failure correctly falls back to indented plain text.
+- Physical printing, real destination paste support and physical iPhone check remain pending. Clipboard tests used a mock and did not alter the real clipboard.
+- Static DOM IDs/function declarations unique; CSS braces balanced. Report-scroll fix remains unchanged.
+- Root/candidate hashes match across nine files; flat nine-file deploy ZIP and full source ZIP produced.

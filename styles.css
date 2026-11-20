@@ -3130,6 +3130,12 @@ html.site-walk-reorder-active .site-walk-panel:not(.drag-source) { pointer-event
   border-left: 3px solid #d9e3ef;
   padding-left: 8px;
 }
+.report-primary-title { font-weight: 700; }
+.report-secondary-title { font-weight: 400; }
+.report-secondary-title.has-activities { font-weight: 600; }
+.report-activity-title { font-style: italic; font-weight: 400; }
+.report-activity-list { margin-left: 24px; }
+.report-table .report-activity-title { display: block; padding-left: 12px; }
 .report-priority-list li {
   border-left: 3px solid var(--brand);
   padding-left: 9px;

@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.22
+SiteScribe Review Console v0.8.23
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.22";
+const APP_VERSION = "v0.8.23";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -3221,7 +3221,7 @@ function selectedReportRecords(filters) {
     if (!primarySelected && !selectedRows.length) return null;
     return {
       ...group.record,
-      comments: selectedRows.map(row => row.parentComment ? { ...row.comment, __reportParentText: row.parentComment.text || "Untitled secondary record", __reportLevel: "activity" } : row.comment),
+      comments: selectedRows.map(row => row.parentComment ? { ...row.comment, __reportParentId: row.parentComment.id, __reportParentDate: commentReportDate(row.parentComment, group.record), __reportParentText: row.parentComment.text || "Untitled secondary record", __reportLevel: "activity" } : row.comment),
       flags: primarySelected ? [...(group.record.flags || [])] : [],
       __reportPrimarySelected: primarySelected,
       __reportPreserveCommentOrder: true
@@ -3414,7 +3414,7 @@ function renderOpenItemsReport(records, filters = getReportFilters()) {
   sections.push(renderDeliverableItemsSection("Due Within 7 Days", data.dueSoon, "No deliverables due within 7 days."));
   if (data.upcoming.length) sections.push(renderDeliverableItemsSection("Upcoming Deliverables", data.upcoming, ""));
   sections.push(`<section class="report-section"><h3>Other Open Primary Records</h3>${data.otherOpenPrimaries.length ? renderReportRecordList(data.otherOpenPrimaries, { includeUpdates: false, includeFlags: false, filters }) : `<p class="report-empty">No other open primary records match the selected filters.</p>`}</section>`);
-  sections.push(`<section class="report-section"><h3>Open Secondary Updates</h3>${data.openUpdates.length ? `<ul class="report-list">${data.openUpdates.map(item => renderReportSecondaryItem(item.comment, item.record)).join("")}</ul>` : `<p class="report-empty">No open secondary updates match the selected filters.</p>`}</section>`);
+  sections.push(`<section class="report-section"><h3>Open Secondary Updates</h3>${data.openUpdates.length ? renderGroupedReportUpdates(data.openUpdates, filters) : `<p class="report-empty">No open secondary updates match the selected filters.</p>`}</section>`);
   sections.push(`<section class="report-section"><h3>Open Flags</h3>${data.openFlags.length ? `<ul class="report-list">${data.openFlags.map(item => renderReportFlagItem(item.flag, item.record)).join("")}</ul>` : `<p class="report-empty">No open flags attached to the matching records.</p>`}</section>`);
   if (data.closedRecords.length) {
     sections.push(`<section class="report-section report-closed-section"><h3>Closed Records Included by Filter</h3>${renderReportRecordList(data.closedRecords, { includeUpdates: false, includeFlags: true, filters })}</section>`);
@@ -3458,7 +3458,7 @@ function collectActiveDeliverableItems(records, filters) {
     getReportComments(record, filters).forEach(comment => {
       if (normalizeLegacyStatus(comment.status) === "closed" || !deliverableApplies(comment)) return;
       const info = deliverableInfoForItem(comment);
-      if (info) items.push({ kind: "Secondary Update", record, comment, item: comment, date: info.date, status: info.status });
+      if (info) items.push({ kind: comment.__reportLevel === "activity" ? "Activity Record" : "Secondary Update", record, comment, item: comment, date: info.date, status: info.status });
     });
   });
   const direction = resolvedReportSortOrder(filters);
@@ -3481,16 +3481,30 @@ function renderDeliverableItemsSection(title, items, emptyText) {
 }
 
 function renderDeliverablePriorityItem(item) {
+  if (item.comment) return `<li><strong class="report-primary-title">${escapeHtml(item.record.description || "Untitled record")}</strong><div class="report-meta">Primary context</div>${renderReportSecondaryTree([item.comment], item.record)}</li>`;
   const text = item.comment ? (item.comment.text || "Untitled secondary update") : (item.record.description || "Untitled record");
   const parent = item.comment ? `<div class="report-meta">Primary Record: ${escapeHtml(item.record.description || "Untitled record")}</div>` : "";
   return `<li><strong>${escapeHtml(text)}</strong><div class="report-meta">${escapeHtml(item.kind)} · ${escapeHtml(categoryLabel(item.record.category))} · Open · Deliverable: ${escapeHtml(item.date)} · ${escapeHtml(reportDeliverableStatusText(item.status))}</div>${parent}</li>`;
+}
+
+function renderReportTableSecondaryTitle(row) {
+  const parent = row.parentComment || row.comment;
+  return `<span class="report-secondary-title${(parent.activities || []).length ? " has-activities" : ""}">${escapeHtml(parent.text || "Untitled secondary record")}</span>`;
+}
+
+function renderReportTableActivityTitle(row) {
+  return row.parentComment ? `<em class="report-activity-title">${escapeHtml(row.comment.text || "Untitled activity record")}</em>` : "—";
+}
+
+function renderReportTableEntryTitle(row) {
+  return renderReportTableSecondaryTitle(row) + (row.parentComment ? renderReportTableActivityTitle(row) : "");
 }
 
 function renderHoursReport(records, filters) {
   const rows = collectHoursReportRows(records, filters);
   if (!rows.length) return `<p class="report-empty">No secondary or activity records are selected for this report. Select one or more records above, or adjust the date range.</p>`;
   const total = rows.reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
-  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th>Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td>${escapeHtml(row.record.description || "Untitled record")}</td><td>${escapeHtml(row.parentComment?.text || (row.level === "secondary" ? row.comment.text : "Untitled secondary record"))}</td><td>${escapeHtml(row.parentComment ? (row.comment.text || "Untitled activity record") : "—")}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td>${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}</tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>
+  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th>Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td>${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}</tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>
     <section class="report-section report-total-section"><h3>Cumulative Total Hours</h3><p class="report-total-hours">${escapeHtml(formatHoursInputValue(total))} hrs</p></section>`;
 }
 
@@ -3505,8 +3519,8 @@ function renderMdsBillingReport(records, filters) {
   const regular = billableRows.filter(row => commentBillingType(row.comment) === "regular").reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
   const overtime = billableRows.filter(row => commentBillingType(row.comment) === "overtime").reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
   const expenses = expenseTotalsByCurrency(expenseRows);
-  const rowsHtml = billableRows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(commentBillingType(row.comment) === "regular" ? "Regular" : "Overtime")}</td><td>${escapeHtml(row.record.description || "Untitled record")}</td><td>${escapeHtml(row.comment.text || "Untitled secondary record")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${escapeHtml(formatHoursInputValue(row.hours))}</td></tr>`).join("");
-  const expenseHtml = expenseRows.length ? `<section class="report-section hours-detail-section"><h3>MDS Expenses</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="MDS expense detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Work Date</th><th>Expense Type</th><th>Primary Record</th><th>Description</th><th>Amount</th><th>Currency</th></tr></thead><tbody>${expenseRows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(expenseTypeLabel(row.comment.expenseType))}</td><td>${escapeHtml(row.record.description || "Untitled record")}</td><td>${escapeHtml(row.comment.text || "Untitled secondary record")}</td><td>${escapeHtml(formatCurrency(expenseAmountForComment(row.comment), expenseCurrencyForComment(row.comment)))}</td><td>${escapeHtml(expenseCurrencyForComment(row.comment))}</td></tr>`).join("")}</tbody></table></div></section>` : "";
+  const rowsHtml = billableRows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(commentBillingType(row.comment) === "regular" ? "Regular" : "Overtime")}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableEntryTitle(row)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${escapeHtml(formatHoursInputValue(row.hours))}</td></tr>`).join("");
+  const expenseHtml = expenseRows.length ? `<section class="report-section hours-detail-section"><h3>MDS Expenses</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="MDS expense detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Work Date</th><th>Expense Type</th><th>Primary Record</th><th>Description</th><th>Amount</th><th>Currency</th></tr></thead><tbody>${expenseRows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(expenseTypeLabel(row.comment.expenseType))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableEntryTitle(row)}</td><td>${escapeHtml(formatCurrency(expenseAmountForComment(row.comment), expenseCurrencyForComment(row.comment)))}</td><td>${escapeHtml(expenseCurrencyForComment(row.comment))}</td></tr>`).join("")}</tbody></table></div></section>` : "";
   const untaggedNote = untaggedRows.length ? `<p class="report-hours-note">${untaggedRows.length} selected ${untaggedRows.length === 1 ? "hour block is" : "hour blocks are"} untagged and will be excluded from the MDS workbook.</p>` : "";
   const labourHtml = billableRows.length ? `<section class="report-section hours-detail-section"><h3>MDS Labour Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="MDS billing detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Date</th><th>Type</th><th>Primary Record</th><th>Secondary Record</th><th>Start Time</th><th>End Time</th><th>Hours</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>${untaggedNote}</section>` : untaggedNote;
   return `${labourHtml}${expenseHtml}<section class="report-section report-total-section"><h3>MDS Billing Totals</h3><p class="report-total-hours">Reg ${escapeHtml(formatHoursInputValue(regular) || "0")} hrs · OT ${escapeHtml(formatHoursInputValue(overtime) || "0")} hrs · Labour Total ${escapeHtml(formatHoursInputValue(regular + overtime) || "0")} hrs · Expenses ${escapeHtml(formatCurrency(expenses.CAD, "CAD"))} CAD · ${escapeHtml(formatCurrency(expenses.USD, "USD"))} USD</p><p class="report-hours-note">Export MDS Excel creates one Saturday–Friday timesheet tab for each covered week, plus a final Expenses Summary tab.</p></section>`;
@@ -3537,18 +3551,49 @@ function renderReportRecordItem(record, options = {}) {
   const flags = options.includeFlags ? getReportFlags(record, filters) : [];
   const updates = options.includeUpdates ? getReportComments(record, filters) : [];
   const flagHtml = flags.length ? `<ul class="report-sublist report-flag-list">${flags.map(flag => renderReportFlagItem(flag, record)).join("")}</ul>` : "";
-  const updateHtml = updates.length ? `<ul class="report-sublist report-secondary-list">${updates.map(comment => renderReportSecondaryItem(comment, record)).join("")}</ul>` : "";
+  const updateHtml = updates.length ? renderReportSecondaryTree(updates, record, filters) : "";
   const primarySelected = record.__reportPrimarySelected !== false;
   const primaryMeta = primarySelected
     ? `Primary Record · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatShortDate(recordReportDate(record)) || "not stated")} · ${escapeHtml(statusLabel(record.status))}`
     : "Primary Record context for selected secondary records";
-  return `<li><strong>${escapeHtml(record.description || "Untitled record")}</strong><div class="report-meta">${primaryMeta}</div>${primarySelected ? renderDeliverableReportLine(record) : ""}${flagHtml}${updateHtml}</li>`;
+  return `<li><strong class="report-primary-title">${escapeHtml(record.description || "Untitled record")}</strong><div class="report-meta">${primaryMeta}</div>${primarySelected ? renderDeliverableReportLine(record) : ""}${flagHtml}${updateHtml}</li>`;
 }
 
-function renderReportSecondaryItem(comment, record) {
-  const activityContext = comment.__reportLevel === "activity" ? `<div class="report-meta">Under secondary record: ${escapeHtml(comment.__reportParentText || "Untitled secondary record")}</div>` : "";
-  const kind = comment.__reportLevel === "activity" ? "Activity Record" : "Secondary Record";
-  return `<li><strong>${escapeHtml(comment.text || "Untitled secondary update")}</strong><div class="report-meta">${kind} · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatShortDate(commentReportDate(comment, record)) || "not stated")} · ${escapeHtml(statusLabel(comment.status))}</div>${activityContext}${renderDeliverableReportLine(comment)}${renderReportCommentTimeBlock(comment)}${renderReportCommentTimestamp(comment, record)}</li>`;
+function renderReportSecondaryTree(comments, record, filters = getReportFilters()) {
+  const branches = new Map();
+  comments.forEach(comment => {
+    const activity = comment.__reportLevel === "activity";
+    const id = activity ? (comment.__reportParentId || `context:${comment.__reportParentText}`) : comment.id;
+    if (!branches.has(id)) branches.set(id, { comment: null, activities: [], text: comment.__reportParentText, date: comment.__reportParentDate });
+    const branch = branches.get(id);
+    if (activity) branch.activities.push(comment);
+    else { branch.comment = comment; branch.date = commentReportDate(comment, record); }
+  });
+  const ordered = [...branches.values()];
+  const direction = resolvedReportSortOrder(filters);
+  if (direction !== "priority") ordered.sort((a, b) => compareReportDates(a.date, b.date, direction));
+  return `<ul class="report-sublist report-secondary-list">${ordered.map(branch => {
+    const children = branch.activities.length ? `<ul class="report-sublist report-activity-list">${branch.activities.map(activity => renderReportSecondaryItem(activity, record)).join("")}</ul>` : "";
+    if (!branch.comment) return `<li class="report-secondary-item report-context-item"><span class="report-secondary-title has-activities">${escapeHtml(branch.text || "Untitled secondary record")}</span><div class="report-meta">Secondary parent context only</div>${children}</li>`;
+    return renderReportSecondaryItem(branch.comment, record, children);
+  }).join("")}</ul>`;
+}
+
+function renderGroupedReportUpdates(items, filters) {
+  const groups = new Map();
+  items.forEach(({record, comment}) => {
+    if (!groups.has(record.id)) groups.set(record.id, {record, comments: []});
+    groups.get(record.id).comments.push(comment);
+  });
+  return `<ul class="report-list">${[...groups.values()].map(({record, comments}) => `<li><strong class="report-primary-title">${escapeHtml(record.description || "Untitled record")}</strong><div class="report-meta">Primary context</div>${renderReportSecondaryTree(comments, record, filters)}</li>`).join("")}</ul>`;
+}
+
+function renderReportSecondaryItem(comment, record, children = "") {
+  const activity = comment.__reportLevel === "activity";
+  const kind = activity ? "Activity Record" : "Secondary Record";
+  const text = escapeHtml(comment.text || (activity ? "Untitled activity record" : "Untitled secondary update"));
+  const title = activity ? `<em class="report-activity-title">${text}</em>` : `<span class="report-secondary-title${(comment.activities || []).length || children ? " has-activities" : ""}">${text}</span>`;
+  return `<li class="${activity ? "report-activity-item" : "report-secondary-item"}">${title}<div class="report-meta">${kind} · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatShortDate(commentReportDate(comment, record)) || "not stated")} · ${escapeHtml(statusLabel(comment.status))}</div>${renderDeliverableReportLine(comment)}${renderReportCommentTimeBlock(comment)}${renderReportCommentTimestamp(comment, record)}${children}</li>`;
 }
 
 function renderReportFlagItem(flag, record) {
@@ -3566,7 +3611,7 @@ function getReportComments(record, filters = getReportFilters()) {
     if (reportCommentMatchesFilters(comment, record, filters)) comments.push(comment);
     if (normalizeLegacyStatus(comment.status) === "closed") return;
     (comment.activities || []).forEach(activity => {
-      if (reportCommentMatchesFilters(activity, record, filters)) comments.push({ ...activity, __reportParentText: comment.text || "Untitled secondary record", __reportLevel: "activity" });
+      if (reportCommentMatchesFilters(activity, record, filters)) comments.push({ ...activity, __reportParentId: comment.id, __reportParentDate: commentReportDate(comment, record), __reportParentText: comment.text || "Untitled secondary record", __reportLevel: "activity" });
     });
   });
   const direction = resolvedReportSortOrder(filters);
@@ -3678,11 +3723,44 @@ function cleanupVisibleReportPrintClone() {
   if (existing && existing.parentNode) existing.parentNode.removeChild(existing);
 }
 
-function copyCurrentReportText() {
+function reportPlainText(root) {
+  const read = (node, depth = 0) => {
+    if (node.nodeType === 3) return String(node.textContent || "").trim();
+    if (node.matches("table")) return [...node.querySelectorAll("tr")].map(row => [...row.cells].map(cell => cell.innerText.trim()).join("\t")).join("\n");
+    if (node.matches("ul, ol")) return [...node.children].map(child => read(child, depth)).join("\n");
+    if (node.matches("li")) {
+      const own = [...node.childNodes].filter(child => child.nodeType === 3 || !child.matches("ul, ol"))
+        .map(child => String(child.innerText || child.textContent || "").trim()).filter(Boolean).join("\n");
+      const indent = "  ".repeat(depth);
+      const lines = own.split("\n").map((line, index) => `${indent}${index ? "  " : "- "}${line}`).join("\n");
+      const children = [...node.children].filter(child => child.matches("ul, ol")).map(child => read(child, depth + 1));
+      return [lines, ...children].filter(Boolean).join("\n");
+    }
+    if (node.querySelector("ul, ol, table")) return [...node.childNodes].map(child => read(child, depth)).filter(Boolean).join("\n\n");
+    return String(node.innerText || node.textContent || "").trim();
+  };
+  return read(root).replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+}
+
+async function copyCurrentReportText() {
   generateReport();
-  const rawText = els.reportOutput ? els.reportOutput.innerText.trim() : "";
-  const text = rawText.replace(/[ \t]+\n/g, "\n").replace(/\n{3,}/g, "\n\n").trim();
+  const text = els.reportOutput ? reportPlainText(els.reportOutput) : "";
   if (!text) return showToast("No report text to copy.");
+  // Rich destinations can retain emphasis as well as nested lists. Plain-text
+  // destinations still receive explicit indentation and tab-separated tables.
+  if (window.ClipboardItem && navigator.clipboard?.write) {
+    try {
+      const clone = els.reportOutput.cloneNode(true);
+      clone.querySelectorAll(".report-primary-title").forEach(node => { node.style.fontWeight = "700"; });
+      clone.querySelectorAll(".report-secondary-title").forEach(node => { node.style.fontWeight = node.classList.contains("has-activities") ? "600" : "400"; });
+      clone.querySelectorAll(".report-activity-title").forEach(node => { node.style.fontStyle = "italic"; node.style.fontWeight = "400"; });
+      clone.querySelectorAll(".report-sublist").forEach(node => { node.style.marginLeft = "24px"; });
+      clone.querySelectorAll(".report-table .report-activity-title").forEach(node => { node.style.display = "block"; node.style.paddingLeft = "12px"; });
+      await navigator.clipboard.write([new window.ClipboardItem({ "text/plain": new Blob([text], {type:"text/plain"}), "text/html": new Blob([clone.outerHTML], {type:"text/html"}) })]);
+      showToast("Report copied.");
+      return;
+    } catch (_) { /* Fall back to the existing plain-text copy path. */ }
+  }
   copyText(text);
 }
 

@@ -1,0 +1,17 @@
+SiteScribe Review Console v0.7.17
+
+Dropbox File List Compact Rows
+
+- Recognized SiteScribe Dropbox files now show only:
+  - the bold site/file title;
+  - the existing freshness/status pill;
+  - Content updated on the second line; and
+  - Import and Delete controls at the right.
+- Removed record totals, open/closed counts, package type, summary, source,
+  Dropbox upload time, local-save time, physical filename, and Dropbox path
+  from recognized file rows.
+- Import and Delete remain on the right on desktop and mobile.
+- Unrecognized or unreadable JSON rows retain their diagnostic warning details.
+
+No Dropbox connection, listing, import, delete, upload, overwrite, record,
+contact, email, report, Saved Sites, or parsing behaviour changed.

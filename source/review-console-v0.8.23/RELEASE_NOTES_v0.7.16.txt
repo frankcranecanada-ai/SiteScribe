@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.7.16
+MDS Billing — Exclude Closed Records
+
+- The MDS Billing selector, on-screen report, totals, and Excel export now omit a billing line when its secondary record is Closed.
+- Billing lines under a Closed primary record are also omitted.
+- Open primary and secondary billing records continue to support Reg, OT, and Expense entries.
+- The normal Hours, Daily Site, Open Items, and Communication Activity reports are unchanged.

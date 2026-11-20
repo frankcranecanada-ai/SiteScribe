@@ -1,0 +1,5 @@
+SiteScribe Review Console v0.8.21
+
+- Third-level activity descriptions in B05 are now italic, including closed activities.
+- Primary/secondary descriptions and activity dates, hours, grips and status pills remain upright.
+- Scoped CSS-only presentation change, apart from version/cache markers. Editors, reports, clipboard, data and drag behavior are unchanged.
