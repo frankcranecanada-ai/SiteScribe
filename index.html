@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SiteScribe Review Console v0.8.14</title>
-  <link rel="stylesheet" href="styles.css?v=0.8.14" />
+  <title>SiteScribe Review Console v0.8.15</title>
+  <link rel="stylesheet" href="styles.css?v=0.8.15" />
 </head>
 <body>
   <header class="app-header">
@@ -12,7 +12,7 @@
       <h1>SiteScribe</h1>
       <p class="subhead">Site Memory &amp; Action Review</p>
     </div>
-    <div id="appVersion" class="version-pill">v0.8.14</div>
+    <div id="appVersion" class="version-pill">v0.8.15</div>
   </header>
 
   <main class="shell">
@@ -27,8 +27,10 @@
           <label id="dropZone" class="drop-zone compact-drop-button" for="jsonFile" tabindex="0" role="button" aria-label="Load JSON file or drop JSON here">Load JSON</label>
           <button id="reportsButton" type="button" class="secondary desktop-tooltip" data-tooltip="Create, review, print, or export site reports, including MDS billing.">Reports</button>
           <button id="communicationActivityButton" type="button" class="secondary desktop-tooltip" data-tooltip="View this site's history of email drafts created or opened by SiteScribe.">Email Activity</button>
+          <button id="emailJsonButton" type="button" class="secondary desktop-tooltip" aria-label="Email Current Memory" data-tooltip="Prepare an email with the current SiteScribe JSON file attached. Nothing is sent automatically.">Email Current Memory</button>
         </div>
       </div>
+      <p id="statusLine" class="b01-status-line" aria-live="polite">Working copy autosaves after edits.</p>
       <!-- SiteScribe Review Console v0.6.68a Dropbox Panel Polish / Advanced Settings Cleanup / Pull Proof. -->
       <section id="dropboxSyncPanel" class="dropbox-sync-panel" aria-label="Dropbox manual backup with metadata preview">
         <div class="dropbox-sync-header">
@@ -323,24 +325,17 @@
       <article id="reportOutput" class="report-output" aria-live="polite"></article>
     </div>
   </aside>
-  <div class="footer-actions">
-    <div class="footer-button-row">
-      <button id="emailJsonButton" type="button" class="secondary desktop-tooltip" data-mobile-label="Email" aria-label="Email Current Memory" data-tooltip="Prepare an email with the current SiteScribe JSON file attached. Nothing is sent automatically.">Email Current Memory</button>
-    </div>
-    <p id="statusLine" class="footer-status" aria-live="polite">Working copy autosaves after edits.</p>
-  </div>
-
   <div id="toast" class="toast" aria-live="polite"></div>
 
   <script src="sitescribe-parser-core.js?v=1.0.1"></script>
   <script src="exceljs.min.js?v=4.4.0-bare"></script>
   <script src="sitescribe-hours-excel.js?v=0.6.78"></script>
   <script src="sitescribe-mds-excel.js?v=0.7.19"></script>
-  <script src="app.js?v=0.8.14"></script>
+  <script src="app.js?v=0.8.15"></script>
   <script src="sitescribe-add-data.js?v=0.8.13"></script>
   <!-- SiteScribe Review Console v0.6.68a Dropbox Panel Polish / Advanced Settings Cleanup.
        Loads after app.js and reuses the existing import choice workflow for selected Dropbox JSON files. -->
   <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
-  <script src="dropbox-sync-proof.js?v=0.8.14"></script>
+  <script src="dropbox-sync-proof.js?v=0.8.15"></script>
 </body>
 </html>

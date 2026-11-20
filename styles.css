@@ -68,7 +68,7 @@ h3 { font-size: 0.98rem; margin-bottom: 8px; }
 }
 .shell {
   max-width: 1160px;
-  margin: 18px auto 72px;
+  margin: 18px auto 24px;
   padding: 0 14px;
   display: grid;
   gap: 14px;
@@ -308,43 +308,16 @@ html.detail-panel-open body { overflow: hidden; overscroll-behavior: none; }
 .flag-resolution { margin-top: 4px; }
 .comment-line { cursor: pointer; }
 .comment-line.selected { outline: 2px solid var(--brand); }
-.footer-actions {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 12px 8px;
-  background: rgba(244,245,247,0.94);
-  border-top: 1px solid var(--line);
-  backdrop-filter: blur(8px);
-  z-index: 20;
-}
-.footer-button-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-.footer-status {
-  width: min(520px, calc(100vw - 460px));
-  min-width: 180px;
-  flex: 0 1 520px;
-  margin: 0;
-  padding: 4px 10px;
+.b01-status-line {
+  margin: 7px 0 10px;
+  padding: 5px 9px;
   border: 1px solid #c7d6e7;
   border-radius: 7px;
-  background: rgba(255,255,255,0.88);
+  background: #f8fbff;
   color: #506174;
-  font-size: 0.75rem;
-  line-height: 1.25;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.74rem;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
 }
 .report-actions [hidden] {
   display: none !important;
@@ -370,8 +343,6 @@ html.detail-panel-open body { overflow: hidden; overscroll-behavior: none; }
   .record-line { grid-template-columns: auto 1fr; }
   .record-line .pill { grid-column: 2; width: fit-content; }
   .detail-panel { padding: 8px; }
-  .footer-button-row { justify-content: stretch; width: 100%; }
-  .footer-button-row button { flex: 1; }
 }
 
 .closed-secondary-divider {
@@ -1342,50 +1313,6 @@ button.active-toggle {
   }
 }
 
-/* v0.5.64 mobile footer compaction
-   Keep desktop footer labels descriptive. On iPhone/narrow screens, shorten the labels
-   and reduce footer height so more Working Memory records remain visible. */
-@media (max-width: 640px) {
-  .shell {
-    margin-bottom: 82px;
-  }
-  .footer-actions {
-    flex-direction: column;
-    /* The desktop status uses a 520px flex basis for a horizontal footer.
-       In this vertical mobile footer, that basis becomes height and can cover
-       the entire iPhone display.  Reset the mobile footer to content height. */
-    height: auto;
-    min-height: 0;
-    max-height: none;
-    gap: 6px;
-    padding: 6px 8px calc(6px + env(safe-area-inset-bottom, 0px));
-  }
-  .footer-button-row button {
-    min-height: 30px;
-    padding: 5px 7px;
-    font-size: 0;
-    line-height: 1;
-    white-space: nowrap;
-  }
-  .footer-button-row button::after {
-    content: attr(data-mobile-label);
-    font-size: 0.72rem;
-    font-weight: 750;
-    line-height: 1;
-  }
-  .footer-status {
-    flex: 0 0 auto;
-    min-width: 0;
-    max-height: 2.5em;
-    width: 100%;
-    padding: 3px 7px;
-    font-size: 0.67rem;
-  }
-  .toast {
-    bottom: 48px;
-  }
-}
-
 /* v0.5.65 mobile Working Memory width and manual-entry compaction
    On iPhone/narrow screens, record cards use almost the full Working Memory panel width.
    Secondary rows are proportionally widened by reducing indentation.
@@ -1987,7 +1914,6 @@ button.active-toggle {
   .app-header,
   .shell,
   .detail-panel,
-  .footer-actions,
   .toast,
   .reports-card > .detail-header,
   .report-toolbar {

@@ -1,0 +1,24 @@
+SiteScribe Review Console v0.7.20
+Secondary Work Date Editor Fallback Repair
+
+Diagnosis
+- Newer secondary records correctly save an explicit workDate from the Hours section.
+- Older/legacy secondary records can contain hours without a workDate because that field did not always exist.
+- Reports already fall back from Work Date to the secondary Created Date.
+- The secondary editor did not use that fallback. It displayed today whenever workDate was absent, which made an older record appear to have today's Work Date during editing.
+
+Repair
+- An existing secondary record now displays Work Date using this order:
+  1. stored workDate;
+  2. secondary createdAt date;
+  3. secondary updatedAt date;
+  4. parent primary record date;
+  5. today only if none of those dates exists.
+- A genuinely new secondary record continues to default Work Date to today.
+- Opening a record does not rewrite or mutate its stored date. If the user edits/saves the displayed fallback, the existing editor persistence path stores it as workDate.
+
+Scope protection
+- No schema migration or bulk data rewrite.
+- No changes to hours, billing, report sorting, Dropbox, Parser, contacts, email, import/export, or autosave behavior.
+- v0.7.19 report date ordering remains intact.
+
