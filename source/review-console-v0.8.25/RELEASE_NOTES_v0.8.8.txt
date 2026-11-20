@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.8.8
+
+Purpose
+- Repair recovery of a closed secondary or activity record without weakening record-lock rules.
+
+Change
+- The locked editor remains unavailable for edits.
+- When the selected closed record's parent remains open, its Reopen and Delete controls now render in a separate recovery footer below the lock notice.
+- The lock notice now identifies whether the primary, parent secondary, or selected record must be reopened.
+
+Protections retained
+- A closed primary still prevents recovery controls for descendants.
+- A closed secondary still prevents recovery controls for its activities until the secondary is reopened.
+- Delete remains restricted to closed records and requires its existing confirmation.
+- No automatic actions, date changes, status changes, or communications were added.

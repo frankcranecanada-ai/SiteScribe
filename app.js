@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.24
+SiteScribe Review Console v0.8.25
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.24";
+const APP_VERSION = "v0.8.25";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -3334,6 +3334,34 @@ function downloadReportEmailFile(file) {
   setTimeout(() => URL.revokeObjectURL(url), 10000);
 }
 
+function isMobileReportEmailDevice() {
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent || "")
+    || (navigator.platform === "MacIntel" && Number(navigator.maxTouchPoints) > 1);
+}
+
+function reportEmailDraftUrl(subject, body, filename) {
+  return `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body + "\r\n\r\nAttach the report file: " + filename)}`;
+}
+
+function showReportEmailDraft(subject, body, filename, downloaded, autoOpen) {
+  const status = document.getElementById("reportEmailStatus");
+  const draftUrl = reportEmailDraftUrl(subject, body, filename);
+  if (!status) {
+    if (autoOpen) window.location.href = draftUrl;
+    return;
+  }
+  status.hidden = false;
+  status.replaceChildren();
+  status.appendChild(document.createTextNode(downloaded
+    ? `Report downloaded: ${filename}. Attach this file to your email. `
+    : `Report prepared: ${filename}. Review the attachment in your email app before sending. `));
+  const link = document.createElement("a");
+  link.href = draftUrl;
+  link.textContent = "Open email draft";
+  status.appendChild(link);
+  if (autoOpen) link.click();
+}
+
 async function emailCurrentReport() {
   if (els.emailReportButton?.disabled) return;
   generateReport();
@@ -3343,13 +3371,18 @@ async function emailCurrentReport() {
   const filename = `SiteScribe_Report_${sanitizeHoursExcelFilenamePart(reportSiteName(), "Site")}_${todayString()}.html`;
   const file = new File([reportEmailDocument(els.reportOutput, subject)], filename, {type:"text/html"});
   const body = "Please see the attached SiteScribe report. Dropbox links in the report open the shared files directly; Dropbox access permissions still apply.";
+  const mobile = isMobileReportEmailDevice();
+  const status = document.getElementById("reportEmailStatus");
+  if (status) { status.hidden = true; status.replaceChildren(); }
   if (els.emailReportButton) els.emailReportButton.disabled = true;
   try {
     let fileShareAvailable = false;
-    try { fileShareAvailable = !!(navigator.canShare && navigator.share && navigator.canShare({files:[file]})); } catch (_) {}
+    // Match LE: desktop bypasses Windows sharing even when the API exists.
+    try { fileShareAvailable = !!(mobile && navigator.canShare && navigator.share && navigator.canShare({files:[file]})); } catch (_) {}
     if (fileShareAvailable) {
       try {
         await navigator.share({title:subject, text:body, files:[file]});
+        showReportEmailDraft(subject, body, filename, false, false);
         setStatus("Report handed to sharing. Choose Mail and review before sending; nothing is sent automatically.");
         return;
       } catch (error) {
@@ -3357,8 +3390,8 @@ async function emailCurrentReport() {
       }
     }
     downloadReportEmailFile(file);
-    window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body + "\r\n\r\nAttach the downloaded report file: " + filename)}`;
-    setStatus("Report downloaded. Attach the HTML report to the email draft before sending. No email sent by SiteScribe.");
+    showReportEmailDraft(subject, body, filename, true, !mobile);
+    setStatus(mobile ? "Report downloaded. Use Open email draft, then attach the report before sending." : "Report downloaded. Email draft requested; attach the report before sending. Use Open email draft if it did not open.");
     showToast("Attach the downloaded HTML report before sending.");
   } catch (_) {
     showToast("Could not prepare email. Use Copy Text or try again.");

@@ -1,0 +1,10 @@
+SiteScribe Review Console v0.7.24
+New Secondary Billing Default
+
+Change
+- New secondary records now open with Billing set to Reg.
+- After saving a new secondary record, the next blank entry also resets to Reg.
+
+Scope protection
+- Existing secondary records retain their stored Reg, OT, Expense, or None setting.
+- No existing record, JSON data, hours, Work Date, MDS billing, report, Dropbox, Parser, or autosave behavior is changed.

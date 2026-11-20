@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.8.16
+
+- Drop a secondary onto the middle of another secondary to make the dropped record a third-level activity. Works within one primary or between primaries.
+- The destination highlights for valid nesting. Top/bottom insertion zones still reorder or move secondaries at the same level.
+- Preserves the moved record ID, source text, created/work dates, direct hours/expenses, deliverable data, routing and email action. Opens the receiving branch after the move.
+- Blocks self drops, closed ancestors/destinations, locked sources, and nesting a secondary that already contains activities. No fourth level or child loss.
+- Activity rows remain third-level leaves and keep their existing within-parent-only reorder behavior.
+- No changes to parser, Dropbox, reports, exports or the v0.8.15 footer removal.

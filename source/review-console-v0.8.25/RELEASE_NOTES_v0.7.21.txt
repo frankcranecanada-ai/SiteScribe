@@ -1,0 +1,16 @@
+SiteScribe Review Console v0.7.21
+Secondary Compact-Row Date Display
+
+Change
+- In the collapsed Existing Secondary Records list, the date now follows one clear rule:
+  1. use the saved Work Date when one exists;
+  2. otherwise use that secondary record's Created Date;
+  3. use Updated Date only as a final legacy fallback when neither date exists.
+- The same resolved date is used on the compact mobile presentation.
+
+Data protection
+- This is display-only. It does not add, replace, or correct any saved workDate values in a site JSON file.
+- The v0.7.20 editor fallback remains: a legacy record without a workDate shows its Created Date in the editor rather than today.
+
+Scope protection
+- No changes to the JSON schema, record timestamps, hours, billing, reports, Dropbox, Parser, contacts, email, import/export, or autosave behavior.

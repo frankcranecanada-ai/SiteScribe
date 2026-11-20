@@ -1708,6 +1708,19 @@ button.active-toggle {
 }
 .report-actions { align-self: end; }
 .report-actions #emailReportButton { white-space: nowrap; }
+.report-email-status {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 8px 10px;
+  border: 1px solid #c8d8e9;
+  border-radius: 8px;
+  background: #f7faff;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.report-email-status[hidden] { display: none; }
+.report-email-status a { color: #145b9b; text-decoration: underline; }
 .hours-record-selector {
   margin-top: 12px;
   border: 1px solid var(--line);
