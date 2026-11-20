@@ -1,0 +1,6 @@
+SiteScribe Review Console v0.8.15
+
+- Removed the fixed bottom footer that covered Save Changes and Add Activity on iPhone record editors.
+- Moved Email Current Memory into the B01 actions; its existing click behavior and label are preserved.
+- Moved working-copy status into B01, keeping its existing live updates and accessibility announcement.
+- No record data, parser, Dropbox, reporting, or email-send behavior changed.

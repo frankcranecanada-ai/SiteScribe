@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.22
+
+- Report record picker now follows B05 primary/secondary/activity order. Activities stay nested beneath their secondary instead of being scattered by work date.
+- A secondary excluded by filters is displayed as non-selectable parent context if one of its activities qualifies. Eligible keys, date/status/category filters, group selection, report output ordering, billing rules, direct hours and Excel inputs are unchanged.
+- Added indentation/tree lines and italic activity descriptions to the picker. Long descriptions wrap.
+- Reports now locks background scrolling and uses one vertical overlay scroll at all screen sizes, including landscape phones. Wide report tables retain horizontal scrolling. Screen-only rules preserve print layout.
+- B05 secondary titles with activities use light-bold weight 600; childless secondaries remain unchanged. Activity descriptions stay italic.

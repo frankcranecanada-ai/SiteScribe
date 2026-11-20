@@ -1,0 +1,62 @@
+SiteScribe Review Console v0.8.12 verification
+
+Static checks
+- Version and changed cache markers match v0.8.12.
+- node --check passed for all six first-party JS files and regression_check_v0.8.12.js.
+- Focused regression_check_v0.8.12.js: 54 PASS, 0 FAIL, exit 0.
+- Duplicate first-party function declarations within any single file: none.
+- Duplicate DOM IDs across index.html and app.js: none.
+- CSS brace integrity: 974 opening / 974 closing, unchanged.
+
+Files proven untouched (byte-identical to v0.8.11 by cmp)
+- dropbox-sync-proof.js   <- the Dropbox upload, listing and freshness path is provably unchanged
+- styles.css
+- sitescribe-hours-excel.js
+- sitescribe-mds-excel.js
+- sitescribe-parser-core.js
+Only app.js, index.html and sitescribe-add-data.js differ, and the latter two only by version
+markers.
+
+The regression genuinely catches the change
+- regression_check_v0.8.12.js run unchanged against a scratch copy of the v0.8.11 sources exits 1
+  with 22 failures, including all four new v0.8.12 checks. The v0.8.11 folder was not modified;
+  copies were used in a scratch directory.
+- One new check deliberately passes on both builds: "markDirty view-state handling and the Dropbox
+  freshness comparison are unchanged" asserts a property that must hold before and after.
+
+Live browser test (isolated localhost:8781 session)
+Baseline: a site was created and saved. B02 read "Content updated: 8/30/2026, 8:54:18 AM", which
+matched reviewConsole.contentUpdatedAt (12:54:18.528Z) and not record.lastModified
+(12:54:19.299Z) - already reading the correct field.
+
+1. Browsing only - expanded a Working Memory branch and pressed Hide Closed, editing no record:
+     B02 displayed date:  8:54:18 AM  ->  8:54:18 AM   (unchanged - the defect is gone)
+     record.lastModified: 12:54:19.299Z -> 12:54:36.474Z  (still bumps, by design)
+     contentUpdatedAt:    unchanged
+   Under v0.8.11 the same sequence moved the B02 date forward by ~17 seconds.
+2. Real content edit - added a secondary record and called markDirty:
+     B02 displayed date:  8:54:18 AM  ->  8:54:46 AM, matching the new contentUpdatedAt.
+   A genuine edit still moves the date, so the line remains useful.
+3. The new secondary was created at 12:54 but its B05 row displays "Aug 29", its workDate. This
+   confirms that the B05 row date is the Work Date and not an edit time, which was a second and
+   separate source of the operator's confusion. It is unchanged by this release.
+4. No console errors.
+
+Diagnosis evidence retained
+- The defect was reproduced on v0.8.11 before the fix: expanding a branch and pressing Hide Closed
+  moved the B02 date from 12:47:47.162Z to 12:48:03.281Z while contentUpdatedAt stayed at
+  12:47:46.406Z - a 16.9 second divergence created by browsing alone.
+
+Scope note recorded honestly
+- This release fixes the misleading display only. It does not change markDirty, so a view-state
+  toggle still writes the saved site and still updates lastModified. That behaviour is intentional:
+  view state is persisted and saved-site ordering uses lastModified.
+- The originally reported Dropbox discrepancy was not a sync fault. The uploaded file was current
+  and the CURRENT pill was accurate throughout. No data was lost and no repair was required.
+
+Protected regression coverage retained
+- v0.8.11 H:MM hours display, v0.8.10 typed 24-hour entry, v0.8.9 partial-entry protection and
+  commit-before-close: all still passing.
+- Capped three-level model, sourceText retention, AI report prototype inertness, closed-secondary
+  recovery footer, closed descendant reporting, Dropbox post-update listing, protected imports and
+  operator-initiated append: all still covered and passing.

@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.25
+SiteScribe Review Console v0.8.26
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.25";
+const APP_VERSION = "v0.8.26";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -3368,14 +3368,17 @@ async function emailCurrentReport() {
   if (!els.reportOutput?.textContent.trim()) return showToast("No report to email.");
   const filters = getReportFilters();
   const subject = `SiteScribe ${reportTypeTitle(filters.type)} - ${reportSiteName()}`.replace(/[\r\n]+/g, " ");
-  const filename = `SiteScribe_Report_${sanitizeHoursExcelFilenamePart(reportSiteName(), "Site")}_${todayString()}.html`;
-  const file = new File([reportEmailDocument(els.reportOutput, subject)], filename, {type:"text/html"});
-  const body = "Please see the attached SiteScribe report. Dropbox links in the report open the shared files directly; Dropbox access permissions still apply.";
+  const filename = `SiteScribe_Report_${sanitizeHoursExcelFilenamePart(reportSiteName(), "Site")}_${todayString()}.pdf`;
+  const body = "Please see the attached SiteScribe PDF report. Click the Dropbox links inside the PDF to open the shared files; Dropbox access permissions still apply.";
   const mobile = isMobileReportEmailDevice();
   const status = document.getElementById("reportEmailStatus");
   if (status) { status.hidden = true; status.replaceChildren(); }
-  if (els.emailReportButton) els.emailReportButton.disabled = true;
+  const buttonLabel = els.emailReportButton?.textContent || "Email PDF";
+  if (els.emailReportButton) { els.emailReportButton.disabled = true; els.emailReportButton.textContent = "Preparing PDF..."; }
   try {
+    if (!window.SiteScribeReportPdf) throw new Error("PDF renderer is unavailable. Refresh SiteScribe and try again.");
+    const blob = await window.SiteScribeReportPdf.createBlob(els.reportOutput, {title:subject});
+    const file = new File([blob], filename, {type:"application/pdf"});
     let fileShareAvailable = false;
     // Match LE: desktop bypasses Windows sharing even when the API exists.
     try { fileShareAvailable = !!(mobile && navigator.canShare && navigator.share && navigator.canShare({files:[file]})); } catch (_) {}
@@ -3393,10 +3396,12 @@ async function emailCurrentReport() {
     showReportEmailDraft(subject, body, filename, true, !mobile);
     setStatus(mobile ? "Report downloaded. Use Open email draft, then attach the report before sending." : "Report downloaded. Email draft requested; attach the report before sending. Use Open email draft if it did not open.");
     showToast("Attach the downloaded HTML report before sending.");
-  } catch (_) {
-    showToast("Could not prepare email. Use Copy Text or try again.");
+  } catch (error) {
+    const message = `Could not prepare PDF: ${error?.message || "try again"}`;
+    if (status) { status.hidden = false; status.textContent = message; }
+    showToast(message);
   } finally {
-    if (els.emailReportButton) els.emailReportButton.disabled = false;
+    if (els.emailReportButton) { els.emailReportButton.disabled = false; els.emailReportButton.textContent = buttonLabel; }
   }
 }
 

@@ -16,6 +16,11 @@ on:
       - sitescribe-hours-excel.js
       - sitescribe-mds-excel.js
       - styles.css
+      - sitescribe-report-pdf.js
+      - pdfmake.min.js
+      - vfs_fonts.js
+      - pdfmake.LICENSE.txt
+      - Roboto.LICENSE.txt
   workflow_dispatch:
 
 permissions:
@@ -44,11 +49,11 @@ jobs:
             echo 'Check the three SITESCRIBE_FTP_* repository secrets. URL must be ftp://server292.com/ and user sitescribe_deploy.' >&2
             exit 1
           fi
-          files=(app.js dropbox-sync-proof.js exceljs.min.js index.html sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css)
+          files=(app.js dropbox-sync-proof.js exceljs.min.js index.html sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css sitescribe-report-pdf.js pdfmake.min.js vfs_fonts.js pdfmake.LICENSE.txt Roboto.LICENSE.txt)
           for file in "${files[@]}"; do
             test -s "$file" || { echo "Missing or empty release file: $file" >&2; exit 1; }
           done
-          for file in app.js dropbox-sync-proof.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js; do
+          for file in app.js dropbox-sync-proof.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js sitescribe-report-pdf.js; do
             node --check "$file"
           done
           grep -q 'SiteScribe Review Console v' index.html
@@ -65,7 +70,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          files=(app.js dropbox-sync-proof.js exceljs.min.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css)
+          files=(app.js dropbox-sync-proof.js exceljs.min.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css sitescribe-report-pdf.js pdfmake.min.js vfs_fonts.js pdfmake.LICENSE.txt Roboto.LICENSE.txt)
           for file in "${files[@]}"; do
             echo "Uploading $file"
             curl --fail --silent --show-error --ssl-reqd --user "$FTP_USER:$FTP_PASSWORD" \
@@ -76,7 +81,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          files=(app.js dropbox-sync-proof.js exceljs.min.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css)
+          files=(app.js dropbox-sync-proof.js exceljs.min.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css sitescribe-report-pdf.js pdfmake.min.js vfs_fonts.js pdfmake.LICENSE.txt Roboto.LICENSE.txt)
           for file in "${files[@]}"; do
             echo "Verifying $file"
             curl --fail --silent --show-error --ssl-reqd --user "$FTP_USER:$FTP_PASSWORD" \

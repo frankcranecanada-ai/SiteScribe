@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SiteScribe Review Console v0.8.25</title>
-  <link rel="stylesheet" href="styles.css?v=0.8.25" />
+  <title>SiteScribe Review Console v0.8.26</title>
+  <link rel="stylesheet" href="styles.css?v=0.8.26" />
 </head>
 <body>
   <header class="app-header">
@@ -12,7 +12,7 @@
       <h1>SiteScribe</h1>
       <p class="subhead">Site Memory &amp; Action Review</p>
     </div>
-    <div id="appVersion" class="version-pill">v0.8.25</div>
+    <div id="appVersion" class="version-pill">v0.8.26</div>
   </header>
 
   <main class="shell">
@@ -262,7 +262,7 @@
         <div class="button-row report-actions">
           <button id="printReportButton" type="button" class="secondary desktop-tooltip" data-tooltip="Print the report exactly as it appears on screen, or save it as a PDF.">Print</button>
           <button id="copyReportButton" type="button" class="secondary desktop-tooltip" data-tooltip="Copy the current report as text so it can be pasted into an email or document.">Copy Text</button>
-          <button id="emailReportButton" type="button" class="secondary desktop-tooltip" data-tooltip="Desktop: download the report and open an email draft. Mobile: use the share sheet when supported. Review and attach the HTML report with clickable links before sending; nothing is sent automatically.">Email Report</button>
+          <button id="emailReportButton" type="button" class="secondary desktop-tooltip" data-tooltip="Generate a PDF with clickable Dropbox links. Desktop: download and open an email draft; attach the PDF. Mobile: share the PDF when supported. Nothing is sent automatically.">Email PDF</button>
           <button id="exportHoursExcelButton" type="button" class="secondary desktop-tooltip" data-tooltip="Download the selected Hours Report records as an Excel workbook." hidden>Export Excel</button>
           <button id="exportMdsExcelButton" type="button" class="secondary desktop-tooltip" data-tooltip="Download the selected Reg, OT, and expense entries in the MDS monthly workbook format." hidden>Export MDS Excel</button>
         </div>
@@ -333,11 +333,14 @@
   <script src="exceljs.min.js?v=4.4.0-bare"></script>
   <script src="sitescribe-hours-excel.js?v=0.6.78"></script>
   <script src="sitescribe-mds-excel.js?v=0.7.19"></script>
-  <script src="app.js?v=0.8.25"></script>
+  <script src="pdfmake.min.js?v=0.3.12"></script>
+  <script src="vfs_fonts.js?v=0.3.12"></script>
+  <script src="sitescribe-report-pdf.js?v=0.8.26"></script>
+  <script src="app.js?v=0.8.26"></script>
   <script src="sitescribe-add-data.js?v=0.8.13"></script>
   <!-- SiteScribe Review Console v0.6.68a Dropbox Panel Polish / Advanced Settings Cleanup.
        Loads after app.js and reuses the existing import choice workflow for selected Dropbox JSON files. -->
   <script src="https://unpkg.com/dropbox/dist/Dropbox-sdk.min.js"></script>
-  <script src="dropbox-sync-proof.js?v=0.8.25"></script>
+  <script src="dropbox-sync-proof.js?v=0.8.26"></script>
 </body>
 </html>
