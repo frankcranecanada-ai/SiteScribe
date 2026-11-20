@@ -1,8 +1,21 @@
 name: Deploy SiteScribe
 
-# First deployment is manual so the scoped FTP account and public path can be
-# verified before enabling deployment on every push to main.
+# Deploy only when the flat Review Console files change on main. Keep a manual
+# trigger for redeploys and recovery.
 on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/deploy-sitescribe.yml
+      - app.js
+      - dropbox-sync-proof.js
+      - exceljs.min.js
+      - index.html
+      - sitescribe-parser-core.js
+      - sitescribe-add-data.js
+      - sitescribe-hours-excel.js
+      - sitescribe-mds-excel.js
+      - styles.css
   workflow_dispatch:
 
 permissions:
