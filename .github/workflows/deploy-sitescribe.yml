@@ -20,7 +20,6 @@ jobs:
       FTP_URL: ${{ secrets.SITESCRIBE_FTP_URL }}
       FTP_USER: ${{ secrets.SITESCRIBE_FTP_USER }}
       FTP_PASSWORD: ${{ secrets.SITESCRIBE_FTP_PASSWORD }}
-      PUBLIC_URL: https://www.ecrinc.ca/sitescribe
     steps:
       - uses: actions/checkout@v4
 
@@ -41,6 +40,14 @@ jobs:
           done
           grep -q 'SiteScribe Review Console v' index.html
 
+      - name: Confirm the FTP root is SiteScribe
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --ssl-reqd --user "$FTP_USER:$FTP_PASSWORD" \
+            "${FTP_URL}index.html" --output /tmp/sitescribe-existing-index.html
+          grep -q 'SiteScribe Review Console v' /tmp/sitescribe-existing-index.html
+
       - name: Upload supporting files
         shell: bash
         run: |
@@ -52,15 +59,15 @@ jobs:
               --upload-file "$file" "${FTP_URL}${file}"
           done
 
-      - name: Verify supporting files on the website
+      - name: Verify supporting files through FTP
         shell: bash
         run: |
           set -euo pipefail
           files=(app.js dropbox-sync-proof.js exceljs.min.js sitescribe-parser-core.js sitescribe-add-data.js sitescribe-hours-excel.js sitescribe-mds-excel.js styles.css)
           for file in "${files[@]}"; do
             echo "Verifying $file"
-            curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' \
-              "${PUBLIC_URL}/${file}?deploy=${GITHUB_SHA}" --output "/tmp/sitescribe-${file}"
+            curl --fail --silent --show-error --ssl-reqd --user "$FTP_USER:$FTP_PASSWORD" \
+              "${FTP_URL}${file}" --output "/tmp/sitescribe-${file}"
             cmp "$file" "/tmp/sitescribe-${file}"
           done
 
@@ -71,10 +78,10 @@ jobs:
           curl --fail --silent --show-error --ssl-reqd --user "$FTP_USER:$FTP_PASSWORD" \
             --upload-file index.html "${FTP_URL}index.html"
 
-      - name: Verify the live page
+      - name: Verify the uploaded page through FTP
         shell: bash
         run: |
           set -euo pipefail
-          curl --fail --silent --show-error --location --header 'Cache-Control: no-cache' \
-            "${PUBLIC_URL}/?deploy=${GITHUB_SHA}" --output /tmp/sitescribe-index.html
+          curl --fail --silent --show-error --ssl-reqd --user "$FTP_USER:$FTP_PASSWORD" \
+            "${FTP_URL}index.html" --output /tmp/sitescribe-index.html
           cmp index.html /tmp/sitescribe-index.html
