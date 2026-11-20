@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.15 verification
+
+- First-party JavaScript syntax checks passed (app, Dropbox, parser core, Add Data, and both Excel modules).
+- v0.8.14 protected regression and v0.8.15 focused regression passed. The older v0.8.13 suite passed behavioral checks but printed its expected stale-version-marker warning.
+- Browser narrow-layout check reached the Add Activity button at the scrolled bottom of the editor with no fixed footer; physical iPhone confirmation remains pending.
+- B01 keeps the original emailJsonButton and statusLine IDs; click binding and live-status handler remain unchanged.
+- Duplicate static DOM IDs: none. Duplicate function declarations: none. CSS braces balanced.
+- Root nine deploy files match the v0.8.15 candidate by SHA-256. Deploy ZIP has exactly nine flat web files; full source ZIP was produced.
+- Live iPhone confirmation remains for the user after deployment.

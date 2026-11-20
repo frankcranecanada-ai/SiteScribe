@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.18
+SiteScribe Review Console v0.8.19
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.18";
+const APP_VERSION = "v0.8.19";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -4107,15 +4107,22 @@ function renderDetail(openPanel = true) {
         <h3>Primary Record</h3>
         <div class="primary-record-actions">
           ${recordStatusButtons(status)}
+          ${primaryLocked ? "" : '<button id="editPrimaryTitleButton" type="button" class="secondary small" data-action="edit-primary-title" aria-controls="primaryTitleEditor" aria-expanded="false">Edit title</button>'}
           <button type="button" class="secondary small" data-action="copy-record" title="Copy primary, secondary, and activity records as indented text">Copy Record</button>
         </div>
       </div>
       <p class="primary-record-description">${escapeHtml(record.description || "Untitled record")}</p>
+      ${primaryLocked ? "" : `<div id="primaryTitleEditor" class="primary-title-editor" hidden>
+        <label for="primaryTitleInput">Primary record title</label>
+        <textarea id="primaryTitleInput" rows="2" data-record-id="${escapeHtml(record.id)}" aria-describedby="primaryTitleError">${escapeHtml(record.description || "")}</textarea>
+        <p id="primaryTitleError" class="primary-title-error" role="alert" hidden></p>
+        <div class="button-row"><button type="button" class="small" data-action="save-primary-title">Save title</button><button type="button" class="secondary small" data-action="cancel-primary-title">Cancel</button></div>
+      </div>`}
       <div class="primary-record-meta-strip" aria-label="Primary record information">
         ${compactMetaItem("Category", categoryLabel(record.category))}
         ${compactMetaItem("Record date", formatDate(recordCreationDate(record)))}
         ${compactMetaItem("Created", formatDateTime(record.createdAt))}
-        ${compactMetaItem("Updated", formatDateTime(record.updatedAt || record.createdAt))}
+        <span class="primary-meta-item"><span class="primary-meta-label">Updated</span><span class="primary-meta-value" data-primary-updated>${escapeHtml(formatDateTime(record.updatedAt || record.createdAt))}</span></span>
         ${status === "closed" ? compactMetaItem("Closed", formatDateTime(record.closedAt || record.updatedAt)) : ""}
       </div>
       ${renderDeliverableEditor(record, "record", locked, true)}
@@ -4299,7 +4306,66 @@ function renderSelectedCommentStatusControls(comment, parentLocked = false, acti
   </div>`;
 }
 
+function setPrimaryTitleEditing(editing) {
+  const record = getSelectedRecord();
+  const editor = document.getElementById("primaryTitleEditor");
+  const input = document.getElementById("primaryTitleInput");
+  const button = document.getElementById("editPrimaryTitleButton");
+  if (!record || !editor || !input || !button || input.dataset.recordId !== record.id) return;
+  if (editing && isRecordLocked(record)) return lockedRecordMessage();
+  input.value = record.description || "";
+  input.removeAttribute("aria-invalid");
+  const error = document.getElementById("primaryTitleError");
+  if (error) { error.hidden = true; error.textContent = ""; }
+  editor.hidden = !editing;
+  button.setAttribute("aria-expanded", String(editing));
+  if (editing) {
+    input.focus();
+    input.setSelectionRange(input.value.length, input.value.length);
+  } else button.focus();
+}
+
+async function savePrimaryTitle() {
+  const record = getSelectedRecord();
+  const input = document.getElementById("primaryTitleInput");
+  if (!record || !input || input.dataset.recordId !== record.id) return false;
+  if (isRecordLocked(record)) { lockedRecordMessage(); return false; }
+  const title = String(input.value || "").trim();
+  if (!title) {
+    input.setAttribute("aria-invalid", "true");
+    const error = document.getElementById("primaryTitleError");
+    if (error) { error.textContent = "Enter a title before saving."; error.hidden = false; }
+    input.focus();
+    return false;
+  }
+  if (title === record.description) { setPrimaryTitleEditing(false); return true; }
+  record.description = title;
+  record.updatedAt = new Date().toISOString();
+  markDirty({ reason: "primary title renamed" });
+  // Do not rerender the detail: a new secondary draft may be in progress below.
+  const display = els.detailContent.querySelector(".primary-record-description");
+  if (display) display.textContent = title;
+  const updated = els.detailContent.querySelector('[data-primary-updated]');
+  if (updated) updated.textContent = formatDateTime(record.updatedAt);
+  renderRecords();
+  setPrimaryTitleEditing(false);
+  try {
+    await waitForAutoSaveIdle();
+    const saved = await forceAutoSaveNow("primary title renamed");
+    showToast(saved ? "Primary title saved." : "Title updated; device save pending or unavailable.");
+    return true;
+  } catch (_) {
+    showToast("Title updated but could not save on this device. Keep this site open and try again.");
+    return false;
+  }
+}
+
 function handleDetailKeydown(event) {
+  if (event.target.id === "primaryTitleInput" && event.key === "Escape") {
+    event.preventDefault();
+    setPrimaryTitleEditing(false);
+    return;
+  }
   if (event.key !== "Enter" && event.key !== " ") return;
   const row = event.target.closest(".detail-update-line");
   if (!row || event.target.closest("button, input, textarea, select")) return;
@@ -4606,6 +4672,9 @@ function handleDetailClick(event) {
     lockedRecordMessage();
     return;
   }
+  if (action === "edit-primary-title") { setPrimaryTitleEditing(true); return; }
+  if (action === "cancel-primary-title") { setPrimaryTitleEditing(false); return; }
+  if (action === "save-primary-title") { savePrimaryTitle(); return; }
   if (action === "set-record-status") {
     const nextStatus = event.target.dataset.status;
     if (recordLocked && nextStatus !== "open") {

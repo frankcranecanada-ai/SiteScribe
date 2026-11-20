@@ -1,0 +1,14 @@
+SiteScribe Review Console v0.8.4
+Custom AI Report Prototype
+
+Change
+- Adds an expanded Custom AI Report prototype to the Reports page.
+- Shows proposed current-site scope, optional source-text concept, example prompts, draft-report text area, and future copy/print/download/save actions.
+- Every proposed action is disabled and the interface clearly states “PROTOTYPE · NO API CALL.”
+
+Safety
+- No API endpoint, credential, data transfer, generated report, record change, email, save, or automatic action is added.
+- Existing Reports behavior is unchanged.
+
+Candidate status
+- Test candidate only. It is not an accepted baseline until user testing and explicit approval.

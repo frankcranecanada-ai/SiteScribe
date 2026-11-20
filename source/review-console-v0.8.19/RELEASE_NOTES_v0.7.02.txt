@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.7.02 — All Site Contacts
+
+Removes the old Import Existing Contacts feature and the deployment-level
+sitescribe_contacts.json file. Contacts are now created and managed only inside
+the Contacts / Depts screen for the relevant Saved Site.
+
+Adds All Site Contacts: a read-only lookup that gathers the saved contacts from
+every Saved Site on this device and shows the site plus department/company where
+each person is configured. It does not copy, move, edit, route, or email any
+contact. Use it to find an existing person, then add or move that person
+deliberately in the appropriate site's Contacts / Depts screen.
+
+The parser now receives the active site's saved contacts, rather than a separate
+deployment contact file. No record, routing, email-send, Dropbox, report,
+autosave, or Site Walk behaviour changed.

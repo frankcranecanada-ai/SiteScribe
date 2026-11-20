@@ -43,6 +43,8 @@ source/*
 !source/review-console-v0.8.17/**
 !source/review-console-v0.8.18/
 !source/review-console-v0.8.18/**
+!source/review-console-v0.8.19/
+!source/review-console-v0.8.19/**
 !source/parser-lite-v0.8.16a/
 !source/parser-lite-v0.8.16a/**
 
