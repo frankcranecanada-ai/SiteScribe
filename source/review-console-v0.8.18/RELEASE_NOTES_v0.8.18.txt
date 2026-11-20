@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.18
+
+- Copy Record now includes third-level activities beneath each secondary, numbered 1.1, 1.2, 2.1, etc.
+- Activity titles are indented six spaces; metadata and continuation lines are indented nine spaces. Secondary continuation lines are indented too.
+- Includes activity status, timestamps, work date, start/end, direct hours, billing/expense details, deliverables and source text when available. Closed records remain included.
+- Clipboard output is plain text. No record duplication or mutation, no automatic send, no fourth-level traversal. Existing primary/secondary content is preserved.
+- Updated Copy Record tooltip to describe all three levels.

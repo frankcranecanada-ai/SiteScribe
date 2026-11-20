@@ -1,0 +1,87 @@
+SiteScribe Review Console v0.8.10 verification
+
+Static checks
+- Version and changed cache markers match v0.8.10 (app.js release block, APP_VERSION, index.html
+  title / version pill / four ?v= markers, sitescribe-add-data.js MODULE_VERSION).
+- node --check passed for app.js, dropbox-sync-proof.js, sitescribe-add-data.js,
+  sitescribe-hours-excel.js, sitescribe-mds-excel.js, sitescribe-parser-core.js, and
+  regression_check_v0.8.10.js.
+- Focused regression_check_v0.8.10.js: 40 PASS, 0 FAIL, exit 0.
+- Duplicate first-party function declarations within any single file: none. (Names such as
+  escapeHtml and formatDate do appear in more than one module; each module is self-contained and
+  that is existing, intended structure, not a duplicate declaration.)
+- Duplicate DOM IDs across index.html and app.js: none.
+- CSS brace integrity: 974 opening / 974 closing braces, unchanged from v0.8.9 because styles.css
+  was not modified.
+- No <input ... type="time"> markup remains. The only surviving "type=\"time\"" text in app.js is
+  inside the v0.8.9 explanatory comment, which now states that the time boxes moved to text in
+  v0.8.10 and that the date boxes still use the badInput path.
+
+The regression genuinely catches the defect
+- regression_check_v0.8.10.js run unchanged against a scratch copy of the v0.8.9 sources exits 1
+  with 15 failures, including every new v0.8.10 behavioural check. The v0.8.9 folder was not
+  modified; copies were used in a scratch directory.
+- The harness extracts the real shipped functions from app.js (inputEntryIsPartial,
+  isTimeTextInput, timeTextInputIsPartial, normalizeTimeInput, normalizeTimeTextInput,
+  parseTimeMinutes, calculateHoursFromTimes, applyCommentTimeFields and dependencies plus
+  EXPENSE_TYPES) and executes them, so the behavioural checks test shipped code rather than
+  matching source text.
+- Note on the negative run: when a harness function is absent the harness reports a NOTE and
+  fails cleanly rather than crashing, so the v0.8.9 checks also appear as failures in that run.
+  That is the v0.8.9 defensive design working as intended, not an additional defect.
+
+Live browser test (isolated localhost:8779 session, real keystrokes)
+The v0.8.9 handoff recorded that segment-by-segment typing had never been reproduced by actually
+typing. That gap is closed for the typed-time path. Every step below used real key events unless
+stated otherwise.
+
+1. Typed "20" into START. The box held "20" with the caret still at position 2 in the same box.
+   It did not become "2" and it did not jump to minutes. This is the exact reported failure.
+2. The box was marked incomplete and the note read "Start time is incomplete - finish the entry.
+   Anything already saved is kept until a complete value is entered."
+3. Continued typing "00" gave "2000"; the mark and note cleared. Tab settled the box to "20:00".
+4. Typed "2100" into END and tabbed out: START 20:00, END 21:00, HRS 1.
+5. Added the secondary. Stored startTime 20:00, endTime 21:00, totalHours 1.
+6. Reopened it, selected the END contents and typed "20" over the saved 21:00. The box went red
+   with the End time note, and the stored endTime remained 21:00. An unfinished typed time did
+   not delete the saved one.
+7. Completed END to "2200": stored endTime 22:00, totalHours 2.
+8. Deliberately cleared END: the endTime key was removed from the record, startTime was
+   untouched, and the box was not marked incomplete. Deliberate clearing still works.
+9. Restored END to 21:00, waited for the footer to confirm "Auto-saved on this device", then
+   performed a full page reload. Stored values survived: 20:00 / 21:00 / 1.
+10. Inline activity composer: typed "2230" into START and "23" into END. START settled to 22:30;
+    END showed the incomplete mark and note. Completing to "2345" cleared the warning and
+    calculated HRS 1.25. Add Activity stored the activity at 22:30 / 23:45 / 1.25 with zero
+    children, and the parent secondary's own times were untouched.
+11. iPhone viewport (375x812, touch emulation): the boxes render as type="text" with
+    inputmode="numeric" and maxlength="5", so iOS shows the numeric keypad. START, END and HRS
+    still fit one row; WORK DATE keeps its native date control.
+12. No console errors at any point.
+
+Test-harness limits, stated plainly
+- The browser pane in this session could not deliver Backspace or Delete to an input. Character
+  keys, Tab, End and clicks all worked; deletion keys left the value unchanged with the caret in
+  the right place. Step 8 above was therefore driven by setting the value and dispatching the
+  same input and focusout events the keyboard produces, which exercises the real handlers and the
+  real commit path but is not an OS-level keypress. Every other step used genuine keystrokes.
+- One earlier reload check appeared to lose an edit. That run was invalid: the reload was issued
+  in the same batch as the edit and raced the asynchronous save. Repeated with a wait for the
+  auto-save confirmation, the values persisted correctly (step 9).
+
+Observed and deliberately not changed
+- After step 8 the record held startTime and totalHours with no endTime, because the Hrs box
+  still contained an explicit 2. That is the existing direct-hours behaviour, reached here by
+  deliberate operator action rather than by the silent erasure v0.8.9 fixed. It was not altered.
+- calculateHoursFromTimes still adds 24 hours to a negative span, so a mistyped end time can
+  produce a plausible overnight figure rather than an error. Unchanged and untested against any
+  new rule, because no change to overnight handling was requested.
+
+Protected regression coverage retained
+- Capped three-level model intact; a fourth activity level is discarded by normalization.
+- sourceText and the separate parser instruction remain retained.
+- AI report selector remains a nonfunctional prototype with no API fetch.
+- v0.8.9 partial-entry protection for Work Date and both deliverable dates still passes.
+- v0.8.9 commit-before-close ordering still passes.
+- Closed-secondary recovery footer, closed descendant reporting, Dropbox post-update listing,
+  protected imports, and operator-initiated append paths all still covered and passing.

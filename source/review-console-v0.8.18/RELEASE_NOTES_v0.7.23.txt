@@ -1,0 +1,10 @@
+SiteScribe Review Console v0.7.23
+Landscape Phone Reports Scrolling Repair
+
+Change
+- On short landscape phone screens, the Reports overlay now provides the vertical scroll rather than trapping its contents in a viewport-height card.
+- Hours and MDS tables retain their independent left/right swipe area, so values in right-side columns remain reachable.
+
+Scope protection
+- Desktop and portrait report layouts are unchanged.
+- No report content, dates, record data, JSON files, hours, billing, Dropbox, Parser, import/export, or autosave behavior is changed.

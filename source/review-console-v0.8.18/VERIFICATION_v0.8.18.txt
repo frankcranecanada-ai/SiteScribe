@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.18 verification
+
+- Six first-party JavaScript modules passed node --check.
+- v0.8.18 live-code formatter and mocked clipboard checks passed: three-level numbering and indentation, multiline description/source text, work dates, hours (including zero), expenses, deliverables, closed records, legacy/empty lists, depth cap and non-mutation.
+- Previous v0.8.17/v0.8.16 movement suites passed with only their historical release-marker expectations updated in memory. v0.8.14 Dropbox exclusion test passed.
+- Older v0.8.13 protected behavioral suite passed except its expected historical version/cache-marker assertion.
+- Static DOM IDs and top-level function declarations unique; CSS braces balanced. No CSS edits.
+- Root nine deployment files match candidate SHA-256 hashes; flat nine-file deploy ZIP and full source ZIP produced.
+- Real-device clipboard paste and full manual protected-workflow sweep remain unverified here; user confirmation pending.

@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.17
+SiteScribe Review Console v0.8.18
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.17";
+const APP_VERSION = "v0.8.18";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -3892,7 +3892,7 @@ function formatPrimaryRecordForClipboard(record) {
   } else {
     comments.forEach((comment, index) => {
       const statusText = normalizeLegacyStatus(comment.status);
-      lines.push(`${index + 1}. ${comment.text || "Untitled secondary record"}`);
+      lines.push(`${index + 1}. ${String(comment.text || "Untitled secondary record").replace(/\r?\n/g, "\n   ")}`);
       lines.push(`   Status: ${statusText}`);
       const meta = [];
       if (comment.createdAt) meta.push(`Created: ${formatDateTime(comment.createdAt)}`);
@@ -3908,10 +3908,47 @@ function formatPrimaryRecordForClipboard(record) {
         const d = normalizeDeliverable(comment.deliverable);
         lines.push(`   Deliverable: ${d.date} (${deliverableStatusForDate(d.date)})`);
       }
+      const activities = Array.isArray(comment.activities) ? comment.activities : [];
+      if (activities.length) {
+        lines.push(`   Activity Records (${activities.length}):`);
+        activities.forEach((activity, activityIndex) => {
+          lines.push(...formatActivityForClipboard(activity, `${index + 1}.${activityIndex + 1}`));
+        });
+      }
     });
   }
 
   return lines.join("\n");
+}
+
+function formatActivityForClipboard(activity, number) {
+  const indent = "      ";
+  const detailIndent = "         ";
+  const text = String(activity.text || "Untitled activity record").replace(/\r?\n/g, `\n${detailIndent}`);
+  const lines = [`${indent}${number}. ${text}`, `${detailIndent}Status: ${normalizeLegacyStatus(activity.status)}`];
+  const meta = [];
+  if (activity.createdAt) meta.push(`Created: ${formatDateTime(activity.createdAt)}`);
+  if (activity.updatedAt) meta.push(`Updated: ${formatDateTime(activity.updatedAt)}`);
+  if (activity.closedAt) meta.push(`Closed: ${formatDateTime(activity.closedAt)}`);
+  if (meta.length) lines.push(`${detailIndent}${meta.join(" | ")}`);
+  const timeMeta = [];
+  if (activity.workDate) timeMeta.push(`Work Date: ${formatDate(activity.workDate)}`);
+  if (activity.startTime) timeMeta.push(`Start Time: ${activity.startTime}`);
+  if (activity.endTime) timeMeta.push(`End Time: ${activity.endTime}`);
+  if (activity.totalHours != null && activity.totalHours !== "") timeMeta.push(`Total Hrs: ${activity.totalHours}`);
+  if (timeMeta.length) lines.push(`${detailIndent}${timeMeta.join(" | ")}`);
+  const billing = normalizeBillingType(activity.billingType, activity.hourType);
+  if (billing) lines.push(`${detailIndent}Billing: ${billing}`);
+  if (billing === "expense" && activity.expenseAmount != null) {
+    lines.push(`${detailIndent}Expense: ${activity.expenseAmount} ${normalizeExpenseCurrency(activity.expenseCurrency)}${activity.expenseType ? ` | Type: ${activity.expenseType}` : ""}`);
+  }
+  if (deliverableApplies(activity)) {
+    const d = normalizeDeliverable(activity.deliverable);
+    lines.push(`${detailIndent}Deliverable: ${d.date} (${deliverableStatusForDate(d.date)})`);
+  }
+  if (activity.sourceText) lines.push(`${detailIndent}Source: ${String(activity.sourceText).replace(/\r?\n/g, `\n${detailIndent}`)}`);
+  // Activities are leaves. Do not traverse malformed fourth-level children.
+  return lines;
 }
 
 function renderCompactRecordRow(options) {
@@ -4070,7 +4107,7 @@ function renderDetail(openPanel = true) {
         <h3>Primary Record</h3>
         <div class="primary-record-actions">
           ${recordStatusButtons(status)}
-          <button type="button" class="secondary small" data-action="copy-record" title="Copy primary record and all secondary records">Copy Record</button>
+          <button type="button" class="secondary small" data-action="copy-record" title="Copy primary, secondary, and activity records as indented text">Copy Record</button>
         </div>
       </div>
       <p class="primary-record-description">${escapeHtml(record.description || "Untitled record")}</p>

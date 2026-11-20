@@ -1,0 +1,5 @@
+SiteScribe Review Console v0.7.12 — Secondary Editor Backdrop Safety
+
+- The shaded primary-screen area behind the secondary-record editor is now inert.
+- Only the explicit Close pill can dismiss the secondary editor.
+- Secondary-record editing, email draft selection, normal auto-save, and all report behaviour are unchanged.

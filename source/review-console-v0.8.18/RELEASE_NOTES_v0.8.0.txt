@@ -1,0 +1,31 @@
+SiteScribe Review Console v0.8.0 - Capped Three-Level Records
+
+Baseline
+- Built from the user-accepted v0.7.33 baseline.
+
+Data model
+- Adds one optional activity array to each secondary record.
+- Hierarchy is strictly capped: Primary -> Secondary -> Activity.
+- Activity records cannot contain children; imported/parser-supplied fourth-level children are discarded during normalization.
+- Existing two-level saved sites remain valid. Their secondary records normalize with an empty activities array.
+
+Working Memory and editor
+- Primary branches continue to show secondary records.
+- A secondary with activities receives its own small arrow/count branch control.
+- Activity rows use the existing secondary row appearance, 6-dot grip, status, time, hours, billing/expense, deliverable, source-text, email-draft, close/reopen, and deletion protections.
+- Clicking any record opens only that record's detail. Activity detail shows a light secondary-parent reference.
+- Secondary detail provides Add Activity. Activity records have no child-add control.
+- Activity grips reorder only inside their own secondary. No activity promotion, cross-parent move, or fourth-level nesting is allowed.
+
+Reporting and export
+- Daily, Open Items, Hours, MDS selection, Hours Excel, and MDS Excel traverse activity records.
+- Hours and billing use each record's direct hours/expense only. Parent subtotals are calculated by reports and never written into records, preventing double counting.
+- A closed primary excludes its child work through existing primary rules; a closed secondary locks and excludes its activities from active MDS traversal.
+
+Parser / import
+- B04 Parse Notes accepts the three-level reviewed JSON shape while retaining legacy two-level compatibility.
+- The parser instruction now permits activities only when source material or the operator instruction clearly establishes separately trackable execution detail.
+- Parser review remains operator-approved; no records, drafts, or operational actions are created automatically.
+
+Candidate status
+- v0.8.0 is a test candidate, not an accepted baseline.

@@ -1,0 +1,13 @@
+SiteScribe Review Console v0.8.3
+B05 OPEN Pill Consistency
+
+Change
+- Primary, secondary, and activity OPEN controls in Working Memory now share the same compact, oval status-pill style used elsewhere in the application.
+- Secondary and activity controls remain real buttons so their detail-opening behavior is unchanged.
+
+Protected behavior retained
+- Primary row click toggles secondary records; secondary row click toggles activity records.
+- Inline activity entry, three-level cap, reporting, sourceText, import protections, Dropbox protections, and closed-record locks are unchanged.
+
+Candidate status
+- Test candidate only. It is not an accepted baseline until user testing and explicit approval.
