@@ -1,0 +1,14 @@
+SiteScribe Review Console v0.7.30
+B04 Parse Notes — Optional Operator Parsing Instruction
+
+Change
+- B04 Parse Notes now provides an optional per-parse Parsing instruction field, suited to structured schedule text such as the MDS Cherry Point Phase 4A schedule.
+- The instruction is sent separately to the existing shared parser API ahead of the raw note text, so it can guide record grouping without becoming source evidence.
+- During proposal review, the instruction used is shown in a dedicated panel. It is not added to any record's sourceText.
+- The instruction is capped at 2,000 characters and clears when the staged intake is cleared or accepted proposals append.
+
+Scope protection
+- The active Saved Site remains the only target; proposals remain staged and individually reviewed before Append Accepted Records.
+- No record, deliverable date, status, communication, email draft, Dropbox file, or Saved Site is changed automatically.
+- Existing raw source text, two-level records, contact routing, protected import choices, autosave, and Dropbox behavior remain unchanged.
+- This is a client-only Review Console change. The Parser Lite client and production parser proxy/server are not changed.

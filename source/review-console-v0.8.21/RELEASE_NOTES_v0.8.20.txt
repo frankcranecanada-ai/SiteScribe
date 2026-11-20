@@ -1,0 +1,5 @@
+SiteScribe Review Console v0.8.20
+
+- Added a green outline-style border to Update Dropbox Site File so the explicit save/update action stands out.
+- Scoped to that pill only. Uses the existing green theme color and inset stroke without resizing the button or replacing the native keyboard-focus indicator.
+- No Dropbox logic, authentication, paths, naming, confirmation or saving behavior changes.

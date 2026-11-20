@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.7.25 Verification Evidence
+Date: 2026-08-15
+
+Requested B02 presentation verified
+- A Saved Sites row now displays as a two-column compact file row: bold Site — Date title and Content updated line at left, controls at right.
+- The active saved site retains its OPENED badge.
+- The normal row no longer displays the former status-summary line.
+- Visual local-browser check confirmed grid layout and all four B02 actions: OPEN, Contacts / Depts, Export, Delete.
+
+Automated verification
+- PASS node --check for all first-party JavaScript and regression_check_v0.7.25.js.
+- PASS 11 focused/protected regression checks.
+- PASS no duplicate HTML IDs.
+- PASS no duplicate function declarations.
+- PASS CSS brace integrity: 907 opening / 907 closing.

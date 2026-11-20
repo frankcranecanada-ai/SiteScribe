@@ -458,6 +458,9 @@ html.detail-panel-open body { overflow: hidden; overscroll-behavior: none; }
 .activity-record-line {
   background: #fbfdff;
 }
+#siteWalkB05 .activity-record-line .record-title-text {
+  font-style: italic;
+}
 .activity-branch-toggle {
   min-width: 20px;
   min-height: 16px;
