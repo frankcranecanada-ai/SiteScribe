@@ -461,6 +461,9 @@ html.detail-panel-open body { overflow: hidden; overscroll-behavior: none; }
 #siteWalkB05 .activity-record-line .record-title-text {
   font-style: italic;
 }
+#siteWalkB05 .secondary-record-line.has-activity-records .record-title-text {
+  font-weight: 600;
+}
 .activity-branch-toggle {
   min-width: 20px;
   min-height: 16px;
@@ -1768,6 +1771,29 @@ button.active-toggle {
   white-space: nowrap;
 }
 .hours-selection-rows { display: grid; }
+.hours-secondary-branch {
+  margin: 4px 6px 5px 12px;
+  padding-left: 5px;
+  border-left: 2px solid #c7d6e7;
+}
+.hours-activity-rows {
+  margin-left: 16px;
+  padding-left: 5px;
+  border-left: 2px solid #d7e1ec;
+}
+.activity-selection-row .hours-selection-text { font-style: italic; }
+.hours-parent-context {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  color: var(--muted);
+}
+.hours-secondary-branch .hours-selection-text {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
 .hours-selection-row {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
@@ -4467,6 +4493,25 @@ button.danger:hover { background: #fff1f1; }
   .secondary-editor-actions button {
     min-height: 38px;
   }
+}
+
+/* Reports own the vertical scroll at every viewport size. Lock the background
+   only on screen, so printing retains the existing full-document layout. */
+@media screen {
+  html.reports-panel-open,
+  html.reports-panel-open body { overflow: hidden; overscroll-behavior: none; }
+  .reports-panel {
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .reports-card { min-height: 0; max-height: none; max-width: 100%; overflow: visible; }
+}
+@media screen and (max-width: 640px) {
+  .hours-secondary-branch { margin-left: 5px; }
+  .hours-activity-rows { margin-left: 10px; }
+  .hours-parent-context { grid-template-columns: 1fr; gap: 2px; }
 }
 
 /* v0.8.13: portrait phone real estate for B05 secondary and activity rows.

@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.21
+SiteScribe Review Console v0.8.22
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.21";
+const APP_VERSION = "v0.8.22";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -2773,6 +2773,7 @@ async function openReportsPanel() {
   ensureReportDateDefaults();
   els.reportsPanel.classList.add("open");
   els.reportsPanel.setAttribute("aria-hidden", "false");
+  document.documentElement.classList.add("reports-panel-open");
   setCustomAiReportPrototypeVisibility();
   generateReport();
 }
@@ -2787,6 +2788,7 @@ function closeReportsPanel() {
   if (!els.reportsPanel) return;
   els.reportsPanel.classList.remove("open");
   els.reportsPanel.setAttribute("aria-hidden", "true");
+  document.documentElement.classList.remove("reports-panel-open");
 }
 
 function ensureReportDateDefaults(options = {}) {
@@ -3066,6 +3068,42 @@ function currentReportSelectionScope(filters, groups) {
   ].join("::");
 }
 
+function reportSelectorGroups(filters) {
+  // The picker follows B05's tree, independent of the output's date sort.
+  // Keep eligibility/keys identical to the report data pipeline.
+  const eligible = new Map(reportSelectionGroups(filters).map(group => [group.record.id, group]));
+  return sortRecordsForWorkingMemory(getHoursReportSourceRecords(filters)).flatMap(record => {
+    const group = eligible.get(record.id);
+    return group ? [{ ...group, rows: reportChildRows(record, filters) }] : [];
+  });
+}
+
+function reportSelectorBranches(group) {
+  const branches = new Map();
+  group.rows.forEach(row => {
+    const parent = row.parentComment || row.comment;
+    if (!branches.has(parent.id)) branches.set(parent.id, { parent, secondaryRow: null, activities: [] });
+    const branch = branches.get(parent.id);
+    if (row.level === "activity") branch.activities.push(row);
+    else branch.secondaryRow = row;
+  });
+  return [...branches.values()];
+}
+
+function renderReportSelectionRow(row, filters) {
+  return `<label class="hours-selection-row${row.level === "activity" ? " activity-selection-row" : ""}">
+    <input type="checkbox" class="hoursRecordChoice" data-hours-key="${escapeHtml(row.key)}" ${reportSelectedKeys.has(row.key) ? "checked" : ""} />
+    <span class="hours-selection-text" title="${escapeHtml(row.comment.text || "")}">${escapeHtml(row.comment.text || (row.level === "activity" ? "Untitled activity record" : "Untitled secondary record"))}</span>
+    <span class="hours-selection-meta">${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}${filters.type === "hours" || filters.type === "mds" ? ` · ${commentBillingType(row.comment) === "expense" ? `${escapeHtml(formatCurrency(expenseAmountForComment(row.comment), expenseCurrencyForComment(row.comment)))} · ${escapeHtml(expenseTypeLabel(row.comment.expenseType))}` : (row.hours != null && row.hours > 0 ? `${escapeHtml(formatHoursInputValue(row.hours))} hrs` : "0 hrs (not recorded)")}${filters.type === "mds" ? ` · ${commentBillingType(row.comment) === "regular" ? "Reg" : (commentBillingType(row.comment) === "overtime" ? "OT" : (commentBillingType(row.comment) === "expense" ? "Expense" : "untagged"))}` : ""}` : ""} · ${escapeHtml(statusLabel(row.comment.status))}</span>
+  </label>`;
+}
+
+function renderReportSelectionBranch(branch, filters) {
+  const parent = branch.secondaryRow ? renderReportSelectionRow(branch.secondaryRow, filters)
+    : `<div class="hours-parent-context"><span class="hours-selection-text">${escapeHtml(branch.parent.text || "Untitled secondary record")}</span><span class="hours-selection-meta">Parent context only</span></div>`;
+  return `<div class="hours-secondary-branch">${parent}${branch.activities.length ? `<div class="hours-activity-rows">${branch.activities.map(row => renderReportSelectionRow(row, filters)).join("")}</div>` : ""}</div>`;
+}
+
 function renderReportRecordSelector(filters) {
   if (!els.hoursRecordSelector || !els.hoursRecordSelectionList) return;
   if (filters.type === "email_activity") {
@@ -3087,7 +3125,7 @@ function renderReportRecordSelector(filters) {
     els.hoursRecordSelectorSite.textContent = `Active site: ${reportSiteName()} · ${guidance}`;
   }
 
-  const groups = reportSelectionGroups(filters);
+  const groups = reportSelectorGroups(filters);
   const scopeKey = currentReportSelectionScope(filters, groups);
   const allKeys = reportSelectionKeys(groups);
   if (!reportSelectionInitialized || reportSelectionScopeKey !== scopeKey) {
@@ -3112,12 +3150,7 @@ function renderReportRecordSelector(filters) {
         <span>${escapeHtml(group.record.description || "Untitled primary record")}</span>
         <span class="hours-primary-count">${group.primaryKey ? "Primary · " : ""}${group.rows.length} ${group.rows.length === 1 ? "record entry" : "record entries"}</span>
       </label>
-      <div class="hours-selection-rows">${group.rows.map(row => `
-        <label class="hours-selection-row">
-          <input type="checkbox" class="hoursRecordChoice" data-hours-key="${escapeHtml(row.key)}" ${reportSelectedKeys.has(row.key) ? "checked" : ""} />
-          <span class="hours-selection-text">${row.parentComment ? `<span class="hours-activity-parent">${escapeHtml(row.parentComment.text || "Untitled secondary record")} › </span>` : ""}${escapeHtml(row.comment.text || "Untitled secondary record")}</span>
-          <span class="hours-selection-meta">${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}${filters.type === "hours" || filters.type === "mds" ? ` · ${commentBillingType(row.comment) === "expense" ? `${escapeHtml(formatCurrency(expenseAmountForComment(row.comment), expenseCurrencyForComment(row.comment)))} · ${escapeHtml(expenseTypeLabel(row.comment.expenseType))}` : (row.hours != null && row.hours > 0 ? `${escapeHtml(formatHoursInputValue(row.hours))} hrs` : "0 hrs (not recorded)")}${filters.type === "mds" ? ` · ${commentBillingType(row.comment) === "regular" ? "Reg" : (commentBillingType(row.comment) === "overtime" ? "OT" : (commentBillingType(row.comment) === "expense" ? "Expense" : "untagged"))}` : ""}` : ""} · ${escapeHtml(statusLabel(row.comment.status))}</span>
-        </label>`).join("")}</div>
+      <div class="hours-selection-rows">${reportSelectorBranches(group).map(branch => renderReportSelectionBranch(branch, filters)).join("")}</div>
     </section>`).join("")}`;
   syncReportPrimaryCheckboxStates();
 }
@@ -4009,7 +4042,7 @@ function renderInlineSecondaryRecord(record, comment) {
     : "";
   const dragGrip = `<span class="record-drag-grip${canMove ? "" : " is-locked"}" draggable="${canMove ? "true" : "false"}" title="${canMove ? "Drag to reorder or move" : "Reopen record or remove its deliverable to move"}" aria-label="${canMove ? "Drag to reorder or move" : "Secondary record cannot be moved"}">⠿</span>`;
   return renderCompactRecordRow({
-    classes: "secondary-record-line",
+    classes: `secondary-record-line${activityCount ? " has-activity-records" : ""}`,
     dataAttrs: `data-record-id="${escapeHtml(record.id)}" data-comment-id="${escapeHtml(comment.id)}" role="button" tabindex="0" aria-label="Show or hide activity records for: ${escapeHtml(comment.text || "Untitled secondary record")}"`,
     status,
     selected: false,

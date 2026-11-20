@@ -1,0 +1,13 @@
+SiteScribe Review Console v0.7.09 — Site-Scoped Contact Copy
+
+Change:
+- A new contact card now uses two selections: Source site, then Contact from selected site.
+- The contact list contains only people stored in the chosen saved site and shows email, phone, and role where available.
+- The current site cannot be selected as a source.
+- Selecting a person copies name, email, phone, role, aliases, and active status into the new contact card.
+
+Preserved:
+- Each saved site remains self-contained.
+- No shared people directory, automatic merge, move, or cross-site update is created.
+- All Site Contacts remains a read-only lookup.
+- Contacts / Departments routing, site title-bar reorder, iPhone drag lock, records, Dropbox, reports, and autosave are unchanged.
