@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.27
+
+- Removed the long Dropbox instruction paragraph to recover vertical space.
+- Existing hover help remains on Connect, List, Update Site File, Save New Backup Copy and Save Redirect Setting.
+- Added native hover descriptions to file-list Import and Delete pills, including Delete on unreadable/unrecognized files. Native titles avoid clipping inside the scrollable file list.
+- Shortened duplicate startup instructions to a compact ready message. Live connection/action feedback remains.
+- No operation, authentication, path, filename, import-choice, confirmation, backup, PDF or stored-data behavior changes.

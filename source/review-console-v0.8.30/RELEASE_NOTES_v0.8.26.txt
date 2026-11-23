@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.8.26
+
+- Renamed the report email pill to Email PDF. It generates the PDF directly; no Print / Save as PDF step and no HTML attachment.
+- PDF contains selectable text, embedded fonts, real HTTP/HTTPS hyperlink annotations (including complete Dropbox access parameters), parent/child indentation, bold secondary parents, italic activities, page numbers and multi-page tables with repeated headers.
+- Narrative reports use portrait Letter pages. Hours/MDS tables use landscape Letter pages. Ordinary record detail blocks/table rows stay together; long entries can paginate.
+- Desktop retains LE-style PDF download + email draft and visible retry link; manually attach the downloaded PDF. Supported mobile devices share the PDF; cancellation and fallback remain safe. No automatic sends, chosen recipients, or fetching/importing linked Dropbox documents.
+- PDF renderer is bundled locally: pdfmake 0.3.12 and Roboto fonts, with MIT/OFL notices. Flat deployment expands from nine to fourteen files; the workflow deploys/verifies all required files before the page.
+- Reports, stored records, billing totals, Excel exports, parser and Dropbox authorization remain unchanged.

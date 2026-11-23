@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.27 verification
+
+- Seven first-party JavaScript modules and focused/browser tests passed syntax checks.
+- Focused v0.8.27 checks passed: instruction paragraph absent, startup feedback concise, top-level tooltip attributes retained and native Import/Delete titles present.
+- Reversing only the ready-message and tooltip string changes reproduces the entire previous Dropbox script SHA-256, proving operation code is unchanged. Prior record/report/PDF-handoff regression suites passed with historical version/help-only expectations virtualized for old tests; Dropbox exclusion test passed.
+- Isolated real-browser hover checks show all four main Dropbox action tooltips at opacity 1 with descriptive text. All three fake file-list Import/Delete pills have native title help. No live Dropbox operations performed.
+- Removing the paragraph recovers 42px at 1200px width and 109px at 390px width in the test. Desktop screenshot visually inspected with List tooltip displayed.
+- No duplicate static DOM IDs/function declarations; CSS braces balanced. No CSS edits. Full manual protected-workflow sweep remains pending; behavior is unchanged.
+- All fourteen root deployment files match candidate hashes; flat fourteen-file deploy ZIP and full source ZIP produced.
