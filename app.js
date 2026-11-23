@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.30
+SiteScribe Review Console v0.8.31
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.30";
+const APP_VERSION = "v0.8.31";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -3039,14 +3039,14 @@ function reportChildRows(record, filters) {
     const commentClosed = normalizeLegacyStatus(comment.status) === "closed";
     if (!(filters.type === "mds" && commentClosed) && reportCommentMatchesFilters(comment, record, filters)) {
       const hours = reportCommentHours(comment);
-      rows.push({ record, comment, parentComment: null, level: "secondary", date: commentReportDate(comment, record), hours: hours != null && hours > 0 ? hours : null, key: secondaryReportSelectionKey(record, comment) });
+      if (filters.type !== "hours" || (hours != null && hours > 0)) rows.push({ record, comment, parentComment: null, level: "secondary", date: commentReportDate(comment, record), hours: hours != null && hours > 0 ? hours : null, key: secondaryReportSelectionKey(record, comment) });
     }
     if (commentClosed) return;
     sortActivityRecordsForComment(comment).forEach(activity => {
       if (filters.type === "mds" && normalizeLegacyStatus(activity.status) === "closed") return;
       if (!reportCommentMatchesFilters(activity, record, filters)) return;
       const hours = reportCommentHours(activity);
-      rows.push({ record, comment: activity, parentComment: comment, level: "activity", date: commentReportDate(activity, record), hours: hours != null && hours > 0 ? hours : null, key: secondaryReportSelectionKey(record, comment, activity) });
+      if (filters.type !== "hours" || (hours != null && hours > 0)) rows.push({ record, comment: activity, parentComment: comment, level: "activity", date: commentReportDate(activity, record), hours: hours != null && hours > 0 ? hours : null, key: secondaryReportSelectionKey(record, comment, activity) });
     });
   });
   return rows;
@@ -3120,7 +3120,7 @@ function renderReportRecordSelector(filters) {
     const guidance = filters.type === "mds"
       ? "Selected Reg/OT time blocks and Expense lines are exported. Untagged hours and expenses without an amount remain out of the MDS workbook."
       : (filters.type === "hours"
-      ? "All matching secondary and activity records are listed and selected by default."
+      ? "Only secondary and activity entries with more than 0 hours are listed and selected by default."
       : (filters.type === "open"
         ? "Choose which records feed the prioritized Open Items Report; urgency sections remain unchanged."
         : "Primary records use Created Date; secondary records use Work Date when present, otherwise Created Date."));
@@ -3140,7 +3140,10 @@ function renderReportRecordSelector(filters) {
   if (els.clearHoursButton) els.clearHoursButton.disabled = !allKeys.length;
 
   if (!groups.length) {
-    els.hoursRecordSelectionList.innerHTML = `<p class="report-empty">No records match the selected date, category, and status filters.</p>`;
+    const empty = filters.type === "hours"
+      ? "No entries with more than 0 hours match the selected filters."
+      : "No records match the selected date, category, and status filters.";
+    els.hoursRecordSelectionList.innerHTML = `<p class="report-empty">${empty}</p>`;
     return;
   }
 
@@ -3653,9 +3656,9 @@ function renderReportTableEntryTitle(row) {
 
 function renderHoursReport(records, filters) {
   const rows = collectHoursReportRows(records, filters);
-  if (!rows.length) return `<p class="report-empty">No secondary or activity records are selected for this report. Select one or more records above, or adjust the date range.</p>`;
+  if (!rows.length) return `<p class="report-empty">No positive-hour secondary or activity entries are selected for this report. Select one or more entries above, or adjust the date range.</p>`;
   const total = rows.reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
-  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th>Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td>${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}</tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>
+  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table hours-report-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th>Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td>${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}</tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>
     <section class="report-section report-total-section"><h3>Cumulative Total Hours</h3><p class="report-total-hours">${escapeHtml(formatHoursInputValue(total))} hrs</p></section>`;
 }
 

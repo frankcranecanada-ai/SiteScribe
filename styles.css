@@ -4746,3 +4746,33 @@ button.danger:hover { background: #fff1f1; }
 #siteWalkB05 .secondary-record-line.has-activity-records.closed:not(.activity-record-line) {
   background: #ffe2aa;
 }
+
+/* v0.8.31: the Hours Report has nine columns. Give each one a real width and
+   wrap descriptive text inside its own cell; retain horizontal swipe on narrow
+   screens. Other report tables keep their existing layouts. */
+@media screen {
+  #reportOutput .hours-detail-scroll .hours-report-table {
+    width: 1320px !important;
+    min-width: 1320px !important;
+    max-width: none;
+    table-layout: fixed !important;
+  }
+  #reportOutput .hours-report-table :is(th, td):nth-child(1) { width: 72px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(2) { width: 145px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(3) { width: 180px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(4) { width: 260px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(5) { width: 300px; white-space: normal; overflow-wrap: anywhere; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(6) { width: 85px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(7) { width: 85px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(8) { width: 95px; }
+  #reportOutput .hours-report-table :is(th, td):nth-child(9) { width: 98px; }
+  #reportOutput .hours-report-table th { white-space: normal; }
+  #reportOutput .hours-report-table :is(td:nth-child(3), td:nth-child(4)) { overflow-wrap: anywhere; }
+}
+@media print {
+  #printReportRoot .hours-report-table th,
+  #printReportRoot .hours-report-table td {
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+  }
+}
