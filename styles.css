@@ -4732,3 +4732,17 @@ button.danger:hover { background: #fff1f1; }
 #siteWalkB05 .secondary-record-line.has-activity-records.closed:not(.activity-record-line) {
   background: #e9eef4;
 }
+
+/* v0.8.30: closed B05 rows use light amber at every record level. The
+   B05-scoped variable also colours the primary row's mobile date/status tail. */
+#siteWalkB05 {
+  --record-closed-bg: #ffedc8;
+  --record-closed-border: #dec596;
+}
+#siteWalkB05 .secondary-record-line.closed {
+  background: var(--record-closed-bg);
+  border-color: var(--record-closed-border);
+}
+#siteWalkB05 .secondary-record-line.has-activity-records.closed:not(.activity-record-line) {
+  background: #ffe2aa;
+}
