@@ -1,5 +1,5 @@
 /*
-SiteScribe Review Console v0.8.31
+SiteScribe Review Console v0.8.32
 Changes:
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
@@ -211,7 +211,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.31";
+const APP_VERSION = "v0.8.32";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -2772,7 +2772,7 @@ function configPanelIsOpen() {
 
 async function openReportsPanel() {
   if (!els.reportsPanel) return;
-  ensureReportDateDefaults();
+  ensureReportDateDefaults({ force: true });
   els.reportsPanel.classList.add("open");
   els.reportsPanel.setAttribute("aria-hidden", "false");
   document.documentElement.classList.add("reports-panel-open");
@@ -2797,7 +2797,7 @@ function ensureReportDateDefaults(options = {}) {
   const scopeKey = currentReportFilterScopeKey();
   const scopeChanged = reportFilterScopeKey !== scopeKey;
   const shouldReset = !!options.force || scopeChanged;
-  const bounds = reportDateBoundsForCurrentPackage();
+  const bounds = reportDateBoundsForCurrentMonth();
 
   if (els.reportFromDate && (shouldReset || !els.reportFromDate.value)) els.reportFromDate.value = bounds.from;
   if (els.reportToDate && (shouldReset || !els.reportToDate.value)) els.reportToDate.value = bounds.to;
@@ -2817,20 +2817,12 @@ function currentReportFilterScopeKey() {
   ].join("::");
 }
 
-function reportDateBoundsForCurrentPackage() {
-  const records = getReportSourceRecords();
-  const dates = records.flatMap(record => [
-    recordReportDate(record),
-    ...(record.comments || []).flatMap(comment => [
-      commentReportDate(comment, record),
-      ...(comment.activities || []).map(activity => commentReportDate(activity, record))
-    ])
-  ]).filter(Boolean).sort();
-  const today = todayString();
-  const fallback = currentPackage?.shiftDate || today;
-  const from = dates[0] || fallback;
-  const to = today;
-  return { from, to };
+function reportDateBoundsForCurrentMonth(now = new Date()) {
+  const year = now.getFullYear();
+  const month = now.getMonth();
+  const monthText = String(month + 1).padStart(2, "0");
+  const lastDay = String(new Date(year, month + 1, 0).getDate()).padStart(2, "0");
+  return { from: `${year}-${monthText}-01`, to: `${year}-${monthText}-${lastDay}` };
 }
 
 function getReportFilters() {
@@ -3476,8 +3468,7 @@ function reportCountSummary(filters, records) {
   if (filters.type === "hours") {
     const rows = collectHoursReportRows(records, filters);
     const timeEntries = rows.filter(row => row.hours != null && row.hours > 0).length;
-    const total = rows.reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
-    return `${rows.length} selected ${rows.length === 1 ? "record" : "records"} · ${timeEntries} time ${timeEntries === 1 ? "entry" : "entries"} · Total Hours: ${formatHoursInputValue(total) || "0"}`;
+    return `${rows.length} selected ${rows.length === 1 ? "record" : "records"} · ${timeEntries} time ${timeEntries === 1 ? "entry" : "entries"}`;
   }
   if (filters.type === "mds") {
     const rows = collectHoursReportRows(records, filters);
@@ -3658,8 +3649,7 @@ function renderHoursReport(records, filters) {
   const rows = collectHoursReportRows(records, filters);
   if (!rows.length) return `<p class="report-empty">No positive-hour secondary or activity entries are selected for this report. Select one or more entries above, or adjust the date range.</p>`;
   const total = rows.reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
-  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table hours-report-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th>Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td>${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}</tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>
-    <section class="report-section report-total-section"><h3>Cumulative Total Hours</h3><p class="report-total-hours">${escapeHtml(formatHoursInputValue(total))} hrs</p></section>`;
+  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table hours-report-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th class="hours-report-status-heading">Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td class="hours-report-status" data-print-status="${normalizeLegacyStatus(row.comment.status) === "closed" ? "C" : "O"}">${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}<tr class="hours-report-total-row"><th colspan="7" scope="row">Total Hours</th><td><strong>${escapeHtml(formatHoursInputValue(total))}</strong></td><td></td></tr></tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>`;
 }
 
 function renderMdsBillingReport(records, filters) {
