@@ -1,0 +1,19 @@
+SiteScribe Review Console v0.8.32 - Hours Report dates and print layout
+
+Candidate continuing v0.8.31 at the user's request. Not an accepted baseline.
+
+- From and To dates are grouped in the report controls. Opening Reports starts
+  with the first and last days of the current local calendar month. Custom
+  dates remain while the panel is open and reset when it is reopened.
+- The Hours Report header is compact plain metadata without boxed pills.
+- Total Hours appears in the Hours Detail table directly after the final
+  selected record, instead of a detached block. The header summary lists
+  record and time-entry counts without repeating the total.
+- Printed Hours Report status uses St, O and C with an explicit legend. All
+  nine table columns fit a portrait Letter page and long activity text wraps.
+  Full Open and Closed words remain on screen.
+- The report continues to include only positive direct-hour entries; stored
+  records, the MDS report and Hours Excel content are unchanged.
+- index.html updates the visible version and cache markers to v0.8.32.
+
+See VERIFICATION_v0.8.32.txt for checks and limits.

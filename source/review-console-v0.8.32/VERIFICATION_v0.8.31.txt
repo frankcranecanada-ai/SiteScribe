@@ -1,0 +1,20 @@
+SiteScribe Review Console v0.8.31 verification - 2026-11-23
+
+- JavaScript syntax checks pass for the seven first-party app modules and the
+  new regression/browser checks.
+- regression_check_v0.8.31.js verifies positive-hour secondary/activity row
+  eligibility, activity parent context, unchanged MDS selection scope, version
+  markers, duplicate IDs/functions and CSS brace integrity.
+- browser_check_v0.8.31.cjs passes at 390px touch and 1366px desktop. The
+  nine Hours Detail columns have nonzero widths, long activity text stays
+  inside its cell, mobile horizontal swipe remains, and printed text wraps.
+  Zero-hour entries are absent from the picker, table and Excel payload;
+  positive entries total 11.5 hours. An all-zero fixture shows the empty
+  message. No page errors occurred.
+- Synthetic desktop and phone screenshots were inspected. No real site data,
+  Dropbox writes, email or production API calls were used.
+- The inherited browser_check_v0.8.28.cjs passed eight touch viewports and
+  two desktop viewports against v0.8.31, including editor, expense, Save/Back,
+  activity creation, zoom recovery and desktop popup checks.
+
+Physical iPhone Safari behaviour and user acceptance remain pending.

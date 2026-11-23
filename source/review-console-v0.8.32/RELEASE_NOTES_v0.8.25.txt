@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.25
+
+- Matched Lift Estimator's desktop/mobile email handoff after inspecting current LE source c23153b3 (read-only).
+- Desktop Email Report bypasses Windows/native sharing even when supported: downloads the report and requests the default email draft, leaving a visible Open email draft retry link and manual attachment reminder inside Reports.
+- iPhone/Android/iPad keep native file sharing where supported and get an optional draft link afterward. Mobile without file sharing downloads the report and offers the draft link without opening a second app automatically. Cancellation remains non-destructive.
+- Report remains a formatted HTML attachment with clickable Dropbox URLs and existing hierarchy/bold/italics. No recipient chosen, automatic send, Dropbox-file download, backend or credential changes.
+- LE application files and unrelated LE work were not modified.

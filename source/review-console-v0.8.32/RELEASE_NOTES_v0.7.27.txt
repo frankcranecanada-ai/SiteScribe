@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.7.27
+B02 Saved Sites Matches B01 File Information Format
+
+Change
+- A normal B02 Saved Sites row now presents the same compact information hierarchy as a recognized B01 Dropbox site file: the site title and one Content updated line.
+- B02 no longer puts the saved-site date in the normal row title and does not display a records / open / closed summary there.
+- B02 keeps its OPENED badge for the currently opened local site and retains its required local Open, Contacts / Depts, Export, and Delete controls in the compact two-by-two grid.
+
+Scope protection
+- Editing the saved-site title/date remains available through its established edit controls; this change only affects the collapsed normal-row display.
+- No saved-site JSON, Dropbox operation, Parser, record, billing, report, autosave, ordering, or local persistence behavior is changed.

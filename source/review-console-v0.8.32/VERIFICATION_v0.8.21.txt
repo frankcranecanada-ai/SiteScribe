@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.21 verification
+
+- Six first-party JavaScript modules passed syntax checks.
+- v0.8.21 selector/version regression and preceding title/clipboard/movement/Dropbox-style suites passed with historical release markers virtualized for previous tests. v0.8.14 Dropbox exclusion test passed.
+- Older v0.8.13 protected behavioral tests passed except the expected historical version/cache marker assertion.
+- Actual candidate rendered in isolated headless Edge: at 390px and 850px widths, both open/closed activity descriptions computed italic; primary/secondary descriptions and activity date/hour/status elements computed normal. Phone-width screenshot visually inspected.
+- Static DOM IDs/function declarations unique; CSS brace balance valid. Scoped selector affects only B05 activity description text.
+- Nine root deployment files match candidate hashes; deploy ZIP verified flat with nine files; full source ZIP produced.
+- Physical iPhone check and full manual protected-workflow sweep remain pending. No live project data changed during testing.

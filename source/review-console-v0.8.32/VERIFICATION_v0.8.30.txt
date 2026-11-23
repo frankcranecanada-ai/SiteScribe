@@ -1,0 +1,18 @@
+SiteScribe Review Console v0.8.30 verification - 2026-11-23
+
+- Seven first-party app JavaScript modules and new regression/browser checks
+  pass node --check.
+- regression_check_v0.8.30.js passes inherited move, hierarchy, report,
+  Dropbox, PDF and release-structure checks; regression_check_v0.8.14.js passes.
+- browser_check_v0.8.30.cjs passes at 390px touch and 1200px desktop: closed
+  primary, secondary and activity rows have amber backgrounds; closed parent
+  secondaries use a deeper amber; the phone primary tail matches its row.
+  Open rows retain their previous backgrounds. Removing an activity removes
+  the open-parent shade. No page errors occurred.
+- Synthetic phone and desktop screenshots were inspected for legibility and
+  row hierarchy. No real site data, Dropbox writes or email were used.
+- The inherited browser_check_v0.8.28.cjs passes eight touch viewports and
+  two desktop viewports against the v0.8.30 candidate, including editor,
+  expense, Save/Back, activity creation, zoom recovery and popup checks.
+
+Physical iPhone Safari behaviour and user acceptance remain pending.
