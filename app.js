@@ -1,6 +1,7 @@
 /*
-SiteScribe Review Console v0.8.32
+SiteScribe Review Console v0.8.33
 Changes:
+- v0.8.33: Reports display the year on every formatted date, including date ranges, work dates, deliverables, and record timestamps, so printed reports stay unambiguous across months and years.
 - v0.7.32: After a successful UPDATE DROPBOX SITE FILE upload, reuses the verified Dropbox client to force an immediate newest-first list refresh. The result line now explicitly confirms that the refreshed list shows the current Dropbox file, or states that the upload succeeded but the confirmation list could not refresh. Backup-copy behavior is unchanged.
 - v0.7.33: Keeps the protected two-level primary/secondary model while making B05 branches explicit. A primary row opens only its own detail; its small disclosure control alone expands/collapses secondary rows. Opening a secondary shows only that secondary's editor and a light parent reference, never a sibling list.
 - v0.8.15: Moves Email Current Memory and working-copy status into B01 and removes the fixed footer so it cannot cover the secondary or third-level Save controls on iPhone.
@@ -211,7 +212,7 @@ Changes:
 - v0.6.27: Simplifies Load JSON workflow. Import choices are now only Create New Saved Site, Append To Current, and Cancel. Overwrite/replace/matching-site paths are removed.
 - v0.6.24: Hard-fixes Replace Open Site so the active saved-site display name is preserved in record metadata, package data, and the visible active memory after overwrite.
 */
-const APP_VERSION = "v0.8.32";
+const APP_VERSION = "v0.8.33";
 const SITE_WALK_LAYOUT_STORAGE_KEY = "sitescribe_site_walk_layout_v1";
 const SITE_WALK_ORDER_STORAGE_KEY = "sitescribe_site_walk_order_v1";
 const ACTIVE_WORKING_COPY_STORAGE_KEY = "sitescribe_active_working_copy_v1";
@@ -3502,8 +3503,8 @@ function reportSiteName() {
 }
 
 function reportDateRangeLabel(from, to) {
-  if (from && to && from !== to) return `${formatShortDate(from)} to ${formatShortDate(to)}`;
-  if (from || to) return formatShortDate(from || to);
+  if (from && to && from !== to) return `${formatReportDate(from)} to ${formatReportDate(to)}`;
+  if (from || to) return formatReportDate(from || to);
   return "All dates";
 }
 
@@ -3649,7 +3650,7 @@ function renderHoursReport(records, filters) {
   const rows = collectHoursReportRows(records, filters);
   if (!rows.length) return `<p class="report-empty">No positive-hour secondary or activity entries are selected for this report. Select one or more entries above, or adjust the date range.</p>`;
   const total = rows.reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
-  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table hours-report-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th class="hours-report-status-heading">Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td class="hours-report-status" data-print-status="${normalizeLegacyStatus(row.comment.status) === "closed" ? "C" : "O"}">${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}<tr class="hours-report-total-row"><th colspan="7" scope="row">Total Hours</th><td><strong>${escapeHtml(formatHoursInputValue(total))}</strong></td><td></td></tr></tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>`;
+  return `<section class="report-section hours-detail-section"><h3>Hours Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="Hours detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table hours-report-table"><thead><tr><th>Date</th><th>Category</th><th>Primary Record</th><th>Secondary Record</th><th>Activity / Direct Entry</th><th>Start Time</th><th>End Time</th><th>Total Hours</th><th class="hours-report-status-heading">Status</th></tr></thead><tbody>${rows.map(row => `<tr><td>${escapeHtml(formatReportDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(categoryLabel(row.record.category))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableSecondaryTitle(row)}</td><td>${renderReportTableActivityTitle(row)}${renderDeliverableReportLine(row.comment)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${row.hours != null && row.hours > 0 ? escapeHtml(formatHoursInputValue(row.hours)) : "0"}</td><td class="hours-report-status" data-print-status="${normalizeLegacyStatus(row.comment.status) === "closed" ? "C" : "O"}">${escapeHtml(statusLabel(row.comment.status))}</td></tr>`).join("")}<tr class="hours-report-total-row"><th colspan="7" scope="row">Total Hours</th><td><strong>${escapeHtml(formatHoursInputValue(total))}</strong></td><td></td></tr></tbody></table></div><p class="report-hours-note">Totals use direct hours only. Parent totals are calculated in reports and are never written back into records.</p></section>`;
 }
 
 function renderMdsBillingReport(records, filters) {
@@ -3663,8 +3664,8 @@ function renderMdsBillingReport(records, filters) {
   const regular = billableRows.filter(row => commentBillingType(row.comment) === "regular").reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
   const overtime = billableRows.filter(row => commentBillingType(row.comment) === "overtime").reduce((sum, row) => sum + (Number(row.hours) || 0), 0);
   const expenses = expenseTotalsByCurrency(expenseRows);
-  const rowsHtml = billableRows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(commentBillingType(row.comment) === "regular" ? "Regular" : "Overtime")}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableEntryTitle(row)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${escapeHtml(formatHoursInputValue(row.hours))}</td></tr>`).join("");
-  const expenseHtml = expenseRows.length ? `<section class="report-section hours-detail-section"><h3>MDS Expenses</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="MDS expense detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Work Date</th><th>Expense Type</th><th>Primary Record</th><th>Description</th><th>Amount</th><th>Currency</th></tr></thead><tbody>${expenseRows.map(row => `<tr><td>${escapeHtml(formatShortDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(expenseTypeLabel(row.comment.expenseType))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableEntryTitle(row)}</td><td>${escapeHtml(formatCurrency(expenseAmountForComment(row.comment), expenseCurrencyForComment(row.comment)))}</td><td>${escapeHtml(expenseCurrencyForComment(row.comment))}</td></tr>`).join("")}</tbody></table></div></section>` : "";
+  const rowsHtml = billableRows.map(row => `<tr><td>${escapeHtml(formatReportDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(commentBillingType(row.comment) === "regular" ? "Regular" : "Overtime")}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableEntryTitle(row)}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.startTime) || "-")}</td><td>${escapeHtml(normalizeReportTimeValue(row.comment.endTime) || "-")}</td><td>${escapeHtml(formatHoursInputValue(row.hours))}</td></tr>`).join("");
+  const expenseHtml = expenseRows.length ? `<section class="report-section hours-detail-section"><h3>MDS Expenses</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="MDS expense detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Work Date</th><th>Expense Type</th><th>Primary Record</th><th>Description</th><th>Amount</th><th>Currency</th></tr></thead><tbody>${expenseRows.map(row => `<tr><td>${escapeHtml(formatReportDate(row.date) || row.date || "not stated")}</td><td>${escapeHtml(expenseTypeLabel(row.comment.expenseType))}</td><td><strong class="report-primary-title">${escapeHtml(row.record.description || "Untitled record")}</strong></td><td>${renderReportTableEntryTitle(row)}</td><td>${escapeHtml(formatCurrency(expenseAmountForComment(row.comment), expenseCurrencyForComment(row.comment)))}</td><td>${escapeHtml(expenseCurrencyForComment(row.comment))}</td></tr>`).join("")}</tbody></table></div></section>` : "";
   const untaggedNote = untaggedRows.length ? `<p class="report-hours-note">${untaggedRows.length} selected ${untaggedRows.length === 1 ? "hour block is" : "hour blocks are"} untagged and will be excluded from the MDS workbook.</p>` : "";
   const labourHtml = billableRows.length ? `<section class="report-section hours-detail-section"><h3>MDS Labour Detail</h3><div class="report-table-scroll hours-detail-scroll" tabindex="0" aria-label="MDS billing detail table. Scroll horizontally if needed."><table class="report-table hours-detail-table"><thead><tr><th>Date</th><th>Type</th><th>Primary Record</th><th>Secondary Record</th><th>Start Time</th><th>End Time</th><th>Hours</th></tr></thead><tbody>${rowsHtml}</tbody></table></div>${untaggedNote}</section>` : untaggedNote;
   return `${labourHtml}${expenseHtml}<section class="report-section report-total-section"><h3>MDS Billing Totals</h3><p class="report-total-hours">Reg ${escapeHtml(formatHoursInputValue(regular) || "0")} hrs · OT ${escapeHtml(formatHoursInputValue(overtime) || "0")} hrs · Labour Total ${escapeHtml(formatHoursInputValue(regular + overtime) || "0")} hrs · Expenses ${escapeHtml(formatCurrency(expenses.CAD, "CAD"))} CAD · ${escapeHtml(formatCurrency(expenses.USD, "USD"))} USD</p><p class="report-hours-note">Export MDS Excel creates one Saturday–Friday timesheet tab for each covered week, plus a final Expenses Summary tab.</p></section>`;
@@ -3698,7 +3699,7 @@ function renderReportRecordItem(record, options = {}) {
   const updateHtml = updates.length ? renderReportSecondaryTree(updates, record, filters) : "";
   const primarySelected = record.__reportPrimarySelected !== false;
   const primaryMeta = primarySelected
-    ? `Primary Record · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatShortDate(recordReportDate(record)) || "not stated")} · ${escapeHtml(statusLabel(record.status))}`
+    ? `Primary Record · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatReportDate(recordReportDate(record)) || "not stated")} · ${escapeHtml(statusLabel(record.status))}`
     : "Primary Record context for selected secondary records";
   return `<li><strong class="report-primary-title">${escapeHtml(record.description || "Untitled record")}</strong><div class="report-meta">${primaryMeta}</div>${primarySelected ? renderDeliverableReportLine(record) : ""}${flagHtml}${updateHtml}</li>`;
 }
@@ -3737,7 +3738,7 @@ function renderReportSecondaryItem(comment, record, children = "") {
   const kind = activity ? "Activity Record" : "Secondary Record";
   const text = escapeHtml(comment.text || (activity ? "Untitled activity record" : "Untitled secondary update"));
   const title = activity ? `<em class="report-activity-title">${text}</em>` : `<span class="report-secondary-title${(comment.activities || []).length || children ? " has-activities" : ""}">${text}</span>`;
-  return `<li class="${activity ? "report-activity-item" : "report-secondary-item"}">${title}<div class="report-meta">${kind} · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatShortDate(commentReportDate(comment, record)) || "not stated")} · ${escapeHtml(statusLabel(comment.status))}</div>${renderDeliverableReportLine(comment)}${renderReportCommentTimeBlock(comment)}${renderReportCommentTimestamp(comment, record)}${children}</li>`;
+  return `<li class="${activity ? "report-activity-item" : "report-secondary-item"}">${title}<div class="report-meta">${kind} · ${escapeHtml(categoryLabel(record.category))} · ${escapeHtml(formatReportDate(commentReportDate(comment, record)) || "not stated")} · ${escapeHtml(statusLabel(comment.status))}</div>${renderDeliverableReportLine(comment)}${renderReportCommentTimeBlock(comment)}${renderReportCommentTimestamp(comment, record)}${children}</li>`;
 }
 
 function renderReportFlagItem(flag, record) {
@@ -3829,9 +3830,9 @@ function reportCommentTimestampLabel(comment, parentRecord) {
   const updated = comment?.updatedAt || "";
   const closed = comment?.closedAt || "";
   const parts = [];
-  if (created) parts.push(`Created ${formatShortDateTime(created)}`);
-  if (updated && updated !== created) parts.push(`Updated ${formatShortDateTime(updated)}`);
-  if (closed) parts.push(`Closed ${formatShortDateTime(closed)}`);
+  if (created) parts.push(`Created ${formatReportDateTime(created)}`);
+  if (updated && updated !== created) parts.push(`Updated ${formatReportDateTime(updated)}`);
+  if (closed) parts.push(`Closed ${formatReportDateTime(closed)}`);
   return parts.join(" · ");
 }
 
@@ -3912,7 +3913,7 @@ function hoursReportSecondaryCellText(comment) {
   const parts = [String(comment?.text || "Untitled update").trim() || "Untitled update"];
   if (deliverableApplies(comment)) {
     const deliverable = normalizeDeliverable(comment.deliverable);
-    parts.push(`Deliverable: ${formatShortDate(deliverable.date)} · ${deliverableStatusForDate(deliverable.date).toUpperCase()}`);
+    parts.push(`Deliverable: ${formatReportDate(deliverable.date)} · ${deliverableStatusForDate(deliverable.date).toUpperCase()}`);
   }
   return parts.join("\n");
 }
@@ -7875,7 +7876,7 @@ function renderDeliverableReportLine(item) {
   if (!deliverableApplies(item)) return "";
   const d = normalizeDeliverable(item.deliverable);
   const status = deliverableStatusForDate(d.date);
-  return `<div class="report-meta report-deliverable-line">Deliverable: ${escapeHtml(formatShortDate(d.date))} · ${escapeHtml(status.toUpperCase())}</div>`;
+  return `<div class="report-meta report-deliverable-line">Deliverable: ${escapeHtml(formatReportDate(d.date))} · ${escapeHtml(status.toUpperCase())}</div>`;
 }
 
 function renderDeliverableEditor(item, prefix, locked = false, compact = false) {
@@ -7953,7 +7954,17 @@ function formatShortDateTime(value) {
   return [datePart, timePart].filter(Boolean).join(" · ") || "not stated";
 }
 
-function formatShortDate(value) {
+function formatReportDate(value) {
+  return formatShortDate(value, true);
+}
+
+function formatReportDateTime(value) {
+  const datePart = formatReportDate(value);
+  const timePart = formatShortTime(value);
+  return [datePart, timePart].filter(Boolean).join(" · ") || "not stated";
+}
+
+function formatShortDate(value, includeYear = false) {
   if (!value) return "";
   const text = String(value);
   const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
@@ -7962,7 +7973,7 @@ function formatShortDate(value) {
   else date = new Date(text);
   if (Number.isNaN(date.getTime())) return text;
   const currentYear = new Date().getFullYear();
-  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", ...(date.getFullYear() !== currentYear ? { year: "numeric" } : {}) });
+  return date.toLocaleDateString(undefined, { month: "short", day: "numeric", ...(includeYear || date.getFullYear() !== currentYear ? { year: "numeric" } : {}) });
 }
 
 function formatShortTime(value) {
