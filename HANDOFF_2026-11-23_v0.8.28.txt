@@ -1,0 +1,274 @@
+SITESCRIBE (SS) - CHAT HANDOFF
+Prepared: November 23, 2026 (America/Toronto)
+Purpose: Continue this project in a new local or cloud Codex chat without
+reconstructing the long conversation or confusing historical source copies.
+
+1. VERIFIED CURRENT STATE
+
+Repository: https://github.com/frankcranecanada-ai/SiteScribe
+Branch: main
+Application version: v0.8.28
+Application release commit: 6e891c4414c87fa4d010ed1cfe60026c2acc4b02
+Commit subject: Fix mobile expense layout and add full-screen record editor
+Release date: November 20, 2026
+Deployment: successful GitHub Actions FTP deployment, rechecked November 23.
+Deployment record:
+https://github.com/frankcranecanada-ai/SiteScribe/actions/runs/44807996349
+Live app: https://www.ecrinc.ca/sitescribe/
+
+At handoff preparation, the local branch matched origin/main and the worktree
+was clean. Subsequent documentation-only commits may have a newer SHA without
+changing the application version. Inspect the actual checkout before working.
+
+Current candidate source: source/review-console-v0.8.28/
+Local authoritative clone used in this conversation:
+C:\Users\ECR1\Desktop\claude code\sitescribe
+
+Other folders appeared in the original desktop workspace, including
+C:\Users\ECR1\Documents\SiteScribe and an older Desktop/ALL APPS deployment
+folder. Do not assume those folders are the current source. In cloud, use the
+cloned GitHub repository and its actual environment path, not a Windows path.
+
+Read AGENTS.md in full. It remains binding:
+- The last formally user-accepted baseline is v0.7.33.
+- v0.8.28 is the current deployed candidate, NOT a newly accepted baseline.
+- Do not mark it accepted without explicit user confirmation.
+- The recent user-directed work continued the v0.8 candidate line. Use this
+  handoff as continuation context; do not silently revert to v0.7.18 or v0.7.33.
+  Respect AGENTS.md's approval requirement for unrelated new releases.
+- For an authorized follow-up change, copy the relevant candidate to a NEW
+  versioned source folder. Never edit an existing archived candidate in place.
+- Root web files are a tested deployment mirror, not source authority.
+
+START_HERE.md, CURRENT_STATE.md, DEVELOPMENT_AND_RELEASE.md and the original
+CODEX_STARTER_PROMPT.md contain migration-era v0.7.18/two-level/nine-file
+statements. They are useful historical context, not the current release facts.
+Do not restart that old performance investigation automatically. Consult the
+current AGENTS.md, this handoff, and the current release notes/evidence.
+
+2. USER'S WORKING PREFERENCES
+
+- A QUESTION asks for an answer, not permission to perform the proposed action.
+  The user explicitly corrected this earlier. Act on clear directives; do not
+  interpret "can we...?" or "are you able...?" as an implementation request.
+- Keep the UI compact and calm: small visible pills/grips, hover help on desktop,
+  lightly visible touch grips, and adequate actual touch areas.
+- Preserve data and existing behaviour; explain diagnoses before repair edits.
+- GitHub is the code authority. Verify changes before committing/pushing.
+- Never automatically email, change operational records, or modify real Dropbox
+  files just to test a feature.
+- Do not silently broaden a review/diagnosis into implementation or deployment.
+
+3. MOST RECENT REQUESTS AND COMPLETED WORK (v0.8.28)
+
+The user requested a thorough iPhone display review, then explicitly directed:
+- Fix landscape Expense editors whose controls/Save were off-screen.
+- Make touch targets larger without making the display busy.
+- Change the mobile record popup to a full-screen editor.
+
+Diagnosis:
+- The old time editor had five fixed columns plus an auto sixth Expense column.
+  Expense added roughly 340 px and widened the entire detail card. Save,
+  Currency, Expense Type and Add Activity could move off-screen in landscape.
+- The detail card allowed vertical touch panning only, limiting pinch gestures.
+- The empty invisible toast notification could intercept a lower-right OPEN tap.
+
+Implemented:
+- Expense fields now occupy a bounded, separate grid row. No implicit sixth
+  column; time/expense grids cannot widen the detail card.
+- Touch OPEN/COPY boxes are at least 44 x 36 CSS px; their visible oval faces
+  stay 22 px high. Grips are 28 x 32; branch toggles are 32 x 32. Actual boxes
+  reserve space instead of invisible overlapping hit areas. Primary mobile
+  date/COPY/OPEN visuals remain at the end of the second description line.
+- Touch configuration and saved-site/Dropbox row buttons have 32 px minimum
+  touch heights. Report filter labels have more vertical touch room.
+- At touch viewport widths up to 1024 px, primary, secondary and activity
+  editors fill the screen. A sticky header keeps Back reachable while scrolling.
+- Mobile detail uses touch-action: pan-y pinch-zoom. The viewport meta tag does
+  not disable user scaling. Desktop retains its popup and Close label.
+- Back reuses the existing explicit-close/commit handler. This is a responsive
+  full-screen presentation, not a new URL/router or browser-history screen.
+  Do not promise that Back saves a genuinely new, not-yet-added record.
+- Non-interactive toast messages are click-through, visible or hidden.
+
+App files changed: styles.css, index.html and version strings in app.js.
+app.js otherwise matches v0.8.27. No storage, record, import, Dropbox, parser,
+report/PDF, drag-handler or data-schema logic was changed by this release.
+The new candidate, regression/browser tests and evidence are checked into Git.
+
+4. VERIFIED TESTS AND REMAINING ACCEPTANCE
+
+Tracked evidence under source/review-console-v0.8.28/:
+- RELEASE_NOTES_v0.8.28.txt
+- VERIFICATION_v0.8.28.txt
+- BROWSER_RESULTS_v0.8.28.json
+- regression_check_v0.8.28.js
+- browser_check_v0.8.28.cjs
+
+Completed November 20:
+- Seven first-party JS modules and focused tests passed syntax checks.
+- Focused/inherited regressions passed: moves/promotion/locks, hierarchy/copy,
+  title editing, report order/totals, PDF email handoff, and LE-file exclusion.
+- No duplicate static DOM IDs/named app functions; CSS braces balanced.
+- Eight touch sizes plus two desktop sizes passed 60 primary/secondary/activity
+  REG/Expense combinations. Save/Back/Close, expense fields and Add Activity
+  were reachable without horizontal editor overflow.
+- Actual emulated touch taps in the added padding correctly activated OPEN,
+  COPY and branch toggles. A deliberately overlaid toast did not steal taps.
+- Secondary Save, inline activity creation and existing activity commit through
+  Back passed. Background scroll lock released on Back.
+- Forced 2x visual viewport zoom, rotation and reset recovered successfully.
+- Independent six-size display sweep of main/B01, all three record editors,
+  Reports, Contacts, Config, parser entry and import choices found zero blocked
+  or clipped controls and zero page errors. Report bottom and table horizontal
+  scrolling remained reachable; one main vertical report scrollbar.
+- Source/root hashes and flat 14-file deployment package checked.
+
+LIMITATIONS - DO NOT OVERSTATE:
+- These are Edge/Chromium touch-emulation results, NOT physical iPhone Safari.
+- Genuine Safari pinch gestures, keyboard/automatic focus zoom and native
+  iPhone drag behaviour still need the user's confirmation.
+- The user has not yet reported acceptance or an iPhone result for v0.8.28.
+- No real emails, real Dropbox writes or private production API calls were used.
+
+The last user-facing release instruction was to refresh SS, verify v0.8.28,
+and try landscape Expense entry and pinch zoom on the actual iPhone.
+
+5. RECENT FEATURES TO PRESERVE
+
+- Primary -> Secondary -> Activity is a strictly capped three-level tree.
+- B05 primary/secondary row bodies toggle their children. Explicit OPEN pills
+  open the chosen editor; activity rows open their own activity.
+- Grip-based drag/move/reorder uses destination highlighting/insertion lines.
+  A secondary can become an activity under another secondary; an activity can
+  be promoted back to a secondary. Locks and fourth-level guards apply.
+- Secondary titles with activities are lightly bold; activity descriptions are
+  italic. Report selection and output preserve hierarchy/indentation/emphasis,
+  including parent context when only children are selected.
+- Copy Record includes the primary, secondaries and indented activities.
+- Primary title editing is inside the opened primary record, with Save/Cancel.
+- New secondary/activity billing defaults to REG. Existing values are preserved.
+- Work Date uses a stored work date, falling back to record creation when absent.
+  Opening an older entry must not stamp today's date into it. New entries can
+  default to today. Start/End take typed 24-hour text; hours display HH:MM while
+  stored hours remain decimal and direct-only.
+- The old fixed Email footer was removed because it blocked iPhone Save.
+  Email Current Memory/status are in B01. Do not restore a blocking footer.
+- UPDATE DROPBOX SITE FILE has a green outline. Stable-file update and dated
+  backup copy are separate operations. Brief hover help replaces the long
+  instructional paragraph. B02 saved-site rows remain compact.
+- Dropbox listing ignores le-initial-sms-receipts-v1.json, an LE flag file, but
+  retains legitimate SiteScribe JSONs and genuine unrecognized-file diagnostics.
+- Email PDF generates a real linked PDF directly (no print-to-PDF step).
+  Dropbox links remain clickable. Desktop follows the LE-style download plus
+  email-draft handoff; attachment remains a deliberate user action. Supported
+  mobile browsers can share the PDF. No automatic email sending occurs.
+
+6. SAFETY AND DATA CONTRACT
+
+Full details are in AGENTS.md and REGRESSION_CHECKLIST.md. In particular:
+- Preserve sourceText and legacy imports. Discard attempted fourth levels.
+- Hours/expenses remain direct-only. Parent totals are report calculations,
+  never copied into stored parent hours.
+- Closed records/ancestors lock editing until deliberately reopened.
+- Import must retain Create New / Append / Cancel and never silently overwrite.
+- Site contacts remain site-owned; copies are independent, not a global master.
+- Explicit Back/Close exits panels. Shaded backdrops must not dismiss editors.
+- No unsolicited email, notifications, deletion or operational decisions.
+- Some metadata still says two-level-records-with-record-flags. That string is
+  known stale metadata, NOT a directive to remove the activity level.
+- Review Console includes a parser-intake feature/shared parser core. The
+  separately retained Parser Lite client is not a new dependency to redeploy
+  during normal Review Console work. Do not touch production parser server/key
+  files, API keys, Dropbox auth, redirect, naming or MDS billing metadata without
+  explicit authorization. Do not commit private data or credentials.
+
+7. DEPLOYMENT AND RELEASE PACKAGES
+
+Workflow: .github/workflows/deploy-sitescribe.yml
+Pushes to main that change the workflow or listed root web files trigger the
+production FTP deployment. A manual trigger also exists. Supporting files are
+uploaded/verified first; index.html is uploaded/verified last.
+
+The complete flat deployment contains these 14 files, at one directory level:
+app.js
+dropbox-sync-proof.js
+exceljs.min.js
+index.html
+sitescribe-parser-core.js
+sitescribe-add-data.js
+sitescribe-hours-excel.js
+sitescribe-mds-excel.js
+styles.css
+sitescribe-report-pdf.js
+pdfmake.min.js
+vfs_fonts.js
+pdfmake.LICENSE.txt
+Roboto.LICENSE.txt
+
+Do not mix releases or omit the PDF dependencies. Do not replace the production
+parser server or shared Dropbox callback as part of this Review Console package.
+Workflow credentials are GitHub repository secrets; never put values in chat,
+handoffs, commits or source. Inspect the workflow for the secret names if needed.
+
+Locally generated packages (artifacts/ is Git-ignored):
+artifacts/SiteScribe_Review_Console_v0.8.28_Mobile_Editor_Deployable.zip
+artifacts/SiteScribe_Review_Console_v0.8.28_Mobile_Editor_Source.zip
+
+Local screenshots and broad audit harness/results are under work/iphone-v0.8.28/
+and work/iphone_display_audit.cjs. work/ is ignored; do not assume those files
+exist in a new cloud clone. The focused browser test and its JSON evidence are
+tracked in the candidate folder and can be used to reproduce the key checks.
+
+8. TEST COMMANDS / LOCAL RUNTIME
+
+Run from source/review-console-v0.8.28/:
+node --check app.js
+node --check dropbox-sync-proof.js
+node --check sitescribe-parser-core.js
+node --check sitescribe-add-data.js
+node --check sitescribe-hours-excel.js
+node --check sitescribe-mds-excel.js
+node --check sitescribe-report-pdf.js
+node regression_check_v0.8.28.js
+node regression_check_v0.8.14.js
+node browser_check_v0.8.28.cjs
+
+Use a modern Node runtime supporting global File/Blob (Node 20+). Browser tests
+need Playwright and a browser. They accept SITESCRIBE_PLAYWRIGHT_MODULE (module
+name or absolute path) and SITESCRIBE_CHROMIUM (browser executable path).
+Do not blindly reuse Windows paths in cloud; inspect/install the cloud tools.
+
+Windows runtime used successfully in this chat:
+C:\Users\ECR1\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe
+Playwright module:
+C:/Users/ECR1/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright
+Browser executable:
+C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe
+
+The browser test serves local candidate files, blocks non-local network calls,
+and uses synthetic data/isolated browser storage. Keep this testing isolation.
+
+9. IMMEDIATE NEXT CONTEXT - CLOUD ACCESS
+
+The user's latest question was how to make this workspace accessible from
+elsewhere. Explanation provided: committed code is already on GitHub; create a
+reusable Codex Cloud environment for this repository to work from web/mobile/
+other devices. A cloud task gets its own working copy; local Desktop files,
+uncommitted work, browser-saved SS data and browser sign-ins do not transfer
+automatically. Keep source in GitHub and private site JSONs in their intended
+Dropbox/storage location. Do not upload customer data just to populate cloud.
+
+No cloud environment has been created or migrated in this conversation.
+The user asked for THIS HANDOFF and a fresh-chat prompt before doing that.
+Do not create an environment, move folders or implement another feature merely
+because this handoff mentions those possibilities. Answer setup questions;
+perform setup only on the user's explicit directive.
+
+Suggested new-chat starting point:
+- Read AGENTS.md, this handoff and the current release notes/verification.
+- Confirm checkout, version and git status; identify missing cloud dependencies.
+- State that actual iPhone acceptance remains pending.
+- Wait for the next concrete instruction. Do not launch a new repair/deploy.
+
+END OF HANDOFF

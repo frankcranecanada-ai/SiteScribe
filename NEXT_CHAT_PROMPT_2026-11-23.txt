@@ -1,0 +1,45 @@
+Continue my SiteScribe (SS) project from the current GitHub repository:
+https://github.com/frankcranecanada-ai/SiteScribe
+
+First read these files completely:
+1. AGENTS.md
+2. HANDOFF_2026-11-23_v0.8.28.txt
+3. source/review-console-v0.8.28/RELEASE_NOTES_v0.8.28.txt
+4. source/review-console-v0.8.28/VERIFICATION_v0.8.28.txt
+5. REGRESSION_CHECKLIST.md
+
+Inspect the actual repository checkout, git status and release version before
+doing anything else. The application release is v0.8.28, commit
+6e891c4414c87fa4d010ed1cfe60026c2acc4b02, deployed successfully November 20.
+There may be newer documentation-only commits; do not mistake them for a new
+application release. Source is source/review-console-v0.8.28/; root files mirror
+deployment. Do not use an old Desktop folder or restart the obsolete v0.7.18
+migration prompt. Respect the baseline/candidate distinction in AGENTS.md;
+v0.8.28 has not yet been explicitly accepted by me.
+
+The latest completed work fixed off-screen landscape Expense controls,
+enlarged touch targets while keeping the UI quiet, made mobile record editors
+full-screen with a persistent Back button, allowed pinch zoom, and prevented
+toast notifications from stealing taps. Desktop keeps its popup. Emulated
+phone tests passed; genuine iPhone Safari pinch/keyboard/native drag still
+need my confirmation. Do not claim physical-iPhone validation.
+
+Preserve the Primary -> Secondary -> Activity depth cap, direct-only hours,
+stored work dates, locked closed records, safe import choices, report hierarchy,
+clickable Dropbox links in generated PDFs, site-owned contacts and no automatic
+email sending. Never expose credentials or modify real Dropbox/customer data
+to test the UI.
+
+We are considering a Codex Cloud environment so I can access the project from
+other devices. No environment has been created yet. If this is a cloud chat,
+use its actual clone path and available tools; Windows local runtime paths,
+ignored ZIPs/screenshots and private site JSONs will not automatically exist.
+Use GitHub as code authority; do not treat cloud setup as a site-data migration.
+
+For this first response, only confirm the version, source, checkout status and
+remaining iPhone/cloud setup items. Do not edit, commit, push, deploy, move files
+or create an environment. Then wait for my next instruction.
+
+Important: questions ask for answers, not automatic implementation. Perform
+changes only when I give a clear directive. Authorized later changes must use
+a new versioned candidate folder and the required verification/release process.
