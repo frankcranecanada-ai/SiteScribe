@@ -1,0 +1,28 @@
+SiteScribe Review Console v0.8.28 - Mobile editor and touch access
+
+Candidate continuing v0.8.27 at the user's request. Not a newly accepted baseline.
+
+- Expense controls occupy a separate, bounded grid row. Selecting Expense no
+  longer widens the secondary/activity editor or pushes Save/Add Activity off
+  the screen in landscape. Applies to all three detail-entry contexts.
+- Touch B05 OPEN/COPY hit boxes are at least 44 x 36 CSS px while their oval
+  faces remain 22 px high. Six-dot grips are 28 x 32; branch controls are
+  32 x 32. Glyphs and lettering retain their compact appearance. Actual boxes
+  reserve space, rather than overlapping neighbouring controls invisibly.
+- Touch configuration buttons and saved-site/Dropbox row buttons receive
+  32 px minimum heights. Report filter labels remain fully clickable, with
+  additional vertical touch room. Desktop touch-target styling is unchanged.
+- At touch viewport widths up to 1024 px, primary, secondary and activity
+  detail use the full screen. A sticky header keeps Back accessible while
+  scrolling. Desktop retains the established popup and Close label.
+- Mobile detail permits both vertical scrolling and browser pinch zoom.
+  Back invokes the existing explicit-close/commit handler. No browser history
+  or automatic sending/deletion behaviour was added.
+- Non-interactive toast notifications are click-through. Even the empty hidden
+  toast box previously intercepted an OPEN pill in some scrolled positions.
+- App/data/storage/import/Dropbox/report/PDF/drag handlers are unchanged.
+  app.js differs from v0.8.27 only in its two release-version strings.
+
+Verification: regression_check_v0.8.28.js and browser_check_v0.8.28.cjs.
+Physical iPhone Safari pinch, keyboard and native drag still require user
+confirmation. Do not confuse emulation success with physical-device acceptance.

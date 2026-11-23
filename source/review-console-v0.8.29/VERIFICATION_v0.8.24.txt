@@ -1,0 +1,10 @@
+SiteScribe Review Console v0.8.24 verification
+
+- Six first-party JavaScript modules plus focused test passed syntax checks.
+- v0.8.24 live-code tests passed: Dropbox parameters/fragments and surrounding punctuation, multiple/plain/www URLs, rejection of unsafe protocols and credential URLs, HTML-file export, native-share path, unsupported/failed-share fallback, AbortError cancellation, disabled/empty-state guards and button re-enabling.
+- Prior hierarchy/picker/title/clipboard/drag/style suites passed with historical release-marker expectations virtualized. v0.8.14 Dropbox exclusion test passed; legacy v0.8.13 retains its documented version/fixed-row-class static failures with behavioral checks passing.
+- Actual candidate browser test at 390px/1200px: URLs preserved, linkification idempotent, new links use noopener/noreferrer, no injected scripts. Two links retained in print clone, copied HTML and parsed email attachment; nested italic activity link preserved.
+- Mocked native share invoked through the actual Email Report button and produced one text/html file. Records unchanged. No real share sheet, email app, clipboard, production file fetch, or send was invoked during tests.
+- Physical iPhone Mail/share handoff and recipient attachment opening remain unverified; browser/file-share support varies. Fallback requires manually attaching the downloaded report.
+- Static DOM IDs/function declarations unique; CSS braces balanced. Email Report label kept on one line.
+- Root nine files match candidate SHA-256 hashes; flat nine-file deploy ZIP verified and full source ZIP produced.

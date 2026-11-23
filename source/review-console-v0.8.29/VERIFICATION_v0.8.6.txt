@@ -1,0 +1,14 @@
+SiteScribe Review Console v0.8.6 verification
+
+Automated checks
+- node --check, focused regression, duplicate function/ID checks, and CSS brace check passed.
+- Protected parser, import, report, Dropbox, branch-click, and inline-activity checks remain passing.
+
+Focused browser test
+- Choosing a saved-prompt placeholder opens the prototype.
+- Choosing None hides it again.
+- No prompt is loaded, saved, generated, or sent; no API/data-transfer path exists.
+
+Packaging checks
+- Root deploy files refreshed from v0.8.6 after confirming they matched v0.8.5.
+- Deployable ZIP is flat and contains exactly the required nine web files.

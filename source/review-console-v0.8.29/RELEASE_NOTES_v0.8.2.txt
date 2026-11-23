@@ -1,0 +1,15 @@
+SiteScribe Review Console v0.8.2
+Inline Activity Entry
+
+Changes
+- Opening a secondary record now keeps its editor in place and shows an Add Activity Record section beneath it.
+- The activity entry has its own text box plus Start, End, Hours, Work Date, Billing, Expense, Currency, Expense Type, and Deliverable controls.
+- Add Activity saves the new third-level record directly under the open secondary and leaves the operator on that secondary screen, ready for the next activity.
+- The prior Add Activity navigation pill is removed.
+
+Protected behavior retained
+- Three-level cap: Primary > Secondary > Activity only.
+- Existing activity detail editing, closed-record locks, reporting, sourceText, import protections, Dropbox protections, and draft-only communications.
+
+Candidate status
+- Test candidate only. It is not an accepted baseline until user testing and explicit approval.
