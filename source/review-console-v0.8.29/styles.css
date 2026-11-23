@@ -4722,10 +4722,13 @@ button.danger:hover { background: #fff1f1; }
 }
 
 /* v0.8.29: a secondary that owns activities reads as a parent row in B05.
-   Keep leaf activities and subdued closed rows on their existing backgrounds. */
+   Keep leaf activities unchanged and closed parents visibly subdued. */
 #siteWalkB05 .secondary-record-line.has-activity-records:not(.activity-record-line):not(.closed) {
   background: #eaf2fb;
 }
 #siteWalkB05 .secondary-record-line.has-activity-records:not(.activity-record-line):not(.closed):hover {
   background: #e0ecf9;
+}
+#siteWalkB05 .secondary-record-line.has-activity-records.closed:not(.activity-record-line) {
+  background: #e9eef4;
 }

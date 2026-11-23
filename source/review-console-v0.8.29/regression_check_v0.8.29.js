@@ -26,6 +26,7 @@ assert.match(css,/#recordsRoot \.record-drag-grip\s*\{\s*width: 28px;\s*min-heig
 for(const token of ['min-height: 36px','inset: 7px 0','height: 100dvh','position: sticky','.detail-back-label'])assert(css.includes(token),token);
 assert.match(css, /#siteWalkB05 \.secondary-record-line\.has-activity-records:not\(\.activity-record-line\):not\(\.closed\)\s*\{\s*background: #eaf2fb;/);
 assert.match(css, /#siteWalkB05 \.secondary-record-line\.has-activity-records:not\(\.activity-record-line\):not\(\.closed\):hover\s*\{\s*background: #e0ecf9;/);
+assert.match(css, /#siteWalkB05 \.secondary-record-line\.has-activity-records\.closed:not\(\.activity-record-line\)\s*\{\s*background: #e9eef4;/);
 assert.match(app, /classes: `secondary-record-line\$\{activityCount \? " has-activity-records" : ""\}`/);
 for(const match of html.matchAll(/(?:styles\.css|app\.js|dropbox-sync-proof\.js)\?v=([^" ]+)/g))assert.equal(match[1],'0.8.29');
 assert.match(html,/<title>SiteScribe Review Console v0\.8\.29<\/title>/);

@@ -4,8 +4,9 @@ Candidate continuing v0.8.28 at the user's request. Not an accepted baseline.
 
 - In B05 Working Memory, an open secondary row with activity children has a
   light blue background. Hover deepens the shade slightly.
-- Secondary rows without children, activity rows and closed rows retain their
-  existing backgrounds. The existing bold title and disclosure control remain.
+- Closed secondary rows with children receive a subdued gray-blue shade.
+  Secondary rows without children and activity rows retain their backgrounds.
+  The existing bold title and disclosure control remain.
 - No record rendering, stored data, import, Dropbox, email, report, PDF or drag
   behaviour changed. app.js differs from v0.8.28 only in version strings.
 - index.html updates the visible version and cache markers to v0.8.29.

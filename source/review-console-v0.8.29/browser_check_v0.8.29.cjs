@@ -53,7 +53,7 @@ const server = http.createServer((request, response) => {
       assert.equal(await color(parent), 'rgb(234, 242, 251)');
       assert.equal(await color(leaf), 'rgb(248, 251, 255)');
       assert.equal(await color(activity), 'rgb(248, 251, 255)');
-      assert.equal(await color(closed), 'rgb(246, 247, 249)');
+      assert.equal(await color(closed), 'rgb(233, 238, 244)');
       fs.mkdirSync(proofDir, { recursive: true });
       await page.locator('#siteWalkB05').screenshot({ path: path.join(proofDir, `b05-${width}.png`) });
       await parent.hover();

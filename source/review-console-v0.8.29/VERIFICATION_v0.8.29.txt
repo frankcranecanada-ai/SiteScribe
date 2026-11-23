@@ -6,8 +6,9 @@ SiteScribe Review Console v0.8.29 verification - 2026-11-23
   Dropbox, PDF and release-structure checks; regression_check_v0.8.14.js passes.
 - browser_check_v0.8.29.cjs passes at 390px and 1200px: a secondary with
   activities has the intended background, including hover; leaf secondary,
-  activity and closed rows keep their existing backgrounds. Removing the child
-  and rerendering removes the shade. No page errors occurred.
+  activity rows keep their existing backgrounds; a closed parent receives a
+  subdued gray-blue shade. Removing the child and rerendering removes the
+  shade. No page errors occurred.
 - The inherited browser_check_v0.8.28.cjs passes eight touch sizes and two
   desktop sizes against v0.8.29, including editor, expense, Save/Back, activity
   creation, zoom recovery and desktop popup checks.
