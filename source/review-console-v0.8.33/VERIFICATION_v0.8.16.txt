@@ -1,0 +1,9 @@
+SiteScribe Review Console v0.8.16 verification
+
+- Six first-party JavaScript modules passed node --check.
+- New v0.8.16 live-code VM regression passed: same/cross-primary moves, identity/metadata/direct-hour preservation, existing activity preservation, locked/self/fourth-level guards, center drop and edge reorder routing.
+- v0.8.14 Dropbox exclusion regression passed.
+- v0.8.13 protected suite behavioral checks passed; only its stale version/cache-marker assertion failed as expected for a new version.
+- No duplicate static DOM IDs or top-level function declarations. CSS braces balanced; added secondary drop-target selector reuses the existing primary target style.
+- Root nine deploy files copied from the new candidate and compared by SHA-256; deploy ZIP verified flat with nine files. Source ZIP includes release notes and this evidence.
+- Full manual protected-workflow sweep and physical iPhone drag gesture are not verified in this environment; user confirmation remains pending.

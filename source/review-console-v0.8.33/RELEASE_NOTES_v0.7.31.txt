@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.7.31
+B04 Note Parser Launcher Clarity
+
+Change
+- B04's visible Parse Notes pill is now labelled Open Note Parser.
+- Its guidance now clearly explains that the user opens the parser first, then pastes notes or schedule text and may add an optional parsing instruction there before review.
+- The collapsed B04 summary uses the same distinction.
+
+Scope protection
+- This is a wording-only usability repair following the v0.7.30 parsing-instruction addition.
+- The optional instruction field, API request, proposal review, append approval, sourceText, record model, contacts, email, saved sites, Dropbox, and Parser Lite proxy are unchanged.

@@ -1,0 +1,12 @@
+SiteScribe Review Console v0.8.33 - Full years in report dates
+
+Candidate continuing v0.8.32 at the user's request. Not an accepted baseline.
+
+- Report date ranges, Hours and MDS detail rows, Daily and Open Items record
+  dates, deliverables and record timestamps now include the year every time.
+  The same report text appears on screen and in printed reports.
+- The general short date formatter retains its prior display for the rest
+  of the application. Stored dates and report selection are unchanged.
+- Visible version and cache markers are v0.8.33.
+
+See VERIFICATION_v0.8.33.txt for checks and limits.

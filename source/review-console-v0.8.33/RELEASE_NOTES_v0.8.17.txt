@@ -1,0 +1,7 @@
+SiteScribe Review Console v0.8.17
+
+- Drag an activity onto an open primary row to move it back to a secondary under that primary.
+- Alternatively drop at a secondary row's top/bottom insertion edge to place it before/after that secondary, including its former parent. The middle of a secondary is not an activity-promotion target.
+- Preserves the original record object/ID, source text, work/created dates, direct hours/expenses, billing, and email metadata. Removes it from the original activities list without changing parent direct hours.
+- Source primary, source secondary, activity and target-primary lock protections remain. Activity-to-activity reordering within one parent remains available; no fourth level is created.
+- Keeps v0.8.16 secondary-to-activity nesting and v0.8.15 footer removal.

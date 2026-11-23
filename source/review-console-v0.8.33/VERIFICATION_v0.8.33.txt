@@ -1,0 +1,22 @@
+SiteScribe Review Console v0.8.33 verification - 2026-11-23
+
+- JavaScript syntax checks passed for all seven first-party app modules and
+  the v0.8.33 regression and browser scripts.
+- regression_check_v0.8.33.js passed full-year dates for current and prior
+  years, a date range crossing a year boundary, report timestamps, inherited
+  month defaults, version markers, duplicate IDs/functions and CSS integrity.
+- regression_check_v0.8.14.js passed the inherited import exclusion check.
+- browser_check_v0.8.33.cjs passed at 320px and 390px touch and 1200px
+  desktop. It checked report years in the date range and detail rows, date
+  controls, printed status, layout and page errors.
+- The generated portrait Letter PDF was inspected visually and through text
+  extraction: the year appears in the range and Hours rows; columns remain
+  readable and Total Hours follows the last record.
+- browser_check_v0.8.31.cjs passed at 390px and 1366px, including Hours
+  selection, table geometry, horizontal scroll and Excel payload.
+- browser_check_v0.8.28.cjs passed eight touch and two desktop viewports for
+  inherited editor, expense, Save/Back, activity and popup workflows.
+
+Checks used synthetic local data. Physical iPhone Safari behaviour and user
+acceptance remain pending. No real site data, Dropbox writes, email or
+production API calls were used.

@@ -1,0 +1,8 @@
+SiteScribe Review Console v0.7.04 — Contact Dropdown Fix
+
+Fixes the new-contact “Prefill from All Site Contacts” picker.
+
+- Clicking its chevron now opens and keeps the native contact list open.
+- The list remains available until a contact is selected or the user dismisses it.
+- Selecting a person still copies the saved name, email, phone, role, aliases, and active status into the new contact card only.
+- Add Contact and Remove actions remain unchanged.

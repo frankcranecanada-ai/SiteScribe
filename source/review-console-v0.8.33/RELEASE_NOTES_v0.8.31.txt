@@ -1,0 +1,19 @@
+SiteScribe Review Console v0.8.31 - Hours Report layout and billable rows
+
+Candidate continuing v0.8.30 at the user's request. Not an accepted baseline.
+
+- The on-screen Hours Detail table now has nine usable columns. Activity and
+  other long descriptions wrap inside their cells, and Status retains width.
+  Narrow screens keep horizontal table swipe; printed cells also wrap.
+- Hours Report selection, on-screen rows, summary and Excel export include
+  only secondary/activity entries with more than 0 direct hours. A positive
+  activity remains eligible even when its parent secondary has zero hours.
+  When no positive-hour entries remain, the report shows an empty message.
+- Other report types retain their existing row selection. Stored hours and
+  calculated parent totals are unchanged. No Dropbox, email or site data
+  actions were added.
+- index.html updates the visible version and cache markers to v0.8.31.
+
+Verification: regression_check_v0.8.31.js, browser_check_v0.8.31.cjs,
+regression_check_v0.8.14.js and inherited responsive browser checks.
+Tests use synthetic local data. Physical iPhone acceptance remains pending.

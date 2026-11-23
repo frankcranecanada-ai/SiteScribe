@@ -1,0 +1,53 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const previousFs={...fs,readFileSync(path,...args){const value=fs.readFileSync(path,...args);return path==='index.html'||path==='app.js'?value.replaceAll('0.8.23','0.8.22'):value;}};
+new Function('require',fs.readFileSync('regression_check_v0.8.22.js','utf8'))(name=>name==='node:fs'?previousFs:require(name));
+const ctx=vm.createContext({console,document:{addEventListener(){},querySelectorAll(){return [];}},window:{},URL,setTimeout,clearTimeout});
+vm.runInContext(fs.readFileSync('app.js','utf8'),ctx);
+const run=code=>vm.runInContext(code,ctx);
+const json=code=>JSON.parse(run(`JSON.stringify(${code})`));
+run(`
+ currentPackage=createEmptyPackage();currentPackage.records=[normalizeRecord({id:'p',description:'Primary title',category:'event',status:'open',createdAt:'2026-01-01T12:00:00Z',comments:[
+  {id:'s1',text:'Parent title',status:'open',workDate:'2026-05-01',totalHours:2,billingType:'regular',activities:[{id:'a',text:'Activity title',status:'open',workDate:'2026-01-10',totalHours:1,billingType:'regular',deliverable:{apply:true,date:'2026-01-11'}},{id:'e',text:'Expense activity',status:'open',workDate:'2026-06-01',billingType:'expense',expenseAmount:45,expenseCurrency:'USD',expenseType:'meals'}]},
+  {id:'s2',text:'Childless title',status:'open',workDate:'2026-03-01',totalHours:3,billingType:'regular',activities:[]}
+ ]})];
+ var filters={type:'daily',from:'2026-01-01',to:'2026-12-31',sortOrder:'date_asc',statuses:['open','closed'],categories:[]};
+ var original=JSON.stringify(currentPackage);
+ reportSelectionInitialized=true;reportSelectedKeys=new Set(reportSelectionKeys(reportSelectionGroups(filters)));
+ var selected=selectedReportRecords(filters);
+ var daily=renderDailySiteReport(selected,filters);
+`);
+const daily=run('daily');
+assert.match(daily,/<strong class="report-primary-title">Primary title<\/strong>/);
+assert.match(daily,/<span class="report-secondary-title has-activities">Parent title<\/span>/);
+assert.match(daily,/<span class="report-secondary-title">Childless title<\/span>/);
+assert.match(daily,/<ul class="report-sublist report-activity-list"><li class="report-activity-item"><em class="report-activity-title">Activity title<\/em>/);
+assert.equal((daily.match(/>Activity title</g)||[]).length,1,'No duplicated activities');
+assert.ok(daily.indexOf('Childless title')<daily.indexOf('Parent title'),'Date ordering stays between secondary sibling groups');
+assert.ok(daily.indexOf('Parent title')<daily.indexOf('Activity title'),'Activity cannot precede its parent');
+run(`reportSelectedKeys=new Set(['p::s1::a']);var only=selectedReportRecords(filters);var partial=renderDailySiteReport(only,filters);`);
+assert.match(run('partial'),/Secondary parent context only/);
+assert.match(run('partial'),/>Parent title</);
+assert.doesNotMatch(run('partial'),/Total Hours: 2/,'Context must not introduce excluded parent hours');
+assert.equal(run('getReportComments(only[0],filters).length'),1,'Context is presentation only, not a selected record');
+run(`filters.sortOrder='date_desc';reportSelectedKeys=new Set(reportSelectionKeys(reportSelectionGroups(filters)));var reverse=renderDailySiteReport(selectedReportRecords(filters),filters);`);
+assert.ok(run(`reverse.indexOf('Parent title')<reverse.indexOf('Childless title')`));
+run(`filters.type='hours';var hours=renderHoursReport([],filters);var total=collectHoursReportRows([],filters).reduce((s,r)=>s+(r.hours||0),0);`);
+assert.equal(run('total'),6);
+assert.match(run('hours'),/<em class="report-activity-title">Activity title/);
+assert.equal((run('hours').match(/<th>/g)||[]).length,9,'Hours table column count is unchanged');
+run(`filters.type='mds';var mds=renderMdsBillingReport([],filters);`);
+assert.match(run('mds'),/<span class="report-secondary-title has-activities">Parent title<\/span><em class="report-activity-title">Activity title/);
+assert.match(run('mds'),/<em class="report-activity-title">Expense activity/);
+assert.match(run('mds'),/Reg 6 hrs/);
+assert.equal(run('JSON.stringify(currentPackage)===original'),true);
+run(`filters.type='open';var openReport=renderOpenItemsReport(selectedReportRecords(filters),filters);`);
+assert.match(run('openReport'),/Overdue Deliverables/);
+assert.match(run('openReport'),/report-activity-list/);
+assert.match(run('openReport'),/report-activity-title/);
+const css=fs.readFileSync('styles.css','utf8');
+assert.match(css,/\.report-secondary-title\.has-activities \{ font-weight: 600/);
+assert.match(css,/\.report-activity-title \{ font-style: italic; font-weight: 400/);
+assert.match(fs.readFileSync('index.html','utf8'),/app\.js\?v=0\.8\.23/);
+console.log('PASS narrative and table report hierarchy/emphasis, child-only context, sibling date ordering, preserved counts/totals and non-mutation');

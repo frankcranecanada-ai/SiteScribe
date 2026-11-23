@@ -1,0 +1,25 @@
+SiteScribe Review Console v0.8.32 verification - 2026-11-23
+
+- Syntax checks passed for seven first-party app JavaScript modules and the
+  v0.8.32 regression and browser scripts.
+- regression_check_v0.8.32.js passed current-month boundaries including
+  leap February, report date grouping, table total, compact header, version
+  markers, duplicate IDs/functions and CSS brace integrity.
+- regression_check_v0.8.14.js passed the inherited import exclusion check.
+- browser_check_v0.8.32.cjs passed at 320px and 390px touch and 1200px
+  desktop: month defaults, paired date controls, custom range persistence,
+  reset on reopen, table total, screen status words, printed O/C and legend,
+  long activity wrapping, and no page errors.
+- The generated portrait Letter PDF was inspected visually and with text
+  extraction. The summary is compact; Total Hours follows the final data
+  row in the table; all nine columns, status marks and legend are readable.
+- browser_check_v0.8.31.cjs passed the inherited positive-hour selection,
+  table layout, mobile horizontal scroll and Excel payload checks at 390px
+  and 1366px. Its row assertion was updated for the new table total row.
+- browser_check_v0.8.28.cjs passed eight touch and two desktop viewports,
+  covering editor, expense, Save/Back, activity creation, zoom recovery and
+  desktop popup checks.
+
+Checks used synthetic local data. Physical iPhone Safari behaviour and user
+acceptance remain pending. No real site data, Dropbox writes, email or
+production API calls were used.

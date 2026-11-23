@@ -1,0 +1,17 @@
+SiteScribe Review Console v0.8.30 - Light amber closed records in B05
+
+Candidate continuing v0.8.29 at the user's request. Not an accepted baseline.
+
+- Closed primary, secondary and activity rows in B05 now have a pale amber
+  background and a matching border, making them easier to distinguish from
+  open records and the surrounding panel.
+- Closed secondary rows that own activities use a slightly deeper amber so
+  their parent role remains visible. Open parent and leaf styling is unchanged.
+- The closed primary mobile date/status tail uses the same amber as its row.
+- No record, storage, import, Dropbox, email, report, PDF or drag behaviour
+  changed. app.js differs from v0.8.29 only in version strings. index.html
+  updates the visible version and cache markers to v0.8.30.
+
+Verification: regression_check_v0.8.30.js, browser_check_v0.8.30.cjs and
+inherited browser_check_v0.8.28.cjs. Browser checks use synthetic local data.
+Physical iPhone acceptance remains pending.
