@@ -1,0 +1,42 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const vm=require('node:vm');
+const previousFs={...fs,readFileSync(path,...args){const value=fs.readFileSync(path,...args);return path==='index.html'||path==='app.js'?value.replaceAll('0.8.24','0.8.23'):value;}};
+new Function('require',fs.readFileSync('regression_check_v0.8.23.js','utf8'))(name=>name==='node:fs'?previousFs:require(name));
+const nav={};
+const location={href:''};
+const ctx=vm.createContext({console,document:{addEventListener(){}},navigator:nav,window:{location},URL,File,Blob,setTimeout,clearTimeout});
+vm.runInContext(fs.readFileSync('app.js','utf8'),ctx);
+const run=code=>vm.runInContext(code,ctx);
+const parts=text=>JSON.parse(run(`JSON.stringify(reportLinkParts(${JSON.stringify(text)}))`));
+const shared='https://www.dropbox.com/scl/fi/abc/Plan.pdf?rlkey=KEY&dl=0#section';
+assert.equal(parts(`See (${shared}).`).find(p=>p.href).href,shared);
+assert.equal(parts(`See [(${shared})].`).find(p=>p.href).href,shared);
+assert.equal(parts('www.dropbox.com/s/abc/File.pdf?dl=0').find(p=>p.href).href,'https://www.dropbox.com/s/abc/File.pdf?dl=0');
+assert.equal(parts('javascript:alert(1) data:text/html,<script>alert(1)</script>').some(p=>p.href),false);
+assert.equal(parts('https://user:password@dropbox.com/file').some(p=>p.href),false);
+for(const text of [`First ${shared}, then https://example.com/file(a).`, 'No link here', `(${shared}).`]) assert.equal(parts(text).map(p=>p.text).join(''),text);
+const notices=[];const downloads=[];let sharedPayload;
+ctx.testOutput={textContent:'Selected report',innerHTML:`<h1>Selected report</h1><ul><li><strong class="report-primary-title">Primary</strong><ul class="report-sublist"><li><span class="report-secondary-title has-activities">Secondary</span><ul class="report-sublist"><li><em class="report-activity-title"><a href="${shared.replaceAll('&','&amp;')}">Dropbox file</a></em></li></ul></li></ul></li></ul>`};
+ctx.testDownload=file=>downloads.push(file);ctx.testNotice=text=>notices.push(text);
+run(`els.reportOutput=testOutput;els.emailReportButton={disabled:false};generateReport=()=>{};getReportFilters=()=>({type:'daily'});reportSiteName=()=> 'Site & Test';downloadReportEmailFile=testDownload;setStatus=showToast=testNotice;`);
+function reset(){downloads.length=0;notices.length=0;location.href='';sharedPayload=null;run('els.emailReportButton.disabled=false');delete nav.canShare;delete nav.share;}
+async function main(){
+ reset();nav.canShare=({files})=>files[0].type==='text/html';nav.share=async payload=>{sharedPayload=payload;};
+ await run('emailCurrentReport()');
+ assert.equal(downloads.length,0);assert.equal(location.href,'');assert.equal(sharedPayload.files.length,1);
+ const html=await sharedPayload.files[0].text();
+ assert.match(html,/<!doctype html>/);assert.match(html,/Site &amp; Test/);assert.match(html,/report-secondary-title.has-activities\{font-weight:600/);assert.match(html,/href="https:\/\/www.dropbox.com/);assert.doesNotMatch(html,/<script|<iframe|<img/i);
+ assert.equal(run('els.emailReportButton.disabled'),false);
+ reset();await run('emailCurrentReport()');
+ assert.equal(downloads.length,1);assert.match(location.href,/^mailto:\?subject=/);assert.match(decodeURIComponent(location.href),/Attach the downloaded report file:/);assert.equal(downloads[0].type,'text/html');
+ reset();nav.canShare=()=>true;nav.share=async()=>{throw Object.assign(Error('cancel'),{name:'AbortError'});};await run('emailCurrentReport()');
+ assert.equal(downloads.length,0);assert.equal(location.href,'');assert.match(notices.join(' '),/cancelled/);
+ reset();nav.canShare=()=>true;nav.share=async()=>{throw Error('share unavailable');};await run('emailCurrentReport()');assert.equal(downloads.length,1);
+ reset();nav.canShare=()=>{throw Error('file type unavailable');};nav.share=async()=>{};await run('emailCurrentReport()');assert.equal(downloads.length,1);
+ reset();run('els.emailReportButton.disabled=true');await run('emailCurrentReport()');assert.equal(downloads.length,0);assert.equal(location.href,'');
+ reset();run("els.reportOutput={textContent:''}");await run('emailCurrentReport()');assert.equal(downloads.length,0);
+ const index=fs.readFileSync('index.html','utf8');assert.equal((index.match(/id="emailReportButton"/g)||[]).length,1);assert.match(index,/app\.js\?v=0\.8\.24/);
+ console.log('PASS safe/preserved Dropbox URLs, HTML report export, share/fallback/cancel paths, no automatic sends or Dropbox file fetches');
+}
+main().catch(error=>{console.error(error);process.exitCode=1;});

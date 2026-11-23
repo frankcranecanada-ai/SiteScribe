@@ -1,0 +1,5 @@
+SiteScribe Review Console v0.7.05 — Site Walk Header Visual Consistency
+
+- Updated all expandable/collapsible Site Walk title bars to the same light-blue visual language as the Working Memory main screen.
+- Kept the dot-matrix relocation grip, Bxx configuration button, full-header expand/collapse action, and mobile relocation lock exactly as established.
+- Updated the visible application version and stylesheet cache marker to v0.7.05.

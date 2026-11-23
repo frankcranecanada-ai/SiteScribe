@@ -1,0 +1,11 @@
+SiteScribe Review Console v0.8.26 verification
+
+- Seven first-party JavaScript modules and focused/browser test scripts passed syntax checks.
+- Focused v0.8.26 live-code tests passed: direct PDF generation, .pdf filename/application-pdf MIME, LE desktop/mobile dispatch, cancellation, missing-renderer failure and restored controls; Print is never called.
+- Prior v0.8.23 record/hierarchy/picker/title/clipboard/drag/style suite passed with historical release markers virtualized. The old HTML-specific v0.8.24/v0.8.25 attachment expectations are superseded by v0.8.26 tests. Dropbox exclusion regression passed.
+- Isolated real-browser test generated Daily (4 pages portrait), Hours (4 pages landscape) and MDS (5 pages landscape) PDFs, each beginning %PDF-. Desktop download/draft and mocked mobile PDF-share paths passed. No linked Dropbox file fetch or real email/send occurred; records remained unchanged.
+- pypdf inspection found exact Dropbox URL targets, including rlkey and dl parameters, in every PDF's Link annotations. Each page contains report text; no blank pages.
+- Poppler rendered all 13 test pages after the last layout change. Contact sheets visually inspected: nested descriptions, emphasis, page numbers, repeated table headings, margins and totals legible. PyMuPDF bounding-box check found no text outside the page and verified Medium/Italic embedded font usage.
+- These were generated directly by the app's PDF engine, not screenshots or browser print output. Physical iPhone/Windows Mail attachment handling and recipient PDF viewer still require user confirmation.
+- pdfmake.min.js SHA-256 d69c826c67a1d943a8ef602abdfbe5f15d680f3533aa345b19549fae69828f10; vfs_fonts.js SHA-256 1483ed267fe00ad90a3834441b019d856dd41ed079b2614404b2fcef425db6fc. Fonts identify Roboto under SIL OFL; upstream licenses bundled.
+- Static DOM IDs/function declarations unique; CSS braces balanced. Root/candidate hashes match for all 14 deploy files. Flat fourteen-file deploy ZIP and full source ZIP produced. Workflow includes renderer, font and license files.
